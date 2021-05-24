@@ -1,6 +1,7 @@
 import { withTheme } from "@material-ui/core";
 import React, { Component, useState } from "react";
 import styled, { css } from "styled-components";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import RegistrationTitle from "../components/RegistrationTitle";
 import TextInput from "../components/TextInput";
 import RegisterButton from "../components/RegisterButton";
@@ -56,19 +57,20 @@ function SignUp(props) {
           }
           }
         ></TextInput>
-        <RegisterButton
-          style={
-            {
-              position: "relative",
-              marginTop: 30,
-              marginLeft: 0,
-              width: 265,
-              height: 45,
+        <Link to="/SignUp2">
+          <RegisterButton
+            style={
+              {
+                position: "relative",
+                marginTop: 30,
+                marginLeft: 0,
+                width: 265,
+                height: 45,
+              }
             }
-          }
-          title="Weiter"
-        >
-        </RegisterButton>
+            title="Weiter"
+          >
+          </RegisterButton></Link>
       </RegistrationTitleStack>
     </Container >
   );

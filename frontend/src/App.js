@@ -4,6 +4,7 @@ import "./icons.js";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
 import HomeScreen from "./screens/HomeScreen";
+import SignUp2 from "./screens/SignUp2";
 import "./style.css";
 
 function App() {

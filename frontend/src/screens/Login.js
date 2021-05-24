@@ -39,6 +39,7 @@ function Login(props) {
               marginLeft: 18,
               marginRight: 18
             }}
+            title="Noch kein Account?"
           ></RegisterButton>
         </Group>
       </Group2>
