@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-function RegisterButton(props) {
+function ContinueButton(props) {
+
   return (
     <Container {...props}>
       <Link to={`/${props.link}`}>
@@ -13,8 +14,10 @@ function RegisterButton(props) {
         </Button>
       </Link>
     </Container>
+
   );
 }
+
 
 const Container = styled.div`
   display: flex;
@@ -46,4 +49,4 @@ const Title = styled.span`
   margin-right: 30px;
 `;
 
-export default RegisterButton;
+export default ContinueButton;

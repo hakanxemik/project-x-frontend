@@ -68,10 +68,10 @@ function SignUp2(props) {
                         }
                     }
                     title="Weiter"
+                    link="HomeScreen"
                 >
-                    <Link to="/SignUp2">Weiterrrrr</Link>
                 </RegisterButton>
-            </RegistrationTitleStack>
+            </RegistrationTitleStack >
         </Container >
     );
 }
