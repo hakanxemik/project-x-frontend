@@ -10,14 +10,23 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { spacing } from "@material-ui/system";
 import { Box } from "@material-ui/core";
-import CreateHappeningDetails from "./CreateHappeningDetails";
+
+
+
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import MobileStepper from '@material-ui/core/MobileStepper';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 function CreateHappening(props) {
+  const [activeStep, setActiveStep] = useState(0);
+  const theme = useTheme();
   const [happening, setHappening] = useState(
     {
       title: 'asdasdsadas',
       // string 12-01-2021 18:00
-      date: '12-01-02 ',
+      date: '01.07.2021',
+      time: '18:00',
       // location: {}
       location: [],
       // category: {type: 'indoor', setting: {'asdasdsa'}}
@@ -32,7 +41,7 @@ function CreateHappening(props) {
     <Grid container direction="column" justify="flex-start" alignItems="center" {...props}>
       <Container maxWidth="sm" >
         <Grid item xs={12}>
-          <BigTitle title="Erstelle dein Happening:" />
+          <BigTitle title="Erstelle dein Happening" description="Bitte lege hierfür einen Titel fest" />
         </Grid>
         <Grid item xs={12}>
           <TextField id="standard-basic" label="Titel" fullWidth
@@ -47,20 +56,38 @@ function CreateHappening(props) {
         </Grid>
         <Grid item xs={12} >
           <Link to={{
-            pathname: "/CreateHappeningDetails/",
+            pathname: "/CreateHappeningDateTime/",
+            state: { happening }
+          }
+          }
+          >
+          </Link>
+        </Grid>
+      </Container>
+      <MobileStepper
+        variant="progress"
+        steps={7}
+        position="bottom"
+        activeStep={0}
+        nextButton={
+          <Link to={{
+            pathname: "/CreateHappeningDateTime/",
             state: { happening }
           }}
           >
-            <Box mt={2}>
-              <Button variant="outlined" size="large" color="primary" fullWidth>
-                Hi
+            <Button size="small" >
+              Weiter
+          {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </Button>
-            </Box>
           </Link>
-        </Grid>
-
-      </Container>
-
+        }
+        backButton={
+          <Button size="small" disabled>
+            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+          Zurück
+        </Button>
+        }
+      />
     </Grid>
 
 
