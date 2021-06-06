@@ -16,9 +16,6 @@ import { ThemeProvider } from "@material-ui/styles";
 
 
 import {
-  AppBar,
-  CssBaseline,
-  Typography,
   createMuiTheme
 } from "@material-ui/core";
 
@@ -37,18 +34,10 @@ function App() {
 
         <Route path="/HomeScreen/" exact component={HomeScreen} />
 
-        <Route path="/" exact component={Login} />
-        <Route path="/Login/" exact component={Login} />
-
+        <Route path="/" component={CreateHappening} />
+        
         <Route path="/SignUp/" exact component={SignUp} />
-        <Route path="/SignUp2/" exact component={SignUp2} />
-
-        <Route path="/CreateHappening/" exact component={CreateHappening} />
-        <Route path="/CreateHappeningDateTime/" exact component={CreateHappeningDateTime} />
-        <Route path="/CreateHappeningLocation/" exact component={CreateHappeningLocation} />
-        <Route path="/CreateHappeningCategories/" exact component={CreateHappeningCategories} />
-        <Route path="/CreateHappeningOfferings/" exact component={CreateHappeningOfferings} />
-        <Route path="/CreateHappeningClosing/" exact component={CreateHappeningClosing} />
+        <Route path="/Login/" exact component={Login} />
       </Router>
     </ThemeProvider>
   );

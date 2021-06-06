@@ -90,7 +90,7 @@ function CreateHappeningClosing(props) {
             >
               <Button size="small">
                 Weiter
-          {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
               </Button>
             </Link>
           }

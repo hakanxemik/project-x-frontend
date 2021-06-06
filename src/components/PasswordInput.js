@@ -48,6 +48,7 @@ const InputStyle = styled.input`
   background: transparent;
   display: flex;
   flex-direction: column;
+  outline: none;
 `;
 
 export default PasswordInput;

@@ -1,46 +1,51 @@
-import React, { Component, useState } from "react";
-import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
-
-import UsernameInput from "../components/UsernameInput";
-import ContinueButton from "../components/ContinueButton";
+import React, { useEffect, useState } from "react";
 import BigTitle from "../components/BigTitle";
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { spacing } from "@material-ui/system";
 import { Box } from "@material-ui/core";
 
-
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import MobileStepper from '@material-ui/core/MobileStepper';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-
-
-import {
-  useLocation
-} from "react-router-dom";
-
-
 function CreateHappeningDateTime(props) {
-  const location = useLocation();
-  const happeningSave = location.state.happening
-  const [happening, setHappening] = useState(happeningSave)
-  const [activeStep, setActiveStep] = useState(0);
-  const theme = useTheme();
+  let today = new Date()
+  let todayTime = today.toLocaleTimeString([], {timeStyle: 'short'})
 
+  const formatDate = (date) => {
+    let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
 
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
 
-  let date = new Date();
-  let today = date.toISOString().substring(0, 10);
-  console.log(props);
+    return [year, month, day].join('-');
+  }
+  
+  const [date, setDate] = useState(formatDate(today))
+  const [time, setTime] = useState(todayTime)
+
+  const handleDateInput = (dateInput) => {
+    setDate(dateInput)
+    props.handleDate(dateInput)
+  }
+
+  const handleTimeInput = (timeInput) => {
+    setTime(timeInput)
+    props.handleTime(timeInput)
+  }
+
+  useEffect(() => {
+    setDate(props.happening.date)
+    setTime(props.happening.time)
+  });
+
   return (
-    < Grid container direction="column" justify="flex-start" alignItems="center" {...props}>
+    < Grid container direction="column" justify="flex-start" alignItems="center" >
       <Container maxWidth="sm" >
         <Grid item xs={12}>
-          <BigTitle title={happening.title} description="Bitte lege die Uhrzeit und das Datum für dein Happening fest" />
+          <BigTitle title={props.happening.title} description="Bitte lege die Uhrzeit und das Datum für dein Happening fest" />
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -48,15 +53,12 @@ function CreateHappeningDateTime(props) {
             fullWidth
             label="Datum"
             type="date"
-            defaultValue={today}
+            value={date}
             InputLabelProps={{
               shrink: true,
             }}
-
             onChange={(event) => {
-              let tmpHappening = happening;
-              tmpHappening.date = event.target.value;
-              setHappening(tmpHappening)
+              handleDateInput(event.target.value)
             }
             }
           />
@@ -68,50 +70,18 @@ function CreateHappeningDateTime(props) {
               fullWidth
               label="Uhrzeit"
               type="time"
-              defaultValue="18:00"
+              value={time}
               InputLabelProps={{
                 shrink: true,
               }}
 
               onChange={(event) => {
-                let tmpHappening = happening;
-                tmpHappening.time = event.target.value;
-                setHappening(tmpHappening)
+                handleTimeInput(event.target.value)
               }
               }
             />
           </Grid>
-
         </Box>
-        <MobileStepper
-          variant="progress"
-          steps={7}
-          position="bottom"
-          activeStep={1}
-          nextButton={
-            <Link to={{
-              pathname: "/CreateHappeningLocation/",
-              state: { happening }
-            }}
-            >
-              <Button size="small" >
-                Weiter
-          {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-              </Button>
-            </Link>
-          }
-          backButton={
-            <Link to={{
-              pathname: "/CreateHappening/",
-              state: { happening }
-            }}
-            >
-              <Button size="small" >
-                {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-          Zurück
-        </Button></Link>
-          }
-        />
       </Container>
     </Grid >
   );
