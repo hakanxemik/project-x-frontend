@@ -17,8 +17,8 @@ function CreateHappening(props) {
   useEffect(() => {
     if (localStorage.getItem('happening') && !happening) {
       setHappening(JSON.parse(localStorage.getItem('happening')))
-    } 
-    
+    }
+
     if (localStorage.getItem('activeStep') && !activeStep) {
       setActiveStep(parseInt(localStorage.getItem('activeStep')))
     }
@@ -28,7 +28,7 @@ function CreateHappening(props) {
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
     localStorage.setItem('activeStep', activeStep + 1)
   };
-  
+
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
     localStorage.setItem('activeStep', activeStep - 1)
@@ -36,7 +36,7 @@ function CreateHappening(props) {
 
   const handleTitle = (title) => {
     let happeningTmp = happening
-    happeningTmp.title = title
+    happeningTmp.title = "Titel"
     setHappening(happeningTmp)
     localStorage.setItem('happening', JSON.stringify(happening))
   }
@@ -59,25 +59,25 @@ function CreateHappening(props) {
     <>
       {activeStep == 0 && <CreateHappeningTitle handleTitle={handleTitle} happening={happening} />}
       {activeStep == 1 && <CreateHappeningDateTime handleDate={handleDate} handleTime={handleTime} happening={happening} />}
-      {activeStep == 2 && <CreateHappeningCategories  happening={happening} />}
+      {activeStep == 2 && <CreateHappeningCategories happening={happening} />}
 
       <MobileStepper
-              variant="progress"
-              steps={7}
-              position="bottom"
-              activeStep={activeStep}
-              nextButton={
-                <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
-                  Weiter
+        variant="progress"
+        steps={7}
+        position="bottom"
+        activeStep={activeStep}
+        nextButton={
+          <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
+            Weiter
                   {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-              </Button>
-              }
-              backButton={
-                <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                  {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+          </Button>
+        }
+        backButton={
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
                   Back
                 </Button>
-          }
+        }
       />
     </>
   );
