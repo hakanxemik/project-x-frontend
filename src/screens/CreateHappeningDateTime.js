@@ -37,8 +37,15 @@ function CreateHappeningDateTime(props) {
   }
 
   useEffect(() => {
-    setDate(props.happening.date)
-    setTime(props.happening.time)
+    if (props.happening.date)
+      setDate(props.happening.date)
+    else
+      handleDateInput(formatDate(today))
+    
+    if (props.happening.time)
+      setTime(props.happening.time)
+    else
+      handleTimeInput(todayTime)
   });
 
   return (

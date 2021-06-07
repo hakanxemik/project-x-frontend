@@ -4,13 +4,7 @@ import "./icons.js";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
 import HomeScreen from "./screens/HomeScreen";
-import SignUp2 from "./screens/SignUp2";
 import CreateHappening from "./screens/CreateHappening";
-import CreateHappeningDateTime from "./screens/CreateHappeningDateTime";
-import CreateHappeningLocation from "./screens/CreateHappeningLocation";
-import CreateHappeningCategories from "./screens/CreateHappeningCategories";
-import CreateHappeningOfferings from "./screens/CreateHappeningOfferings";
-import CreateHappeningClosing from "./screens/CreateHappeningClosing";
 import "./style.css";
 import { ThemeProvider } from "@material-ui/styles";
 
@@ -32,9 +26,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
 
-        <Route path="/HomeScreen/" exact component={HomeScreen} />
+        <Route path="/home/" exact component={HomeScreen} />
 
-        <Route path="/" component={CreateHappening} />
+        <Route path="/create" component={CreateHappening} />
         
         <Route path="/SignUp/" exact component={SignUp} />
         <Route path="/Login/" exact component={Login} />

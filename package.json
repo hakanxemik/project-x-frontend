@@ -10,6 +10,7 @@
     "autosuggest-highlight": "^3.1.1",
     "google-map-react": "^1.1.4",
     "material-ui-slider": "^3.0.8",
+    "moment": "^2.29.1",
     "pure-react-carousel": "^1.21.1",
     "react": "^16.8.6",
     "react-app-rewired": "2.1.3",
