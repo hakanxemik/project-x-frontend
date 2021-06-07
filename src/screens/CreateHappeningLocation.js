@@ -25,29 +25,6 @@ function CreateHappeningLocation(props) {
   const theme = useTheme();
   const classes = useStyles();
 
-  const [location, setLocation] = useState('')
-  const [locationDesc, setLocationDesc] = useState('')
-
-  const handleLocationInput = (locationInput) => {
-    setLocation(locationInput)
-    props.handleLocation(locationInput)
-  }
-
-  const handleLocationDescInput = (locationDescInput) => {
-    setLocationDesc(locationDescInput)
-    props.handleLocationDesc(locationDescInput)
-  }
-
-  useEffect(() => {
-    if (props.happening.locationDescription) {
-      setLocationDesc(props.happening.locationDescription)
-    }
-
-    if (props.happening.location) {
-      setLocation(props.happening.location)
-    }
-  }, [])
-
   return (
     < Grid container direction="column" justify="flex-start" alignItems="center" {...props}>
       <Container maxWidth="sm" >
@@ -56,10 +33,10 @@ function CreateHappeningLocation(props) {
           <BigTitle title={props.happening.title} description={"am " + moment(props.happening.date).format('DD.MM.YYYY') + " um " + props.happening.time + " Uhr"} />
         </Grid>
         <Grid className={classes.input} item xs={12}>
-            <TextField id="standard-basic" value={location} onChange={(event) => {handleLocationInput(event.target.value)}} label="Ort" fullWidth />
+            <TextField id="standard-basic" value={props.happening.location} onChange={(event) => {props.handleLocation(event.target.value)}} label="Ort" fullWidth />
         </Grid>
         <Grid className={classes.input} item xs={12}>
-            <TextField id="standard-basic" value={locationDesc} onChange={(event) => {handleLocationDescInput(event.target.value)}} label="Beschreibung" fullWidth />
+            <TextField id="standard-basic" value={props.happening.locationDescription} onChange={(event) => {props.handleLocationDesc(event.target.value)}} label="Beschreibung" fullWidth />
         </Grid>
       </Container>
     </Grid >

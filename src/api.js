@@ -25,6 +25,7 @@ export async function getOfferings() {
 }
 
 export async function createHappening(happening) {
+    // Von anfang an "zusammenfügen"
     let happeningPost = {
         title: happening.title,
         description: happening.description,
@@ -41,7 +42,7 @@ export async function createHappening(happening) {
         offeringsDescription: happening.offeringsDescription
     }
 
-    fetch(apiEndpoint + '/happenings', {
+    return fetch(apiEndpoint + '/happenings', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -52,6 +53,7 @@ export async function createHappening(happening) {
         if (response.status == 200 || response.status == 204) {
             localStorage.removeItem('happening')
             localStorage.removeItem('activeStep')
+            // history push -> CreateHappeningClosing
             window.location.href = '/';
         } else {
             console.log('error')

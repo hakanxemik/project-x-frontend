@@ -46,7 +46,7 @@ function CreateHappeningDateTime(props) {
       setTime(props.happening.time)
     else
       handleTimeInput(todayTime)
-  });
+  }, []);
 
   return (
     < Grid container direction="column" justify="flex-start" alignItems="center" >

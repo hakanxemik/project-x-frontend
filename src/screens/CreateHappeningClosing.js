@@ -31,32 +31,6 @@ function CreateHappeningClosing(props) {
   const classes = useStyles();
   const guestsCount = [2, 4, 6, 8, 10, 15, 20, 30, 50, 100];
 
-  const [guests, setGuests] = useState(guestsCount[0]);
-  const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState('');
-
-  const handleGuests = (max) => {
-    setGuests(max)
-    props.handleMaxGuests(max)
-  };
-
-  const handlePriceInput = (price) => {
-    setPrice(price)
-    props.handlePrice(price)
-  }
-
-  const handleDesc = (desc) => {
-    setDescription(desc)
-    props.handleDesc(desc)
-  }
-
-  useEffect(() => {
-    if (props.happening.price)
-      setPrice(props.happening.price)
-    if (props.happening.maxGuests)
-      setGuests(props.happening.maxGuests)
-  }, [])
-
   return (
     < Grid container direction="column" justify="flex-start" alignItems="center" {...props}>
       <Container maxWidth="sm" >
@@ -70,8 +44,8 @@ function CreateHappeningClosing(props) {
                 id="select-guests"
                 select
                 label="Gäste Anzahl"
-                value={guests}
-                onChange={(event) => {handleGuests(event.target.value)}}
+                value={props.happening.maxGuests}
+                onChange={(event) => {props.handleGuests(event.target.value)}}
                 fullWidth
               >
                 {guestsCount.map((option) => (
@@ -89,8 +63,8 @@ function CreateHappeningClosing(props) {
               <InputLabel htmlFor="amount">Betrag</InputLabel>
               <Input
                 id="amount"
-                value={price}
-                onChange={(event) => {handlePriceInput(event.target.value)}}
+                value={props.happening.price}
+                onChange={(event) => {props.handlePrice(event.target.value)}}
                 startAdornment={<InputAdornment position="start">€</InputAdornment>}
               />
             </FormControl>
@@ -101,8 +75,8 @@ function CreateHappeningClosing(props) {
             label="Willst du deinen Gästen noch was sagen?"
             multiline
             rows={2}
-            value={description}
-            onChange={(event) => {handleDesc(event.target.value)}}
+            value={props.happening.description}
+            onChange={(event) => {props.handleDesc(event.target.value)}}
             variant="outlined"
             className={classes.descBox}
             fullWidth
@@ -110,6 +84,7 @@ function CreateHappeningClosing(props) {
         </Grid>
         </Box>
       </Container>
+    {/*  Hier mit History Push lösen! .then(() => { history.push('/')  */}  
       <Button onClick={() => createHappening(props.happening)} className={classes.button} variant="outlined" color="primary">
         FERTIG
       </Button>

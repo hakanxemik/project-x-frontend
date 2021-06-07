@@ -46,7 +46,7 @@ function CreateHappeningOfferings(props) {
 
     let offeringArray = offeringSelected;
 
-    if(offeringArray.includes(input)){
+    if (offeringArray.includes(input)){
       offeringArray.splice(offeringArray.indexOf(input), 1);
     } else {
       offeringArray.push(input);
@@ -81,7 +81,7 @@ function CreateHappeningOfferings(props) {
             {offerings.map((element, index) => {
               return (
                 <Grid key={index} item xs={6}>
-                  <Button className={classes.paper} onClick={handleClick.bind(this)} data-id={element} fullWidth size="large" variant="outlined" color="secondary">{element}</Button>
+                  <Button className={classes.paper} onClick={handleClick} data-id={element} fullWidth size="large" variant="outlined" color="secondary">{element}</Button>
                 </Grid>
               )
             })}

@@ -53,23 +53,13 @@ function CreateHappeningCategories(props) {
   const classes = useStyles();
 
   const [categories, setCategories] = useState([])
-  const [category, setCategory] = useState('')
 
   const [types, setTypes] = useState([])
-  const [type, setType] = useState([])
 
   const [shrink, setShrink] = useState(false)
 
-  const handleTypeInput = (typeInput) => {
-    setType(typeInput)
-    props.handleHappeningType(typeInput)
-
-    setShrink(true)
-  }
-
   const handleCategoryInput = (e) => {
     props.handleCategory(e.currentTarget.dataset.id)
-    setCategory(e.currentTarget.dataset.id)
   }
 
   useEffect(() => {
@@ -80,18 +70,10 @@ function CreateHappeningCategories(props) {
     getTypes().then(response => {
       setTypes(response)
     })
-
-    if (props.happening.type) {
-      setType(props.happening.type)
-      setShrink(true)
-    }
-
-    if (props.happening.category)
-      setCategory(props.happening.category)
   }, [])
 
   return (
-    < Grid container direction="column" justify="flex-start" alignItems="center" {...props}>
+    < Grid container direction="column" justify="flex-start" alignItems="center" >
       <Container maxWidth="sm" >
         <Grid item xs={12}>
           <BigTitle title={"Kategorien"} description={"Bitte lege deine Kategorien für dein Happening fest"} />
@@ -109,8 +91,8 @@ function CreateHappeningCategories(props) {
                 <Select
                   native
                   multiple={false}
-                  value={type}
-                  onChange={(event) => {handleTypeInput(event.target.value)}}
+                  value={props.happening.type}
+                  onChange={(event) => {props.handleHappeningType(event.target.value)}}
                   label="Happening Typ"
                 >
                   {types.map((element, index) => {
@@ -123,7 +105,7 @@ function CreateHappeningCategories(props) {
             {categories.map((element, index) => {
               return (
                 <Grid key={index} item xs={6}>
-                  <Button className={(element == category ? classes.active : ''), classes.paper} data-id={element} onClick={handleCategoryInput.bind(this)}  fullWidth size="large" variant="outlined" color="secondary">{element}</Button>
+                  <Button className={(element == props.happening.category ? classes.active : ''), classes.paper} data-id={element} onClick={handleCategoryInput.bind(this)} fullWidth size="large" variant="outlined" color="secondary">{element}</Button>
                 </Grid>
               )
             })}
