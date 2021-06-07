@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   container: {
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1.25)
   },
   description: {
     borderColor: 'rgba(245, 0, 87, 0.5)'
@@ -86,7 +86,7 @@ function CreateHappeningOfferings(props) {
               )
             })}
           </Grid>
-        <Grid item xs={12} spacing={2}>
+        <Grid item xs={12} spacing={2.5}>
           <TextField
             id="outlined-multiline-static"
             label="Sonstiges"

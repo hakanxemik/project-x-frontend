@@ -105,17 +105,13 @@ function CreateHappeningCategories(props) {
             justify="center"
           >
             <FormControl fullWidth variant="outlined" className={classes.formControl}>
-              <InputLabel shrink="true" focu="true" htmlFor="outlined-age-native-simple">Happening Typ</InputLabel>
+              <InputLabel htmlFor="outlined-age-native-simple">Happening Typ</InputLabel>
                 <Select
                   native
                   multiple={false}
                   value={type}
                   onChange={(event) => {handleTypeInput(event.target.value)}}
                   label="Happening Typ"
-                  inputProps={{
-                    id: 'outlined-age-native-simple'
-                  }}
-                  InputLabelProps={{ shrink: true }} 
                 >
                   {types.map((element, index) => {
                       return <option key={index} value={element}>{element.toUpperCase()}</option>
@@ -127,7 +123,7 @@ function CreateHappeningCategories(props) {
             {categories.map((element, index) => {
               return (
                 <Grid key={index} item xs={6}>
-                  <Button className={(element == category ? classes.active : ''), classes.paper} data-id={element}  onClick={handleCategoryInput.bind(this)}  fullWidth size="large" variant="outlined" color="secondary">{element}</Button>
+                  <Button className={(element == category ? classes.active : ''), classes.paper} data-id={element} onClick={handleCategoryInput.bind(this)}  fullWidth size="large" variant="outlined" color="secondary">{element}</Button>
                 </Grid>
               )
             })}

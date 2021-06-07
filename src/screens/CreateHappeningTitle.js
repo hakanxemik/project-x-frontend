@@ -13,11 +13,6 @@ function CreateHappeningTitle(props) {
         props.handleTitle(titleInput)
     }
 
-    const handleDescInput = (descInput) => {
-        setTitle(descInput)
-        props.handleDesc(descInput)
-    }
-
     useEffect(() => {
         if (props.happening.title)
             setTitle(props.happening.title)
