@@ -20,7 +20,6 @@ const theme = createMuiTheme({
   spacing: 10
 });
 
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
