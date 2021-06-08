@@ -85,7 +85,7 @@ function CreateHappeningOfferings(props) {
             rows={4}
             defaultValue="..."
             value={props.happening.offeringsDescripton}
-            onChange={(event) => {handleOfferingsDescription(event.target.value)}}
+            onChange={(event) => {props.handleOfferingsDescription(event.target.value)}}
             variant="outlined"
             className={classes.root}
             fullWidth
@@ -95,7 +95,5 @@ function CreateHappeningOfferings(props) {
     </Grid >
   );
 }
-
-
 
 export default CreateHappeningOfferings;
