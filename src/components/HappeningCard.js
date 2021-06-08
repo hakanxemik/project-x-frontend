@@ -11,8 +11,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
-import { useLightTopShadowStyles } from '@mui-treasury/styles/shadow/lightTop';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
