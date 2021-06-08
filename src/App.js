@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import './App.css';
-
-function App() {
-  return (
-    <div>
-      Hello World
-    </div>
-=======
 import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 import "./icons.js";
@@ -42,7 +33,6 @@ function App() {
         <Route path="/Login/" exact component={Login} />
       </Router>
     </ThemeProvider>
->>>>>>> test/builder-x
   );
 }
 
