@@ -6,7 +6,6 @@ import TextField from '@material-ui/core/TextField';
 
 
 function CreateHappeningTitle(props) { 
-    // State nicht mehr benötigt -> Doppelt auch im Parent Comp CreateHappening
 
     return (
         <Grid container direction="column" justify="flex-start" alignItems="center">

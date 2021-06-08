@@ -85,7 +85,7 @@ function CreateHappeningClosing(props) {
         </Box>
       </Container>
     {/*  Hier mit History Push lösen! .then(() => { history.push('/')  */}  
-      <Button onClick={() => createHappening(props.happening)} className={classes.button} variant="outlined" color="primary">
+      <Button onClick={() => createHappening(props.happening).then()} className={classes.button} variant="outlined" color="primary">
         FERTIG
       </Button>
     </Grid >

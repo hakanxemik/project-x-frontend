@@ -39,7 +39,6 @@ function CreateHappeningOfferings(props) {
 
   const [offerings, setOfferings] = useState([])
   const [offeringSelected, setOfferingSelected] = useState([])
-  const [offeringsDescripton, setOfferingsDescripton] = useState('')
 
   const handleClick = (e) => {
     let input = e.currentTarget.dataset.id
@@ -56,11 +55,6 @@ function CreateHappeningOfferings(props) {
     props.handleOfferings(offeringSelected)
   }
 
-  const handleOfferingsDescription = (description) => {
-    setOfferingsDescripton(description)
-    props.handleOfferingsDescription(description)
-  }
-
   useEffect(() => {
     getOfferings().then(response => {
       setOfferings(response)
@@ -68,9 +62,6 @@ function CreateHappeningOfferings(props) {
 
     if (props.happening.offerings)
       setOfferingSelected(props.happening.offerings)
-
-    if (props.happening.offeringsDescripton)
-      setOfferingsDescripton(props.happening.offeringsDescripton)
   }, [])
 
   return (
@@ -93,7 +84,7 @@ function CreateHappeningOfferings(props) {
             multiline
             rows={4}
             defaultValue="..."
-            value={offeringsDescripton}
+            value={props.happening.offeringsDescripton}
             onChange={(event) => {handleOfferingsDescription(event.target.value)}}
             variant="outlined"
             className={classes.root}

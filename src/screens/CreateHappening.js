@@ -33,7 +33,6 @@ function CreateHappening() {
     localStorage.setItem('activeStep', activeStep - 1)
   };
 
-  // Ein Handler -> bei der Übergabe handlePrice(handleField('price'))
   const handleField = (input) => (value) => {
     let happeningTmp = {...happening, [input]: value};
     setHappening(happeningTmp)
