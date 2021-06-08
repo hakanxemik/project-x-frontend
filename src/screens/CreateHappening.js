@@ -12,15 +12,22 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 function CreateHappening() {
-  const [happening, setHappening] = useState({});
+  const [happening, setHappening] = useState({
+    title: '',
+    offerings: []
+  });
+
+  const [disableButton, setDisableButton] = useState(false)
 
   const [activeStep, setActiveStep] = useState(0);
   let theme = useTheme();
 
   useEffect(() => {
-    setHappening(JSON.parse(localStorage.getItem('happening')))
-    setActiveStep(parseInt(localStorage.getItem('activeStep')))
+    if (localStorage.getItem('happening'))
+      setHappening(JSON.parse(localStorage.getItem('happening')))
 
+    if (localStorage.getItem('activeStep'))
+      setActiveStep(parseInt(localStorage.getItem('activeStep')))
   }, []);
 
   const handleNext = () => {
@@ -33,20 +40,34 @@ function CreateHappening() {
     localStorage.setItem('activeStep', activeStep - 1)
   };
 
+  const handleButton = (value) => {
+    setDisableButton(value)
+  }
+
   const handleField = (input) => (value) => {
     let happeningTmp = {...happening, [input]: value};
     setHappening(happeningTmp)
     localStorage.setItem('happening', JSON.stringify(happeningTmp))
+
+    if (input == 'location' || input == 'locationDescription') {
+      happeningTmp['location'] && happeningTmp['locationDescription'] ? setDisableButton(false) : setDisableButton(true)
+    } else if ('offerings' == input) {
+      !happeningTmp[input] || !happeningTmp[input].length <= 0 ? setDisableButton(false) : setDisableButton(true)
+    } else if (input == 'maxGuests' || input == 'price' || input == 'description') {
+      happeningTmp['maxGuests'] && happeningTmp['description'] && happeningTmp['price'] ? setDisableButton(false) : setDisableButton(true)
+    } else {
+      happeningTmp[input] ? setDisableButton(false) : setDisableButton(true)
+    }
   }
 
   return (
     <>
-      {activeStep == 0 && <CreateHappeningTitle handleTitle={handleField('title')} happening={happening} />}
-      {activeStep == 1 && <CreateHappeningDateTime handleDate={handleField('date')} handleTime={handleField('time')} happening={happening} />}
-      {activeStep == 2 && <CreateHappeningLocation handleLocation={handleField('location')} handleLocationDesc={handleField('locationDescription')} happening={happening} />}
-      {activeStep == 3 && <CreateHappeningCategories  handleHappeningType={handleField('type')} handleCategory={handleField('category')} happening={happening} />}
-      {activeStep == 4 && <CreateHappeningOfferings handleOfferings={handleField('offerings')} handleOfferingsDescription={handleField('offeringsDescription')} happening={happening} />}
-      {activeStep == 5 && <CreateHappeningClosing handleDesc={handleField('description')} handlePrice={handleField('price')} handleGuests={handleField('maxGuests')} happening={happening} />}
+      {activeStep == 0 && <CreateHappeningTitle disable={disableButton} handleButton={handleButton} handleTitle={handleField('title')} happening={happening} />}
+      {activeStep == 1 && <CreateHappeningDateTime disable={disableButton} handleButton={handleButton} handleDate={handleField('date')} handleTime={handleField('time')} happening={happening} />}
+      {activeStep == 2 && <CreateHappeningLocation disable={disableButton}  handleButton={handleButton} handleLocation={handleField('location')} handleLocationDesc={handleField('locationDescription')} happening={happening} />}
+      {activeStep == 3 && <CreateHappeningCategories disable={disableButton} handleButton={handleButton} handleHappeningType={handleField('type')} handleCategory={handleField('category')} happening={happening} />}
+      {activeStep == 4 && <CreateHappeningOfferings disable={disableButton} handleButton={handleButton} handleOfferings={handleField('offerings')} handleOfferingsDescription={handleField('offeringsDescription')} happening={happening} />}
+      {activeStep == 5 && <CreateHappeningClosing disable={disableButton} handleButton={handleButton} handleDesc={handleField('description')} handlePrice={handleField('price')} handleGuests={handleField('maxGuests')} happening={happening} />}
 
       <MobileStepper
               variant="progress"
@@ -54,7 +75,7 @@ function CreateHappening() {
               position="bottom"
               activeStep={activeStep}
               nextButton={
-                <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
+                <Button size="small" onClick={handleNext} disabled={activeStep === 5 || disableButton}>
                   Weiter
                   {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
                 </Button>

@@ -1,4 +1,5 @@
 import React, { Component, useState, useEffect, useMemo, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import BigTitle from "../components/BigTitle";
 import Grid from '@material-ui/core/Grid';
@@ -12,6 +13,7 @@ import { Box } from "@material-ui/core";
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
+import Swal from 'sweetalert2';
 
 import {createHappening} from '../api'
 
@@ -21,18 +23,29 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(6),
     width: "60%",
   },
-  descBox: {
-    marginTop: theme.spacing(2)
+  description: {
+    marginTop: theme.spacing(4)
   }
 }));
 
 function CreateHappeningClosing(props) {
   const theme = useTheme();
   const classes = useStyles();
+  let history = useHistory();
   const guestsCount = [2, 4, 6, 8, 10, 15, 20, 30, 50, 100];
 
+  useEffect(() => {
+    let happeningTmp = JSON.parse(localStorage.getItem('happening'))
+
+    if (!happeningTmp.description || !happeningTmp.price || !happeningTmp.maxGuests )
+      props.handleButton(true)
+    else
+      props.handleButton(false)
+
+  }, [])
+
   return (
-    < Grid container direction="column" justify="flex-start" alignItems="center" {...props}>
+    < Grid container direction="column" justify="flex-start" alignItems="center" >
       <Container maxWidth="sm" >
         <Grid item xs={12}>
           <BigTitle title={"Wie viele dürfen kommen?"} description={"Bitte lege fest wie viele Gäste zu welchem Eintrittspreis kommen dürfen"} />
@@ -62,6 +75,7 @@ function CreateHappeningClosing(props) {
             <FormControl fullWidth>
               <InputLabel htmlFor="amount">Betrag</InputLabel>
               <Input
+                type="number"
                 id="amount"
                 value={props.happening.price}
                 onChange={(event) => {props.handlePrice(event.target.value)}}
@@ -69,23 +83,36 @@ function CreateHappeningClosing(props) {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={12} spacing={4}>
-          <TextField
-            id="outlined-multiline-static"
-            label="Willst du deinen Gästen noch was sagen?"
-            multiline
-            rows={2}
-            value={props.happening.description}
-            onChange={(event) => {props.handleDesc(event.target.value)}}
-            variant="outlined"
-            className={classes.descBox}
-            fullWidth
-          />
+          <Grid item xs={12} className={classes.description}>
+            <TextField
+              id="outlined-multiline-static"
+              label="Willst du deinen Gästen noch was sagen?"
+              multiline
+              rows={2}
+              value={props.happening.description}
+              onChange={(event) => {props.handleDesc(event.target.value)}}
+              variant="outlined"
+              className={classes.descBox}
+              fullWidth
+            />
         </Grid>
         </Box>
+        {(!props.happening.maxGuests || !props.happening.price || !props.happening.description) 
+        && <p>Bitte gib alle benötigten Informationen ein um fortzufahren</p>}
+
       </Container>
     {/*  Hier mit History Push lösen! .then(() => { history.push('/')  */}  
-      <Button onClick={() => createHappening(props.happening).then()} className={classes.button} variant="outlined" color="primary">
+      <Button disabled={props.disable} onClick={() => createHappening(props.happening).then((success) => {
+        Swal.fire({
+          title: success ? 'Glückwunsch!' : 'Happening konnte nicht erstellt werden!',
+          text: success ? 'Dein Happening wurde erfolgreich erstellt.' : 'Bitte überprüfe deine Eingaben oder versuche es später',
+          icon: success ? 'success' : 'error',
+          confirmButtonText: 'Verstanden'
+        }).then(function (value) {
+          console.log(value)
+          history.push('/')
+        })
+      })} className={classes.button} variant="outlined" color="primary">
         FERTIG
       </Button>
     </Grid >

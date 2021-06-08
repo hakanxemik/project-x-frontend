@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     borderColor: 'rgba(245, 0, 87, 0.5)'
+  },
+  textField: {
+    marginTop: theme.spacing(4)
   }
 })); 
 
@@ -56,6 +59,15 @@ function CreateHappeningOfferings(props) {
   }
 
   useEffect(() => {
+    let happeningTmp = JSON.parse(localStorage.getItem('happening'))
+    
+    if (happeningTmp.offerings) {
+      if (happeningTmp.offerings.length <= 0)
+        props.handleButton(true)
+      else
+        props.handleButton(false)
+    }
+
     getOfferings().then(response => {
       setOfferings(response)
     })
@@ -72,25 +84,29 @@ function CreateHappeningOfferings(props) {
             {offerings.map((element, index) => {
               return (
                 <Grid key={index} item xs={6}>
-                  <Button className={classes.paper} onClick={handleClick} data-id={element} fullWidth size="large" variant="outlined" color="secondary">{element}</Button>
+                  <Button className={classes.paper} onClick={handleClick} data-id={element} fullWidth size="large" variant={props.happening.offerings && props.happening.offerings.includes(element) ? 'contained' : 'outlined'} color="secondary">{element}</Button>
                 </Grid>
               )
             })}
           </Grid>
-        <Grid item xs={12} spacing={2.5}>
-          <TextField
-            id="outlined-multiline-static"
-            label="Sonstiges"
-            multiline
-            rows={4}
-            defaultValue="..."
-            value={props.happening.offeringsDescripton}
-            onChange={(event) => {props.handleOfferingsDescription(event.target.value)}}
-            variant="outlined"
-            className={classes.root}
-            fullWidth
-          />
-        </Grid>
+          {!props.happening.offerings || props.happening.offerings.length <= 0 && <p className={classes.alert}>Bitte wähle mindestens ein Offering aus</p>}
+
+        <Container className={classes.textField} spacing={1}>
+          <Grid item xs={12}>
+            <TextField
+              id="outlined-multiline-static"
+              label="Sonstiges"
+              multiline
+              rows={4}
+              placeholder="Beschreibe deine Offerings"
+              value={props.happening.offeringsDescription}
+              onChange={(event) => {props.handleOfferingsDescription(event.target.value)}}
+              variant="outlined"
+              className={classes.root}
+              fullWidth
+            />
+          </Grid>
+        </Container>
       </Container>
     </Grid >
   );

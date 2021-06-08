@@ -53,10 +53,10 @@ export async function createHappening(happening) {
         if (response.status == 200 || response.status == 204) {
             localStorage.removeItem('happening')
             localStorage.removeItem('activeStep')
-            // history push -> CreateHappeningClosing
-            window.location.href = '/';
+            return true
         } else {
             console.log('error')
+            return false
         }
     }).catch((err) => {
         console.log(err)

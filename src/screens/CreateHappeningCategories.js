@@ -45,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
   },
   inputCenter: {
     textAlign: "center"
+  },
+  alert: {
+    color: theme.palette.text.secondary
   }
 }));
 
@@ -59,10 +62,20 @@ function CreateHappeningCategories(props) {
   const [shrink, setShrink] = useState(false)
 
   const handleCategoryInput = (e) => {
+    if (!props.happening.category)
+      props.handleButton(false)
+
     props.handleCategory(e.currentTarget.dataset.id)
   }
 
   useEffect(() => {
+    let happeningTmp = JSON.parse(localStorage.getItem('happening'))
+
+    if (!happeningTmp.category)
+      props.handleButton(true)
+    else
+      props.handleButton(false)
+
     getCategories().then(response => {
       setCategories(response)
     });
@@ -105,12 +118,13 @@ function CreateHappeningCategories(props) {
             {categories.map((element, index) => {
               return (
                 <Grid key={index} item xs={6}>
-                  <Button className={(element == props.happening.category ? classes.active : ''), classes.paper} data-id={element} onClick={handleCategoryInput.bind(this)} fullWidth size="large" variant="outlined" color="secondary">{element}</Button>
+                  <Button className={(element == props.happening.category ? classes.active : ''), classes.paper} data-id={element} onClick={handleCategoryInput.bind(this)} fullWidth size="large" variant={props.happening.category == element ? 'contained' : 'outlined'} color="secondary">{element}</Button>
                 </Grid>
               )
             })}
-            
           </Grid>
+
+          {!props.happening.category && <p className={classes.alert}>Bitte wähle eine Kategorie aus</p>}
         </div>
       </Container>
     </Grid >
