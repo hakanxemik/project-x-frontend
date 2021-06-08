@@ -1,8 +1,7 @@
 import React, { Component, useState, useEffect, useMemo, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Link } from "react-router-dom";
 import BigTitle from "../components/BigTitle";
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Input from '@material-ui/core/Input';
@@ -14,37 +13,42 @@ import { Box } from "@material-ui/core";
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
+import Swal from 'sweetalert2';
 
+import {createHappening} from '../api'
 
-import MobileStepper from '@material-ui/core/MobileStepper';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-
-import {
-  useLocation
-} from "react-router-dom";
+const useStyles = makeStyles((theme) => ({
+  button: {
+    color: theme.palette.text.primary,
+    marginTop: theme.spacing(6),
+    width: "60%",
+  },
+  description: {
+    marginTop: theme.spacing(4)
+  }
+}));
 
 function CreateHappeningClosing(props) {
-  //const location = useLocation();
-  //const happeningSave = location.state.happening
-  //const [happening, setHappening] = useState(happeningSave)
-  console.log(props);
+  const theme = useTheme();
+  const classes = useStyles();
+  let history = useHistory();
   const guestsCount = [2, 4, 6, 8, 10, 15, 20, 30, 50, 100];
 
-  const [guests, setGuests] = useState(guestsCount[0]);
+  useEffect(() => {
+    let happeningTmp = JSON.parse(localStorage.getItem('happening'))
 
-  const handleChange = (event) => {
-    setGuests(event.target.value);
-  };
+    if (!happeningTmp.description || !happeningTmp.price || !happeningTmp.maxGuests )
+      props.handleButton(true)
+    else
+      props.handleButton(false)
 
-  const [activeStep, setActiveStep] = useState(0);
-  const theme = useTheme();
+  }, [])
 
   return (
-    < Grid container direction="column" justify="flex-start" alignItems="center" {...props}>
+    < Grid container direction="column" justify="flex-start" alignItems="center" >
       <Container maxWidth="sm" >
         <Grid item xs={12}>
-          <BigTitle title={"Wie viele dürfen kommen?"/*happening.title*/} description={"Bitte lege fest wie viele Gäste zu welchem Eintrittspreis kommen dürfen"} />
+          <BigTitle title={"Wie viele dürfen kommen?"} description={"Bitte lege fest wie viele Gäste zu welchem Eintrittspreis kommen dürfen"} />
         </Grid>
         <Grid item xs={12}>
           <form noValidate autoComplete="off">
@@ -53,8 +57,8 @@ function CreateHappeningClosing(props) {
                 id="select-guests"
                 select
                 label="Gäste Anzahl"
-                value={guests}
-                onChange={handleChange}
+                value={props.happening.maxGuests}
+                onChange={(event) => {props.handleGuests(event.target.value)}}
                 fullWidth
               >
                 {guestsCount.map((option) => (
@@ -71,43 +75,46 @@ function CreateHappeningClosing(props) {
             <FormControl fullWidth>
               <InputLabel htmlFor="amount">Betrag</InputLabel>
               <Input
+                type="number"
                 id="amount"
+                value={props.happening.price}
+                onChange={(event) => {props.handlePrice(event.target.value)}}
                 startAdornment={<InputAdornment position="start">€</InputAdornment>}
               />
             </FormControl>
           </Grid>
+          <Grid item xs={12} className={classes.description}>
+            <TextField
+              id="outlined-multiline-static"
+              label="Willst du deinen Gästen noch was sagen?"
+              multiline
+              rows={2}
+              value={props.happening.description}
+              onChange={(event) => {props.handleDesc(event.target.value)}}
+              variant="outlined"
+              className={classes.descBox}
+              fullWidth
+            />
+        </Grid>
         </Box>
-        <MobileStepper
-          variant="progress"
-          steps={7}
-          position="bottom"
-          activeStep={6}
-          nextButton={
-            <Link to={{
-              pathname: "/HomeScreen/",
-              state: { /*happening*/ }
-            }}
-            >
-              <Button size="small">
-                Weiter
-          {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-              </Button>
-            </Link>
-          }
-          backButton={
-            <Link to={{
-              pathname: "/CreateHappeningOfferings/",
-              state: { /*happening*/ }
-            }}
-            >
-              <Button size="small" >
-                {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-          Zurück
-        </Button>
-            </Link>
-          }
-        />
+        {(!props.happening.maxGuests || !props.happening.price || !props.happening.description) 
+        && <p>Bitte gib alle benötigten Informationen ein um fortzufahren</p>}
+
       </Container>
+    {/*  Hier mit History Push lösen! .then(() => { history.push('/')  */}  
+      <Button disabled={props.disable} onClick={() => createHappening(props.happening).then((success) => {
+        Swal.fire({
+          title: success ? 'Glückwunsch!' : 'Happening konnte nicht erstellt werden!',
+          text: success ? 'Dein Happening wurde erfolgreich erstellt.' : 'Bitte überprüfe deine Eingaben oder versuche es später',
+          icon: success ? 'success' : 'error',
+          confirmButtonText: 'Verstanden'
+        }).then(function (value) {
+          console.log(value)
+          history.push('/')
+        })
+      })} className={classes.button} variant="outlined" color="primary">
+        FERTIG
+      </Button>
     </Grid >
   );
 }
