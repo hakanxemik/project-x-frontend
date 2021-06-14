@@ -24,6 +24,15 @@ export async function getOfferings() {
     return offerings
 }
 
+export async function getHappenings() {
+    let happenings = {};
+
+    return fetch(apiEndpoint + 'happeings')
+            .then((response) => response)
+            .then((data) => happenings = data)
+            .catch((err) => console.log(err))
+}
+
 export async function createHappening(happening) {
     // Von anfang an "zusammenfügen"
     let happeningPost = {
