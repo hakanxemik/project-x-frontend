@@ -73,7 +73,7 @@ function HappeningCard(props) {
                             >
                                 <Box mb={3}>
                                     <Grid item xs={12}>
-                                        <h1 className={styles.title}>Grill & Chill</h1>
+                                        <h1 className={styles.title}>{props.happening.title}</h1>
                                         <h3>25.06 um 18:00 Uhr <br />in Bludenz</h3>
                                     </Grid>
                                 </Box>

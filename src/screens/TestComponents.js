@@ -1,7 +1,9 @@
 import React, { Component, useState, useEffect } from "react";
-import Grid from '@material-ui/core/Grid';
+import { getHappenings } from '../api'
 import HappeningCard from "../components/HappeningCard";
 import HappeningCardBack from "../components/HappeningCardBack";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 import ReactCardFlip from 'react-card-flip';
 
@@ -10,6 +12,7 @@ import ReactCardFlip from 'react-card-flip';
 function TestComponents(props) {
 
     const [isFlipped, setFlipped] = useState(false);
+    const [happenings, setHappenings] = useState([])
 
     function handleClick(event) {
         let flipped = isFlipped;
@@ -20,20 +23,32 @@ function TestComponents(props) {
 
     handleClick = handleClick.bind(this);
 
+    useEffect(() => {
+        //let happeningTmp;
+        getHappenings().then(data => {
+            setHappenings(data)
+        }) //.then(() => setHappenings(happeningTmp))
+    }, [])
+
     return (
-
-        <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-            <div onClick={handleClick}>
-                <HappeningCard>
-
-                </HappeningCard>
-            </div>
-            <div onClick={handleClick}>
-                <HappeningCardBack>
-
-                </HappeningCardBack>
-            </div>
-        </ReactCardFlip>
+        <>
+             <Carousel showIndicators="false" thumbWidth="100">
+                 {happenings.map((element, index) => {
+                    return <ReactCardFlip key={index} isFlipped={isFlipped} flipDirection="horizontal">
+                        <div onClick={handleClick}>
+                            <HappeningCard happening={element}>
+                            </HappeningCard>
+                        </div>
+                        
+                        <div onClick={handleClick}>
+                            <HappeningCardBack happening={element}>
+                 
+                            </HappeningCardBack>
+                        </div>
+                    </ReactCardFlip>
+                 })}
+            </Carousel>
+        </>
     );
 }
 
