@@ -43,7 +43,7 @@ function CreateHappening() {
   const handleButton = (value) => {
     setDisableButton(value)
   }
-
+  // Currying / Closures
   const handleField = (input) => (value) => {
     let happeningTmp = {...happening, [input]: value};
     setHappening(happeningTmp)
