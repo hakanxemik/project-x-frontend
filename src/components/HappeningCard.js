@@ -15,49 +15,41 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
 
-
-import Image from '../assets/images/grillchill.jpg';
-
-const useStyles = makeStyles(() => ({
-    content: {
-        padding: 24,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        color: 'white'
-    },
-    cta: {
-        display: 'block',
-        textAlign: 'center',
-        color: '#fff',
-        letterSpacing: '3px',
-        fontWeight: 200,
-        fontSize: 12,
-    },
-    title: {
-        color: '#fff',
-        letterSpacing: '2px',
-        marginBottom: 0
-    },
-
-    cardMedia: {
-        backgroundImage: `url(${Image})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        border: '20px solid #fff'
-    }
-}));
-
-
-
-
 function HappeningCard(props) {
 
+    const useStyles = makeStyles(() => ({
+        content: {
+            padding: 24,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            color: 'white'
+        },
+        cta: {
+            display: 'block',
+            textAlign: 'center',
+            color: '#fff',
+            letterSpacing: '3px',
+            fontWeight: 200,
+            fontSize: 12,
+        },
+        title: {
+            color: '#fff',
+            letterSpacing: '1px',
+            marginBottom: 0,
+            paddingLeft: '5px',
+            paddingRight: '5px'
+        },
+    
+        cardMedia: {
+            backgroundColor: `${props.happening.category.color}`,
+            width: '64vw',
+            height: '55vh',
+            border: '20px solid #fff'
+        }
+    }));
 
+    // Generischer in dem man 
     const styles = useStyles();
     return (
-        <Grid container justify="center" align="center" direction="row">
-
-            <Grid item xs={10} >
                 <Card className={styles.cardMedia}>
                     <CardActionArea>
                         <CardContent className={styles.content}>
@@ -102,8 +94,6 @@ function HappeningCard(props) {
                         </CardContent>
                     </CardActionArea>
                 </Card>
-            </Grid>
-        </Grid >
     );
 }
 
