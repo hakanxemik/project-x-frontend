@@ -41,7 +41,7 @@ function HappeningCardBack(props) {
             backgroundColor: `#2980b9`,
             border: '20px solid #fff',
             width: '64vw',
-            height: '55vh',
+            height: '430px',
         }
     }));
 

@@ -42,7 +42,7 @@ function HappeningCard(props) {
         cardMedia: {
             backgroundColor: `${props.happening.category.color}`,
             width: '64vw',
-            height: '55vh',
+            height: '430px',
             border: '20px solid #fff'
         }
     }));
