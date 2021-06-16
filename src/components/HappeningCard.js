@@ -63,14 +63,14 @@ function HappeningCard(props) {
                                 textAlign={'center'}
 
                             >
-                                <Box mb={3}>
+                                <Box mb={2}>
                                     <Grid item xs={12}>
                                         <h1 className={styles.title}>{props.happening.title}</h1>
                                         <h3>25.06 um 18:00 Uhr <br />in Bludenz</h3>
                                     </Grid>
                                 </Box>
 
-                                <Box mb={3}>
+                                <Box mb={2}>
                                     <Grid item>
                                         <AccountCircleOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></AccountCircleOutlinedIcon>
                                         Example
@@ -81,7 +81,7 @@ function HappeningCard(props) {
                                 </Grid>
                                 </Box>
 
-                                <Box my={3}>
+                                <Box my={2}>
                                     <Grid item>
                                         <GroupOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></GroupOutlinedIcon>
                                         12 von 15 besetzt
