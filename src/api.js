@@ -25,7 +25,7 @@ export async function getOfferings() {
 }
 
 export async function getHappenings() {
-    return fetch('http://localhost:8000/api/happenings')
+    return fetch(apiEndpoint + '/happenings')
             .then((response) => response.json())
             .then((data) => {
                 return data;
