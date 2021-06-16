@@ -3,7 +3,7 @@ import React, { Component, useState } from "react";
 import styled, { css } from "styled-components";
 import RegistrationTitle from "../components/RegistrationTitle";
 import TextInput from "../components/TextInput";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import { HashRouter as Router, Link, Route } from "react-router-dom";
 import RegisterButton from "../components/RegisterButton";
 
 function SignUp(props) {
@@ -57,7 +57,6 @@ function SignUp(props) {
           }
           }
         ></TextInput>
-
         <RegisterButton
           style={
             {
@@ -70,9 +69,8 @@ function SignUp(props) {
           }
           title="Weiter"
         >
-          <Link to="/HomeScreen">Weiterrrrr</Link>
         </RegisterButton>
-      </RegistrationTitleStack >
+      </RegistrationTitleStack>
     </Container >
   );
 }

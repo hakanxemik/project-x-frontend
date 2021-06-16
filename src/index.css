@@ -12,6 +12,12 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 a {
   text-decoration: none;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
 }

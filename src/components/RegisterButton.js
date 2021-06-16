@@ -3,12 +3,9 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 function RegisterButton(props) {
-  // states
-
-  // onHandleInput
   return (
     <Container {...props}>
-      <Link to={`/${props.link}`}>
+      <Link to="/SignUp">
         <Button>
           <ButtonOverlay>
             <Title>{props.title}</Title>
@@ -16,12 +13,8 @@ function RegisterButton(props) {
         </Button>
       </Link>
     </Container>
-
-    // Nameinput
-    // LocationInput
   );
 }
-
 
 const Container = styled.div`
   display: flex;

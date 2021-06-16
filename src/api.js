@@ -24,6 +24,15 @@ export async function getOfferings() {
     return offerings
 }
 
+export async function getHappenings() {
+    return fetch('http://localhost:8000/api/happenings')
+            .then((response) => response.json())
+            .then((data) => {
+                return data;
+            })
+            .catch((err) => console.log(err))
+}
+
 export async function createHappening(happening) {
     // Von anfang an "zusammenfügen"
     let happeningPost = {

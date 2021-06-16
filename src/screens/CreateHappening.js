@@ -34,7 +34,7 @@ function CreateHappening() {
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
     localStorage.setItem('activeStep', activeStep + 1)
   };
-  
+
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
     localStorage.setItem('activeStep', activeStep - 1)
@@ -43,7 +43,7 @@ function CreateHappening() {
   const handleButton = (value) => {
     setDisableButton(value)
   }
-
+  // Currying / Closures
   const handleField = (input) => (value) => {
     let happeningTmp = {...happening, [input]: value};
     setHappening(happeningTmp)
@@ -85,7 +85,7 @@ function CreateHappening() {
                   {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
                   Back
                 </Button>
-          }
+        }
       />
     </>
   );
