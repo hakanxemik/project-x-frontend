@@ -5,17 +5,20 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 
 
-function CreateHappeningTitle(props) { 
-    const [title, setTitle] = useState('')
-
-    const handleInput = (titleInput) => {
-        setTitle(titleInput)
-        props.handleTitle(titleInput)
-    }
+function CreateHappeningTitle(props) {
 
     useEffect(() => {
-        setTitle(props.happening.title)
-    });
+        let happeningTmp = JSON.parse(localStorage.getItem('happening'))
+        
+        if (happeningTmp) {
+            if (happeningTmp.title)
+                props.handleButton(false)
+            else
+                props.handleButton(true)
+        } else {
+            props.handleButton(true)
+        }
+    }, [])
 
     return (
         <Grid container direction="column" justify="flex-start" alignItems="center">
@@ -24,7 +27,15 @@ function CreateHappeningTitle(props) {
                     <BigTitle title="Erstelle dein Happening" description="Bitte lege hierfür einen Titel fest" />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField value={title}  onChange={(event) => {handleInput(event.target.value)}} id="standard-basic" label="Titel" fullWidth />
+                    <TextField 
+                        value={props.happening.title} 
+                        onChange={(event) => {props.handleTitle(event.target.value)}} 
+                        id="standard-basic" 
+                        label="Titel" 
+                        fullWidth
+                        error={props.disable}
+                        helperText={props.happening.title ? '' : 'Bitte gib ein Titel ein'}
+                    />
                 </Grid>
             </Container>
         </Grid>

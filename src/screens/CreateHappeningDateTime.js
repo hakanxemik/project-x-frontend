@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import { Box } from "@material-ui/core";
+import moment from "moment"
 
 function CreateHappeningDateTime(props) {
   let today = new Date()
@@ -26,9 +27,24 @@ function CreateHappeningDateTime(props) {
   const [date, setDate] = useState(formatDate(today))
   const [time, setTime] = useState(todayTime)
 
+  const handleDisableDate = (dateInput) => {
+    setTimeout(function() {
+      const dateFormatted = moment(dateInput, 'YYYY-MM-DD')
+
+      if (dateFormatted.isSameOrAfter(today, 'day') && dateFormatted.isSame(today, 'year') ) {
+        props.handleButton(false)
+        return false
+      }
+
+      props.handleButton(true)
+      return true
+    }, 100)
+  }
+
   const handleDateInput = (dateInput) => {
-    setDate(dateInput)
-    props.handleDate(dateInput)
+    handleDisableDate(dateInput)
+    setDate(dateInput.toString())
+    props.handleDate(dateInput.toString())
   }
 
   const handleTimeInput = (timeInput) => {
@@ -37,9 +53,19 @@ function CreateHappeningDateTime(props) {
   }
 
   useEffect(() => {
-    setDate(props.happening.date)
-    setTime(props.happening.time)
-  });
+    if (props.happening.date) {
+      setDate(props.happening.date)
+      handleDisableDate(JSON.parse(localStorage.getItem('happening')).date)
+    }
+    else {
+      handleDateInput(formatDate(today))
+    }
+    
+    if (props.happening.time)
+      setTime(props.happening.time)
+    else
+      handleTimeInput(todayTime)
+  }, []);
 
   return (
     < Grid container direction="column" justify="flex-start" alignItems="center" >
@@ -54,6 +80,8 @@ function CreateHappeningDateTime(props) {
             label="Datum"
             type="date"
             value={date}
+            error={props.disable}
+            helperText={props.disable ? 'Bitte gebe ein gültigen Datum ein' : ''}
             InputLabelProps={{
               shrink: true,
             }}

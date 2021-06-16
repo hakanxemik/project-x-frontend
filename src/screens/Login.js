@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import styled, { css } from "styled-components";
 import UsernameInput from "../components/UsernameInput";
 import PasswordInput from "../components/PasswordInput";
@@ -6,6 +6,9 @@ import LoginButton from "../components/LoginButton";
 import RegisterButton from "../components/RegisterButton";
 
 function Login(props) {
+  const [mail, setMail] = useState('')
+  const [password, setPassword] = useState('')
+  
   return (
     <Container>
       <Group2>

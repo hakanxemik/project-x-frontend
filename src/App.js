@@ -4,15 +4,13 @@ import "./icons.js";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
 import HomeScreen from "./screens/HomeScreen";
+<<<<<<< HEAD
 import SignUp2 from "./screens/SignUp2";
 
 import TestComponents from "./screens/TestComponents";
+=======
+>>>>>>> test/builder-x
 import CreateHappening from "./screens/CreateHappening";
-import CreateHappeningDateTime from "./screens/CreateHappeningDateTime";
-import CreateHappeningLocation from "./screens/CreateHappeningLocation";
-import CreateHappeningCategories from "./screens/CreateHappeningCategories";
-import CreateHappeningOfferings from "./screens/CreateHappeningOfferings";
-import CreateHappeningClosing from "./screens/CreateHappeningClosing";
 import "./style.css";
 import { ThemeProvider } from "@material-ui/styles";
 
@@ -28,15 +26,22 @@ const theme = createMuiTheme({
   spacing: 10
 });
 
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+<<<<<<< HEAD
         <Route path="/create/" exact component={CreateHappening} />
         <Route path="/test/" exact component={TestComponents} />
         <Route path="/HomeScreen/" exact component={HomeScreen} />
 
+=======
+
+        <Route path="/home/" exact component={HomeScreen} />
+
+        <Route path="/create" component={CreateHappening} />
+        
+>>>>>>> test/builder-x
         <Route path="/SignUp/" exact component={SignUp} />
         <Route path="/Login/" exact component={Login} />
       </Router>

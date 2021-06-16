@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import {getCategories, getTypes} from '../api';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
       borderColor: 'rgba(245, 0, 87, 0.5)'
     },
   },
+  active: {
+    color: theme.palette.text.secondary
+  },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
@@ -32,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(3),
     textAlign: 'center',
-    width: '60%'
+    width: '70%'
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -40,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
   },
   inputCenter: {
     textAlign: "center"
+  },
+  alert: {
+    color: theme.palette.text.secondary
   }
 }));
 
@@ -47,21 +55,38 @@ function CreateHappeningCategories(props) {
   const theme = useTheme();
   const classes = useStyles();
 
-  const [state, setState] = React.useState({
-    age: '',
-    name: 'hai',
-  });
+  const [categories, setCategories] = useState([])
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
+  const [types, setTypes] = useState([])
+
+  const [shrink, setShrink] = useState(false)
+
+  const handleCategoryInput = (e) => {
+    if (!props.happening.category)
+      props.handleButton(false)
+
+    props.handleCategory(e.currentTarget.dataset.id)
   }
 
+  useEffect(() => {
+    let happeningTmp = JSON.parse(localStorage.getItem('happening'))
+
+    if (!happeningTmp.category)
+      props.handleButton(true)
+    else
+      props.handleButton(false)
+
+    getCategories().then(response => {
+      setCategories(response)
+    });
+
+    getTypes().then(response => {
+      setTypes(response)
+    })
+  }, [])
+
   return (
-    < Grid container direction="column" justify="flex-start" alignItems="center" {...props}>
+    < Grid container direction="column" justify="flex-start" alignItems="center" >
       <Container maxWidth="sm" >
         <Grid item xs={12}>
           <BigTitle title={"Kategorien"} description={"Bitte lege deine Kategorien für dein Happening fest"} />
@@ -78,38 +103,28 @@ function CreateHappeningCategories(props) {
               <InputLabel htmlFor="outlined-age-native-simple">Happening Typ</InputLabel>
                 <Select
                   native
-                  value={state.age}
-                  onChange={handleChange}
+                  multiple={false}
+                  value={props.happening.type}
+                  onChange={(event) => {props.handleHappeningType(event.target.value)}}
                   label="Happening Typ"
-                  inputProps={{
-                    name: 'age',
-                    id: 'outlined-age-native-simple',
-                  }}
                 >
-                  <option aria-label="None" value="" />
-                  <option value={10}>Ten</option>
-                  <option value={20}>Twenty</option>
-                  <option value={30}>Thirty</option>
+                  {types.map((element, index) => {
+                      return <option key={index} value={element}>{element.toUpperCase()}</option>
+                  })}
                 </Select>
             </FormControl>
           </Grid>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Button fullWidth size="large" className={classes.paper} variant="outlined" color="secondary">Grillen</Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button fullWidth size="large" className={classes.paper} variant="outlined" color="secondary">Party</Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button fullWidth size="large" className={classes.paper} variant="outlined" color="secondary">Kulinarisch</Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button fullWidth size="large" className={classes.paper} variant="outlined" color="secondary">Zocken</Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button fullWidth size="large" className={classes.paper} variant="outlined" color="secondary">Erlebnis</Button>
-            </Grid>
+            {categories.map((element, index) => {
+              return (
+                <Grid key={index} item xs={6}>
+                  <Button className={(element == props.happening.category ? classes.active : ''), classes.paper} data-id={element} onClick={handleCategoryInput.bind(this)} fullWidth size="large" variant={props.happening.category == element ? 'contained' : 'outlined'} color="secondary">{element}</Button>
+                </Grid>
+              )
+            })}
           </Grid>
+
+          {!props.happening.category && <p className={classes.alert}>Bitte wähle eine Kategorie aus</p>}
         </div>
       </Container>
     </Grid >

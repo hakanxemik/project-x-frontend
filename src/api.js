@@ -25,11 +25,19 @@ export async function getOfferings() {
 }
 
 export async function getHappenings() {
+<<<<<<< HEAD
     return fetch('http://localhost:8000/api/happenings')
             .then((response) => response.json())
             .then((data) => {
                 return data;
             })
+=======
+    let happenings = {};
+
+    return fetch(apiEndpoint + 'happeings')
+            .then((response) => response)
+            .then((data) => happenings = data)
+>>>>>>> test/builder-x
             .catch((err) => console.log(err))
 }
 
