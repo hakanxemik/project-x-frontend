@@ -121,7 +121,7 @@ function HappeningCardBack(props) {
                                          `<h3>Beschreibung:</h3>` +
                                          `<p>${props.happening.description}</p>` +
                                          `<h3>Preis:</h3>` +
-                                         `<p>${props.happening.price}</p>`,
+                                         `<p>${props.happening.price} €</p>`,
                                        showCloseButton: true,
                                        showCancelButton: false,
                                        showConfirmButton: true,
