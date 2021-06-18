@@ -34,6 +34,7 @@ function TestComponents(props) {
     useEffect(() => {
         getHappenings().then(data => {
             setHappenings(data)
+            console.log(data)
         })
     }, [])
     

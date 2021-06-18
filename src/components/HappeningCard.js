@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
+import moment from "moment";
 
 function HappeningCard(props) {
 
@@ -43,7 +44,8 @@ function HappeningCard(props) {
             backgroundColor: `${props.happening.category.color}`,
             width: '64vw',
             height: '430px',
-            border: '20px solid #fff'
+            border: '15px solid #fff',
+            borderRadius: '25px',
         }
     }));
 
@@ -66,25 +68,31 @@ function HappeningCard(props) {
                                 <Box mb={2}>
                                     <Grid item xs={12}>
                                         <h1 className={styles.title}>{props.happening.title}</h1>
-                                        <h3>25.06 um 18:00 Uhr <br />in Bludenz</h3>
+                                        <h3>{moment(props.happening.date).format('DD.MM')} um {moment(props.happening.date).format('HH:mm')} Uhr <br />in {props.happening.location.meetingPoint}</h3>
                                     </Grid>
                                 </Box>
 
                                 <Box mb={2}>
                                     <Grid item>
                                         <AccountCircleOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></AccountCircleOutlinedIcon>
-                                        Example
+                                        {
+                                            props.happening.users.map((element) => {
+                                                if (element.attendance.userType == 'host') {
+                                                    return <span>{element.name}</span>
+                                                }
+                                            })
+                                        } 
                                     </Grid>
-                                    <Grid item>
+                                    {false && <Grid item>
                                         <StarOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"medium"}></StarOutlinedIcon>
-                                    4.9
-                                </Grid>
+                                        4.9
+                                    </Grid>}
                                 </Box>
 
                                 <Box my={2}>
                                     <Grid item>
                                         <GroupOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></GroupOutlinedIcon>
-                                        12 von 15 besetzt
+                                        {props.happening.users.length - 1} von {props.happening.maxGuests} besetzt
                                     </Grid>
                                 </Box>
                             </Box>
