@@ -12,9 +12,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import EuroIcon from '@material-ui/icons/Euro';
+import {join} from '../api'
 import Button from '@material-ui/core/Button';
 
 function HappeningCardBack(props) {
+
+    const [guest, setGuest] = useState(false)
 
     const useStyles = makeStyles((theme) => ({
         content: {
@@ -67,6 +70,18 @@ function HappeningCardBack(props) {
     }));
 
     const styles = useStyles();
+
+    const checkGuest = () => {
+        props.happening.users.forEach((element) => {
+            if (element.name === localStorage.getItem('users').name) {
+                if (element.attendance.userType === 'guest') {
+                    setGuest(true)
+                }
+            } else {
+                setGuest(false)
+            }
+        })
+    }
 
     return (
         <Card className={styles.cardMedia}>
@@ -132,7 +147,16 @@ function HappeningCardBack(props) {
                                 </Button>
                         </Box>
                         <Box my={2}>
-                            <Button fullWidth size="medium" variant={'contained'} color="tertiary">Teilnehmen</Button>
+                            {guest ? <Button onClick={() => {join(props.happening.id).then((success) => {
+                                Swal.fire({
+                                    title: success ? 'Glückwunsch!' : 'Happening teilnahme fehlgeschlagen!',
+                                    text: success ? 'Teilnahme an Happening!' : 'Bitte überprüfe deine Eingaben oder versuche es später',
+                                    icon: success ? 'success' : 'error',
+                                    confirmButtonText: 'Verstanden'
+                                  })
+                                })}
+                            } fullWidth size="medium" variant={'contained'} color="tertiary">TEILNEHMEN</Button> :
+                            <h3>TEILGENOMMEN</h3>}
                         </Box>
                     </Box>
                     <Typography className={styles.cta} variant={'overline'}>
