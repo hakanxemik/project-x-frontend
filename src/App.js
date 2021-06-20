@@ -6,7 +6,7 @@ import SignUp from "./screens/SignUp";
 import HomeScreen from "./screens/HomeScreen";
 import SignUp2 from "./screens/SignUp2";
 
-import TestComponents from "./screens/TestComponents";
+import Overview from "./screens/Overview";
 import CreateHappening from "./screens/CreateHappening";
 import "./style.css";
 import { ThemeProvider } from "@material-ui/styles";
@@ -28,11 +28,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Route path="/create/" exact component={CreateHappening} />
-        <Route path="/test/" exact component={TestComponents} />
-        <Route path="/HomeScreen/" exact component={HomeScreen} />
+        <Route path="/" exact component={Overview} />
 
-        <Route path="/SignUp/" exact component={SignUp} />
-        <Route path="/Login/" exact component={Login} />
+        <Route path="/register/" exact component={SignUp} />
+        <Route path="/login/" exact component={Login} />
       </Router>
     </ThemeProvider>
   );

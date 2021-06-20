@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import FontAwesomeIcon from "react-native-vector-icons/dist/FontAwesome";
 
-function UsernameInput(props) {
+function NameInput(props) {
   return (
     <Container>
       <FontAwesomeIcon
@@ -14,9 +14,9 @@ function UsernameInput(props) {
         }}
       ></FontAwesomeIcon>
       <InputStyle 
-        placeholder="E-Mail Adresse"
-        type="email"
-        value={props.user.email}
+        placeholder="Name"
+        type="text"
+        value={props.user.name}
         onChange={(e) => props.handleField(e.target.value)}>
       </InputStyle>
     </Container>
@@ -28,6 +28,7 @@ const Container = styled.div`
   background-color: transparent;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 31px;
 `;
 
 const InputStyle = styled.input`
@@ -50,4 +51,4 @@ const InputStyle = styled.input`
   flex-direction: column;
 `;
 
-export default UsernameInput;
+export default NameInput;

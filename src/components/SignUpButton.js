@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-function LoginButton(props) {
+function SignUpButton(props) {
   return (
     <Container {...props}>
       <Button>
         <ButtonOverlay>
-          <Beitreten>BEITRETEN</Beitreten>
+          <Beitreten style={{
+        color: props.disableBtn ? 'red' : 'white'
+      }}>BEITRETEN</Beitreten>
         </ButtonOverlay>
       </Button>
     </Container>
@@ -50,4 +52,4 @@ const Beitreten = styled.span`
   margin-right: 52px;
 `;
 
-export default LoginButton;
+export default SignUpButton;

@@ -1,53 +1,57 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import FontAwesomeIcon from "react-native-vector-icons/dist/FontAwesome";
+import FeatherIcon from "react-native-vector-icons/dist/Feather";
 
-function UsernameInput(props) {
+function PasswordConfirmation(props) {
   return (
-    <Container>
-      <FontAwesomeIcon
-        name="user-circle-o"
+    <Container {...props}>
+      <FeatherIcon
+        name="lock"
         style={{
           color: "rgba(52,231,228,1)",
           fontSize: 24,
-          paddingLeft: 8
+          paddingLeft: 8,
+          left: 0,
+          width: 32,
+          top: 9,
         }}
-      ></FontAwesomeIcon>
+      ></FeatherIcon>
       <InputStyle 
-        placeholder="E-Mail Adresse"
-        type="email"
-        value={props.user.email}
-        onChange={(e) => props.handleField(e.target.value)}>
-      </InputStyle>
+        type="password"
+        value={props.user.password_confirmation}
+        onChange={(e) => props.handleField(e.target.value)}placeholder="Passwort wiederholen"></InputStyle>
     </Container>
   );
 }
 
 const Container = styled.div`
   display: flex;
-  background-color: transparent;
   flex-direction: row;
   align-items: center;
 `;
 
 const InputStyle = styled.input`
   font-family: Roboto;
-  color: rgba(255,255,255,1);
+  color: white;
   margin-left: 16px;
   padding-right: 5px;
   font-size: 16px;
   align-self: stretch;
   flex: 1 1 0%;
   line-height: 16px;
+  border-color: #D9D5DC;
   padding-top: 14px;
   padding-bottom: 8px;
+  left: 48px;
+  width: 327px;
+  top: 0px;
   border-width: 0px;
-  border-color: rgba(255,255,255,1);
   border-bottom-width: 1px;
   border-style: solid;
   background: transparent;
   display: flex;
   flex-direction: column;
+  outline: none;
 `;
 
-export default UsernameInput;
+export default PasswordConfirmation;

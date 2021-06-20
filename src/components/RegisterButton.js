@@ -1,17 +1,20 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function RegisterButton(props) {
+  let history = useHistory();
+
   return (
     <Container {...props}>
-      <Link to="/SignUp">
-        <Button>
-          <ButtonOverlay>
-            <Title>{props.title}</Title>
-          </ButtonOverlay>
-        </Button>
-      </Link>
+      <Button onClick={() => {
+        history.push('/register')
+      }}>
+        <ButtonOverlay>
+          <Title>{props.title}</Title>
+        </ButtonOverlay>
+      </Button>
     </Container>
   );
 }
@@ -33,6 +36,7 @@ const Button = styled.div`
   display: flex;
   flex: 1 1 0%;
   border: none;
+  font-size: 16px !important;
 `;
 
 const Title = styled.span`
