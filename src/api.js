@@ -25,7 +25,14 @@ export async function getOfferings() {
 }
 
 export async function getHappenings() {
-    return fetch(apiEndpoint + '/happenings')
+    return fetch(apiEndpoint + '/happenings', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': 'NIBj1PwrLnjGWhiAjho4RawzlaxalIuzJ3NVjKgL'
+            },
+        })
             .then((response) => response.json())
             .then((data) => {
                 return data;
@@ -84,8 +91,12 @@ export async function login(userData) {
     })
     .then((response) => response.json())
     .then((data) => {
-        localStorage.setItem('token', data.token)
-        return true
+        if(data.token) {
+            localStorage.setItem('token', data.token)
+            return true
+        }
+        
+        return false
     })
     .catch((err) => {
         console.log(err)
@@ -106,6 +117,28 @@ export async function register(userData) {
     .then((data) => {
         localStorage.setItem('token', data.token)
         return true
+    })
+    .catch((err) => {
+        console.log(err)
+        return false
+    })
+}
+
+export async function join(id) {
+    return fetch(apiEndpoint + '/happenings/' + id + '/join', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': 'NIBj1PwrLnjGWhiAjho4RawzlaxalIuzJ3NVjKgL'
+        },
+    })
+    .then((response) => {
+        if (response.status == 200 || response.status == 204) {
+            return true
+        }
+
+        return false
     })
     .catch((err) => {
         console.log(err)
