@@ -38,62 +38,63 @@ function HappeningCard(props) {
             paddingLeft: '5px',
             paddingRight: '5px'
         },
-    
+
         cardMedia: {
             backgroundColor: `${props.happening.category.color}`,
             width: '64vw',
             height: '430px',
-            border: '20px solid #fff'
+            border: '2px solid #34E7E4',
+            boxShadow: '0 0 1em black'
         }
     }));
 
     // Generischer in dem man 
     const styles = useStyles();
     return (
-                <Card className={styles.cardMedia}>
-                    <CardActionArea>
-                        <CardContent className={styles.content}>
-                            <Box
-                                display={'flex'}
-                                flexDirection={'column'}
-                                alignItems={'center'}
-                                justifyContent={'center'}
-                                minHeight={360}
-                                color={'common.white'}
-                                textAlign={'center'}
+        <Card className={styles.cardMedia}>
+            <CardActionArea>
+                <CardContent className={styles.content}>
+                    <Box
+                        display={'flex'}
+                        flexDirection={'column'}
+                        alignItems={'center'}
+                        justifyContent={'center'}
+                        minHeight={360}
+                        color={'common.white'}
+                        textAlign={'center'}
 
-                            >
-                                <Box mb={3}>
-                                    <Grid item xs={12}>
-                                        <h1 className={styles.title}>{props.happening.title}</h1>
-                                        <h3>25.06 um 18:00 Uhr <br />in Bludenz</h3>
-                                    </Grid>
-                                </Box>
+                    >
+                        <Box mb={3}>
+                            <Grid item xs={12}>
+                                <h1 className={styles.title}>{props.happening.title}</h1>
+                                <h3>25.06 um 18:00 Uhr <br />in Bludenz</h3>
+                            </Grid>
+                        </Box>
 
-                                <Box mb={3}>
-                                    <Grid item>
-                                        <AccountCircleOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></AccountCircleOutlinedIcon>
+                        <Box mb={3}>
+                            <Grid item>
+                                <AccountCircleOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></AccountCircleOutlinedIcon>
                                         Example
                                     </Grid>
-                                    <Grid item>
-                                        <StarOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"medium"}></StarOutlinedIcon>
+                            <Grid item>
+                                <StarOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"medium"}></StarOutlinedIcon>
                                     4.9
                                 </Grid>
-                                </Box>
+                        </Box>
 
-                                <Box my={3}>
-                                    <Grid item>
-                                        <GroupOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></GroupOutlinedIcon>
+                        <Box my={3}>
+                            <Grid item>
+                                <GroupOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></GroupOutlinedIcon>
                                         12 von 15 besetzt
                                     </Grid>
-                                </Box>
-                            </Box>
-                            <Typography className={styles.cta} variant={'overline'}>
-                                TAP FÜR MEHR
+                        </Box>
+                    </Box>
+                    <Typography className={styles.cta} variant={'overline'}>
+                        TAP FÜR MEHR
                         </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
+                </CardContent>
+            </CardActionArea>
+        </Card>
     );
 }
 

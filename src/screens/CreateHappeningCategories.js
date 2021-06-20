@@ -10,29 +10,29 @@ import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import {getCategories, getTypes} from '../api';
+import { getCategories, getTypes } from '../api';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'rgba(245, 0, 87, 0.5)'
+      borderColor: 'rgba(52, 231, 228, 0.8)'
     },
     '& .MuiInputLabel-root.Mui-focused': {
-      color: 'rgba(245, 0, 87, 0.5)'
+      color: 'rgba(52, 231, 228, 0.8)'
     },
     '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'rgba(245, 0, 87, 0.5)'
+      borderColor: 'rgba(52, 231, 228, 0.8)'
     },
   },
   active: {
-    color: theme.palette.text.secondary
+    color: theme.palette.text.primary
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
   },
   formControl: {
     margin: theme.spacing(3),
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center"
   },
   alert: {
-    color: theme.palette.text.secondary
+    color: theme.palette.text.primary
   }
 }));
 
@@ -92,7 +92,7 @@ function CreateHappeningCategories(props) {
           <BigTitle title={"Kategorien"} description={"Bitte lege deine Kategorien für dein Happening fest"} />
         </Grid>
         <div className={classes.root}>
-          <Grid 
+          <Grid
             container
             spacing={0}
             direction="column"
@@ -101,17 +101,17 @@ function CreateHappeningCategories(props) {
           >
             <FormControl fullWidth variant="outlined" className={classes.formControl}>
               <InputLabel htmlFor="outlined-age-native-simple">Happening Typ</InputLabel>
-                <Select
-                  native
-                  multiple={false}
-                  value={props.happening.type}
-                  onChange={(event) => {props.handleHappeningType(event.target.value)}}
-                  label="Happening Typ"
-                >
-                  {types.map((element, index) => {
-                      return <option key={index} value={element}>{element.toUpperCase()}</option>
-                  })}
-                </Select>
+              <Select
+                native
+                multiple={false}
+                value={props.happening.type}
+                onChange={(event) => { props.handleHappeningType(event.target.value) }}
+                label="Happening Typ"
+              >
+                {types.map((element, index) => {
+                  return <option key={index} value={element}>{element.toUpperCase()}</option>
+                })}
+              </Select>
             </FormControl>
           </Grid>
           <Grid container spacing={2}>

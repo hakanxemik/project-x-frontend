@@ -1,7 +1,7 @@
 import { RepeatOneSharp } from "@material-ui/icons";
 import React from "react";
 
-const apiEndpoint = 'http://localhost:8000/api';
+const apiEndpoint = 'https://socialup-api.herokuapp.com/api';
 
 export async function getCategories() {
     const data = await fetch(apiEndpoint + '/categories')
@@ -25,12 +25,12 @@ export async function getOfferings() {
 }
 
 export async function getHappenings() {
-    return fetch('http://localhost:8000/api/happenings')
-            .then((response) => response.json())
-            .then((data) => {
-                return data;
-            })
-            .catch((err) => console.log(err))
+    return fetch('https://socialup-api.herokuapp.com/api/happenings')
+        .then((response) => response.json())
+        .then((data) => {
+            return data;
+        })
+        .catch((err) => console.log(err))
 }
 
 export async function createHappening(happening) {
@@ -70,5 +70,5 @@ export async function createHappening(happening) {
     }).catch((err) => {
         console.log(err)
     })
-    
+
 }

@@ -17,10 +17,10 @@ import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
 
 function HappeningCardBack(props) {
 
-    const useStyles = makeStyles(() => ({
+    const useStyles = makeStyles((theme) => ({
         content: {
             padding: 24,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
             color: 'white'
         },
         cta: {
@@ -36,12 +36,13 @@ function HappeningCardBack(props) {
             letterSpacing: '2px',
             marginBottom: 0
         },
-    
+
         cardMedia: {
-            backgroundColor: `#2980b9`,
-            border: '20px solid #fff',
+            backgroundColor: `${theme.palette.text.secondary}`,
             width: '64vw',
             height: '430px',
+            border: '2px solid #34E7E4',
+            boxShadow: '0 0 1em black'
         }
     }));
 

@@ -18,7 +18,16 @@ import {
 
 const theme = createMuiTheme({
   palette: {
-    type: "dark"
+    type: "dark",
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: '#34E7E4'
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      main: '#FFFFFF'
+    }
   },
   spacing: 10
 });
