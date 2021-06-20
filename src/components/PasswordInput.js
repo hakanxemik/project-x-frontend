@@ -16,7 +16,10 @@ function PasswordInput(props) {
           top: 9,
         }}
       ></FeatherIcon>
-      <InputStyle placeholder="Passwort"></InputStyle>
+      <InputStyle 
+        type="password"
+        value={props.user.password}
+        onChange={(e) => props.handleField(e.target.value)}placeholder="Passwort"></InputStyle>
     </Container>
   );
 }
@@ -29,7 +32,7 @@ const Container = styled.div`
 
 const InputStyle = styled.input`
   font-family: Roboto;
-  color: #000;
+  color: white;
   margin-left: 16px;
   padding-right: 5px;
   font-size: 16px;

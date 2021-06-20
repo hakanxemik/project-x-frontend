@@ -1,7 +1,7 @@
 import { RepeatOneSharp } from "@material-ui/icons";
 import React from "react";
 
-const apiEndpoint = 'https://socialup-api.herokuapp.com/api';
+const apiEndpoint = 'http://localhost:8000/api';
 
 export async function getCategories() {
     const data = await fetch(apiEndpoint + '/categories')
@@ -54,6 +54,7 @@ export async function createHappening(happening) {
     return fetch(apiEndpoint + '/happenings', {
         method: 'POST',
         headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
             'Content-Type': 'application/json',
             'X-XSRF-TOKEN': 'NIBj1PwrLnjGWhiAjho4RawzlaxalIuzJ3NVjKgL'
         },
@@ -70,5 +71,44 @@ export async function createHappening(happening) {
     }).catch((err) => {
         console.log(err)
     })
-    
+}
+
+export async function login(userData) {
+    return fetch(apiEndpoint + '/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': 'NIBj1PwrLnjGWhiAjho4RawzlaxalIuzJ3NVjKgL'
+        },
+        body: JSON.stringify(userData)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        localStorage.setItem('token', data.token)
+        return true
+    })
+    .catch((err) => {
+        console.log(err)
+        return false
+    })
+}
+
+export async function register(userData) {
+    return fetch(apiEndpoint + '/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': 'NIBj1PwrLnjGWhiAjho4RawzlaxalIuzJ3NVjKgL'
+        },
+        body: JSON.stringify(userData)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        localStorage.setItem('token', data.token)
+        return true
+    })
+    .catch((err) => {
+        console.log(err)
+        return false
+    })
 }

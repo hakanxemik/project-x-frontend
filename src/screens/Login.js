@@ -4,49 +4,81 @@ import UsernameInput from "../components/UsernameInput";
 import PasswordInput from "../components/PasswordInput";
 import LoginButton from "../components/LoginButton";
 import RegisterButton from "../components/RegisterButton";
+import { useHistory } from "react-router-dom";
+import {login} from "../api";
+import Swal from 'sweetalert2';
+import { Redirect } from "react-router-dom";
 
 function Login(props) {
-  const [mail, setMail] = useState('')
-  const [password, setPassword] = useState('')
-  
+  let history = useHistory();
+  const [user, setUser] = useState({})
+
+  const handleField = (input) => (value) => {
+    let userTmp = {...user, [input]: value};
+    setUser(userTmp)
+    localStorage.setItem('user', JSON.stringify(userTmp))
+  }
   return (
-    <Container>
-      <Group2>
-        <Image src={require("../assets/images/socialup_(5)_(1).png")}></Image>
-        <Group>
-          <MaterialIconTextbox1Column>
-            <UsernameInput
-              style={{
-                height: 43
-              }}
-            ></UsernameInput>
-            <PasswordInput
-              style={{
-                height: 43,
-                marginTop: 31
-              }}
-            ></PasswordInput>
-            <LoginButton
+    <>
+    {!localStorage.getItem('token') ?
+      <Container>
+        <Group2>
+          <Image src={require("../assets/images/socialup_(5)_(1).png")}></Image>
+          <Group>
+            <MaterialIconTextbox1Column>
+              <UsernameInput
+                handleField={handleField('email')}
+                user={user}
+                style={{
+                  height: 43
+                }}
+              ></UsernameInput>
+              <PasswordInput
+                handleField={handleField('password')}
+                user={user}
+                style={{
+                  height: 43,
+                  marginTop: 31
+                }}
+              ></PasswordInput>
+              <LoginButton
+                onClick={() => login(user).then((success) => {
+                  if (!success) {
+                    Swal.fire({
+                      title: 'Fehler!',
+                      html: 'Passwort oder Email falsch. <br> Bitte überprüfe deine Eingaben!',
+                      icon: 'error',
+                      confirmButtonText: 'Verstanden'
+                    })
+                  } else {
+                    history.push('/')
+                  }
+                })}
+                style={{
+                  height: 38,
+                  marginTop: 35,
+                  marginLeft: 4,
+                  marginRight: 4
+                }}
+              ></LoginButton>
+            </MaterialIconTextbox1Column>
+            <MaterialIconTextbox1ColumnFiller></MaterialIconTextbox1ColumnFiller>
+            <RegisterButton
               style={{
                 height: 38,
-                marginTop: 35,
-                marginLeft: 4,
-                marginRight: 4
+                marginLeft: 18,
+                marginRight: 18,
+                marginTop: 20
               }}
-            ></LoginButton>
-          </MaterialIconTextbox1Column>
-          <MaterialIconTextbox1ColumnFiller></MaterialIconTextbox1ColumnFiller>
-          <RegisterButton
-            style={{
-              height: 38,
-              marginLeft: 18,
-              marginRight: 18
-            }}
-            title="Noch kein Account?"
-          ></RegisterButton>
-        </Group>
-      </Group2>
-    </Container>
+              title="Noch kein Account?"
+              onClick={() => history.push('/register/')}
+            ></RegisterButton>
+          </Group>
+        </Group2>
+      </Container>
+        : <Redirect to='/' />
+    }
+    </>
   );
 }
 
@@ -64,7 +96,7 @@ const Group2 = styled.div`
   display: flex;
   flex: 1 1 0%;
   margin-bottom: 304px;
-  margin-top: 154px;
+  margin-top: 54px;
   align-self: center;
 `;
 
@@ -81,7 +113,7 @@ const Group = styled.div`
   width: 270px;
   flex-direction: column;
   display: flex;
-  margin-top: 87px;
+  margin-top: 40px;
   align-self: center;
 `;
 
