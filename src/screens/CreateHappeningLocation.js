@@ -23,7 +23,7 @@ function CreateHappeningLocation(props) {
 
   const handleButton = () => {
     let happeningTmp = JSON.parse(localStorage.getItem('happening'))
-    
+
     if (!(happeningTmp.location && happeningTmp.locationDescription)) {
       props.handleButton(true)
     } else {
@@ -43,29 +43,29 @@ function CreateHappeningLocation(props) {
           <BigTitle title={props.happening.title} description={"am " + moment(props.happening.date).format('DD.MM.YYYY') + " um " + props.happening.time + " Uhr"} />
         </Grid>
         <Grid className={classes.input} item xs={12}>
-            <TextField id="standard-basic" 
-              value={props.happening.location} 
-              error={props.happening.location ? false : true}
-              onChange={(event) => {
-                props.handleLocation(event.target.value)
-              }}
-              helperText={props.happening.location ? '' : 'Bitte gib einen gültigen Ort ein'}
-              label="Ort" 
-              fullWidth 
-            />
+          <TextField id="standard-basic"
+            value={props.happening.location}
+            error={props.happening.location ? false : true}
+            onChange={(event) => {
+              props.handleLocation(event.target.value)
+            }}
+            helperText={props.happening.location ? '' : 'Bitte gib einen gültigen Ort ein'}
+            label="Ort"
+            fullWidth
+          />
         </Grid>
         <Grid className={classes.input} item xs={12}>
-            <TextField 
-              id="standard-basic" 
-              error={props.happening.locationDescription ? false : true}
-              value={props.happening.locationDescription} 
-              onChange={(event) => {
-                props.handleLocationDesc(event.target.value)
-              }}
-              helperText={props.happening.locationDescription ? '' : 'Bitte gib eine gültige Beschreibung ein'}
-              label="Beschreibung" 
-              fullWidth 
-            />
+          <TextField
+            id="standard-basic"
+            error={props.happening.locationDescription ? false : true}
+            value={props.happening.locationDescription}
+            onChange={(event) => {
+              props.handleLocationDesc(event.target.value)
+            }}
+            helperText={props.happening.locationDescription ? '' : 'Bitte gib eine gültige Beschreibung ein'}
+            label="Beschreibung"
+            fullWidth
+          />
         </Grid>
       </Container>
     </Grid >

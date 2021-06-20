@@ -18,11 +18,9 @@ import moment from "moment";
 
 function HappeningCard(props) {
 
-    const useStyles = makeStyles(() => ({
+    const useStyles = makeStyles((theme) => ({
         content: {
-            padding: 24,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            color: 'white'
+            padding: 18,
         },
         cta: {
             display: 'block',
@@ -34,74 +32,78 @@ function HappeningCard(props) {
         },
         title: {
             color: '#fff',
-            letterSpacing: '1px',
+            letterSpacing: '1.5px',
+            textTransform: 'uppercase',
             marginBottom: 0,
             paddingLeft: '5px',
-            paddingRight: '5px'
+            paddingRight: '5px',
+            paddingTop: '-30px'
         },
-    
+
         cardMedia: {
-            backgroundColor: `${props.happening.category.color}`,
-            width: '64vw',
-            height: '430px',
-            border: '15px solid #fff',
+            /*backgroundColor: `${props.happening.category.color}`,*/
+            width: '65vw',
+            height: '65vh',
+            border: '2px solid',
+            borderColor: '#34E7E4',
             borderRadius: '25px',
+            boxShadow: '0 0 1em black'
         }
     }));
 
     // Generischer in dem man 
     const styles = useStyles();
     return (
-                <Card className={styles.cardMedia}>
-                    <CardActionArea>
-                        <CardContent className={styles.content}>
-                            <Box
-                                display={'flex'}
-                                flexDirection={'column'}
-                                alignItems={'center'}
-                                justifyContent={'center'}
-                                minHeight={360}
-                                color={'common.white'}
-                                textAlign={'center'}
+        <Card className={styles.cardMedia}>
+            <CardActionArea>
+                <CardContent className={styles.content}>
+                    <Box
+                        display={'flex'}
+                        flexDirection={'column'}
+                        alignItems={'center'}
+                        justifyContent={'center'}
+                        minHeight={380}
+                        color={'common.white'}
+                        textAlign={'center'}
 
-                            >
-                                <Box mb={2}>
-                                    <Grid item xs={12}>
-                                        <h1 className={styles.title}>{props.happening.title}</h1>
-                                        <h3>{moment(props.happening.date).format('DD.MM')} um {moment(props.happening.date).format('HH:mm')} Uhr <br />in {props.happening.location.meetingPoint}</h3>
-                                    </Grid>
-                                </Box>
+                    >
+                        <Box mb={2}>
+                            <Grid item xs={12}>
+                                <h1 className={styles.title}>{props.happening.title}</h1>
+                                <p>am {moment(props.happening.date).format('DD.MM')} um {moment(props.happening.date).format('HH:mm')} Uhr <br />in {props.happening.location.meetingPoint}</p>
+                            </Grid>
+                        </Box>
 
-                                <Box mb={2}>
-                                    <Grid item>
-                                        <AccountCircleOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></AccountCircleOutlinedIcon>
-                                        {
-                                            props.happening.users.map((element) => {
-                                                if (element.attendance.userType == 'host') {
-                                                    return <span>{element.name}</span>
-                                                }
-                                            })
-                                        } 
-                                    </Grid>
-                                    {false && <Grid item>
-                                        <StarOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"medium"}></StarOutlinedIcon>
+                        <Box mb={2}>
+                            <Grid item>
+                                <AccountCircleOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></AccountCircleOutlinedIcon>
+                                {
+                                    props.happening.users.map((element) => {
+                                        if (element.attendance.userType == 'host') {
+                                            return <span>{element.name}</span>
+                                        }
+                                    })
+                                }
+                            </Grid>
+                            {false && <Grid item>
+                                <StarOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"medium"}></StarOutlinedIcon>
                                         4.9
                                     </Grid>}
-                                </Box>
+                        </Box>
 
-                                <Box my={2}>
-                                    <Grid item>
-                                        <GroupOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></GroupOutlinedIcon>
-                                        {props.happening.users.length - 1} von {props.happening.maxGuests} besetzt
+                        <Box my={2}>
+                            <Grid item>
+                                <GroupOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></GroupOutlinedIcon>
+                                {props.happening.users.length - 1} von {props.happening.maxGuests} besetzt
                                     </Grid>
-                                </Box>
-                            </Box>
-                            <Typography className={styles.cta} variant={'overline'}>
-                                TAP FÜR MEHR
+                        </Box>
+                    </Box>
+                    <Typography className={styles.cta} variant={'overline'}>
+                        TAP FÜR MEHR
                         </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
+                </CardContent>
+            </CardActionArea>
+        </Card>
     );
 }
 

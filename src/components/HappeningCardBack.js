@@ -18,9 +18,7 @@ function HappeningCardBack(props) {
 
     const useStyles = makeStyles((theme) => ({
         content: {
-            padding: 24,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            color: 'white'
+            padding: 18,
         },
         cta: {
             display: 'block',
@@ -32,16 +30,22 @@ function HappeningCardBack(props) {
         },
         title: {
             color: '#fff',
-            letterSpacing: '2px',
-            marginBottom: 0
+            letterSpacing: '1.5px',
+            textTransform: 'uppercase',
+            marginBottom: 0,
+            paddingLeft: '5px',
+            paddingRight: '5px',
+            paddingTop: '-30px'
         },
-    
+
         cardMedia: {
-            backgroundColor: `#2980b9`,
-            width: '64vw',
-            height: '430px',
-            border: '15px solid #fff',
+            /*backgroundColor: `${props.happening.category.color}`,*/
+            width: '65vw',
+            height: '65vh',
+            border: '2px solid',
+            borderColor: '#e73490',
             borderRadius: '25px',
+            boxShadow: '0 0 1em black'
         },
         offerings: {
             display: 'inline',
@@ -83,9 +87,9 @@ function HappeningCardBack(props) {
 
                     >
                         <Box>
-                            <h1>Includings:</h1>
+                            <h1 >Includings</h1>
                             {props.happening.offerings.map((element, index) => {
-                                return props.happening.offerings.length < 3 ? 
+                                return props.happening.offerings.length < 3 ?
                                     <span className={styles.offerings} key={index}>{element.name}</span> :
                                     <>
                                         <span className={styles.offerings} key={index}>{element.name}</span>
@@ -95,40 +99,40 @@ function HappeningCardBack(props) {
                         </Box>
 
                         <Box>
-                            <h1>Beschreibung:</h1>
+                            <h1>Beschreibung</h1>
                             {
                                 props.happening.description.length < 10 ? <span className={styles.description}>{props.happening.description}</span> :
-                                <span className={styles.description}>{props.happening.description.substring(0, 15) + "..."}</span>
+                                    <span className={styles.description}>{props.happening.description.substring(0, 15) + "..."}</span>
                             }
                         </Box>
 
                         <Box my={2}>
                             <Grid className={styles.priceBox} item>
                                 <EuroIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></EuroIcon>
-                                <span className={styles.price}>{props.happening.price}</span> 
+                                <span className={styles.price}>{props.happening.price}</span>
                             </Grid>
                         </Box>
                         <Box>
-                                <Button onClick={() => {
-                                    Swal.fire({
-                                       title: `<strong>${props.happening.title}</strong>`,
-                                       icon: 'info',
-                                       html:
-                                       `<h3>Includings:</h3>` +
+                            <Button onClick={() => {
+                                Swal.fire({
+                                    title: `<strong>${props.happening.title}</strong>`,
+                                    icon: 'info',
+                                    html:
+                                        `<h3>Includings:</h3>` +
                                         props.happening.offerings.map((element) => {
-                                            return `<span style="margin-right: 2px;">${element.name}</span>`                                         
-                                        })  +
-                                         `<h3>Beschreibung:</h3>` +
-                                         `<p>${props.happening.description}</p>` +
-                                         `<h3>Preis:</h3>` +
-                                         `<p>${props.happening.price} €</p>`,
-                                       showCloseButton: true,
-                                       showCancelButton: false,
-                                       showConfirmButton: true,
-                                       focusClose: false
-                                    })   
-                                }} fullWidth size="small" variant={'outlined'} color="tertiary">
-                                        Mehr Anzeigen 
+                                            return `<span style="margin-right: 2px;">${element.name}</span>`
+                                        }) +
+                                        `<h3>Beschreibung:</h3>` +
+                                        `<p>${props.happening.description}</p>` +
+                                        `<h3>Preis:</h3>` +
+                                        `<p>${props.happening.price} €</p>`,
+                                    showCloseButton: true,
+                                    showCancelButton: false,
+                                    showConfirmButton: true,
+                                    focusClose: false
+                                })
+                            }} fullWidth size="small" variant={'outlined'} color="tertiary">
+                                Mehr Anzeigen
                                 </Button>
                         </Box>
                         <Box my={2}>

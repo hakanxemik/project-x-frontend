@@ -8,30 +8,30 @@ import moment from "moment"
 
 function CreateHappeningDateTime(props) {
   let today = new Date()
-  let todayTime = today.toLocaleTimeString([], {timeStyle: 'short'})
+  let todayTime = today.toLocaleTimeString([], { timeStyle: 'short' })
 
   const formatDate = (date) => {
     let d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
 
     return [year, month, day].join('-');
   }
-  
+
   const [date, setDate] = useState(formatDate(today))
   const [time, setTime] = useState(todayTime)
 
   const handleDisableDate = (dateInput) => {
-    setTimeout(function() {
+    setTimeout(function () {
       const dateFormatted = moment(dateInput, 'YYYY-MM-DD')
 
-      if (dateFormatted.isSameOrAfter(today, 'day') && dateFormatted.isSame(today, 'year') ) {
+      if (dateFormatted.isSameOrAfter(today, 'day') && dateFormatted.isSame(today, 'year')) {
         props.handleButton(false)
         return false
       }
@@ -60,7 +60,7 @@ function CreateHappeningDateTime(props) {
     else {
       handleDateInput(formatDate(today))
     }
-    
+
     if (props.happening.time)
       setTime(props.happening.time)
     else
@@ -99,6 +99,7 @@ function CreateHappeningDateTime(props) {
               label="Uhrzeit"
               type="time"
               value={time}
+              color="primary"
               InputLabelProps={{
                 shrink: true,
               }}
