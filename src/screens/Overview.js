@@ -6,6 +6,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import ReactCardCarousel from 'react-card-carousel';
 import Grid from '@material-ui/core/Grid';
 import Swipe from 'react-easy-swipe';
+import { TrainRounded } from "@material-ui/icons";
 
 function Overview(props) {
 
@@ -35,19 +36,17 @@ function Overview(props) {
         setSwipeDirection('')
     }
 
-    const happeningsData = (data) => {        
+    const happeningsData = (data) => {
         data.forEach((happening) => {
-            let save = false
+            let save = TrainRounded
 
             happening.users.forEach((element) => {
-                if ((element.attendance.userType === 'host' && element.name !== user.name) || (element.attendance.userType !== 'guest' && element.name !== user.name)) {
-                    save = true
-                    return
+                if (element.name === user.name) {
+                    save = false
                 }
             })
 
             if (save && happening.maxGuests > happening.users.length - 1) {
-                console.log(happening)
                 let happeningsTmp = happenings
                 happeningsTmp.push(happening)
                 setHappenings(happeningsTmp)
@@ -78,19 +77,19 @@ function Overview(props) {
                         <h1 style={info}>Keine Happenings vorhanden 😲. <br></br><br></br> Erstelle jetzt dein Happening und werde teil der Community!</h1> :
                         <>
                             <ReactCardCarousel ref={carouselRef} spread="narrow">
-                            {happenings.length > 0 && happenings.map((happening) => {
-                                return (
-                                   <Swipe
-                                        onSwipeMove={onSwipeMove}
-                                        onSwipeEnd={onSwipeEnd}
-                                    >
-                                        <Happening happening={happening}></Happening>
-                                    </Swipe>
-                                )
-                            })}
-                        </ReactCardCarousel>
-                    </>
-                        }
+                                {happenings.length > 0 && happenings.map((happening) => {
+                                    return (
+                                    <Swipe
+                                            onSwipeMove={onSwipeMove}
+                                            onSwipeEnd={onSwipeEnd}
+                                        >
+                                            <Happening happening={happening}></Happening>
+                                        </Swipe>
+                                    )
+                                })}
+                            </ReactCardCarousel>
+                        </>
+                    }
                 </Grid>
             : <Redirect to='/login' />}
         </>
