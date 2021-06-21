@@ -17,6 +17,8 @@ import Button from '@material-ui/core/Button';
 
 function HappeningCardBack(props) {
 
+    const [guest, setGuest] = useState(false)
+
     const useStyles = makeStyles((theme) => ({
         content: {
             padding: 24,
