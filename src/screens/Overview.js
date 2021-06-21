@@ -19,11 +19,8 @@ function Overview(props) {
     const [swipeDirection, setSwipeDirection] = useState('')
     const [loading, setLoading] = useState(true)
 
-<<<<<<< HEAD
-=======
     const user = JSON.parse(localStorage.getItem('user'))
     
->>>>>>> develop
     function onSwipeMove(pos) {
         if (pos.x > 25) {
             setSwipeDirection('right')
@@ -85,15 +82,6 @@ function Overview(props) {
                         <h1 style={info}>Keine Happenings vorhanden 😲. <br></br><br></br> Erstelle jetzt dein Happening und werde teil der Community!</h1> :
                         <>
                             <ReactCardCarousel ref={carouselRef} spread="narrow">
-<<<<<<< HEAD
-                                {happenings.length > 0 && happenings.map((element) => {
-                                    return (
-                                        <Swipe
-                                            onSwipeMove={onSwipeMove}
-                                            onSwipeEnd={onSwipeEnd}
-                                        >
-                                            <Happening happening={element}></Happening>
-=======
                                 {happenings.length > 0 && happenings.map((happening) => {
                                     return (
                                     <Swipe
@@ -101,17 +89,13 @@ function Overview(props) {
                                             onSwipeEnd={onSwipeEnd}
                                         >
                                             <Happening happening={happening}></Happening>
->>>>>>> develop
                                         </Swipe>
                                     )
                                 })}
                             </ReactCardCarousel>
                         </>
                     }
-<<<<<<< HEAD
                     <NavBar></NavBar>
-=======
->>>>>>> develop
                 </Grid>
                 : <Redirect to='/login' />}
         </>

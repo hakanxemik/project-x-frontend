@@ -1,7 +1,7 @@
 import { RepeatOneSharp } from "@material-ui/icons";
 import React from "react";
 
-const apiEndpoint = 'https://socialup-api.herokuapp.com/api';
+const apiEndpoint = 'http://localhost:8000/api';
 
 export async function getCategories() {
     const data = await fetch(apiEndpoint + '/categories')
@@ -25,14 +25,6 @@ export async function getOfferings() {
 }
 
 export async function getHappenings() {
-<<<<<<< HEAD
-    return fetch(apiEndpoint + '/happenings')
-        .then((response) => response.json())
-        .then((data) => {
-            return data;
-        })
-        .catch((err) => console.log(err))
-=======
     return fetch(apiEndpoint + '/happenings', {
             method: 'GET',
             headers: {
@@ -46,7 +38,6 @@ export async function getHappenings() {
                 return data;
             })
             .catch((err) => console.log(err))
->>>>>>> develop
 }
 
 export async function createHappening(happening) {
@@ -98,17 +89,6 @@ export async function login(userData) {
         },
         body: JSON.stringify(userData)
     })
-<<<<<<< HEAD
-        .then((response) => response.json())
-        .then((data) => {
-            localStorage.setItem('token', data.token)
-            return true
-        })
-        .catch((err) => {
-            console.log(err)
-            return false
-        })
-=======
     .then((response) => response.json())
     .then((data) => {
         if(data.token) {
@@ -122,7 +102,6 @@ export async function login(userData) {
         console.log(err)
         return false
     })
->>>>>>> develop
 }
 
 export async function register(userData) {
@@ -134,17 +113,6 @@ export async function register(userData) {
         },
         body: JSON.stringify(userData)
     })
-<<<<<<< HEAD
-        .then((response) => response.json())
-        .then((data) => {
-            localStorage.setItem('token', data.token)
-            return true
-        })
-        .catch((err) => {
-            console.log(err)
-            return false
-        })
-=======
     .then((response) => response.json())
     .then((data) => {
         localStorage.setItem('token', data.token)
@@ -176,5 +144,4 @@ export async function join(id) {
         console.log(err)
         return false
     })
->>>>>>> develop
 }

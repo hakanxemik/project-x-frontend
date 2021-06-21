@@ -32,7 +32,10 @@ const useStyles = makeStyles((theme) => ({
     borderColor: 'rgba(52, 231, 228, 0.5)'
   },
   textField: {
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(0.5)
+  },
+  desc: {
+    marginTop: '10px'
   }
 }));
 
@@ -92,20 +95,18 @@ function CreateHappeningOfferings(props) {
         {!props.happening.offerings || props.happening.offerings.length <= 0 && <p className={classes.alert}>Bitte wähle mindestens ein Offering aus</p>}
 
         <Container className={classes.textField} spacing={1}>
-          <Grid item xs={12}>
+         
             <TextField
-              id="outlined-multiline-static"
+              id="standard-basic" 
               label="Sonstiges"
-              multiline
-              rows={4}
               placeholder="Beschreibe deine Offerings"
               value={props.happening.offeringsDescription}
               onChange={(event) => { props.handleOfferingsDescription(event.target.value) }}
-              variant="outlined"
-              className={classes.root}
+              className={classes.desc}
               fullWidth
+              variant="outlined"
             />
-          </Grid>
+       
         </Container>
       </Container>
     </Grid >
