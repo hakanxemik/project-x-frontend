@@ -14,6 +14,8 @@ function Overview(props) {
     const [happenings, setHappenings] = useState([])
     const [swipeDirection, setSwipeDirection] = useState('')
     const [loading, setLoading] = useState(true)
+
+    const user = JSON.parse(localStorage.getItem('user'))
     
     function onSwipeMove(pos) {
       if (pos.x > 25) {
@@ -33,10 +35,32 @@ function Overview(props) {
         setSwipeDirection('')
     }
 
+    const happeningsData = (data) => {        
+        data.forEach((happening) => {
+            let save = false
+
+            happening.users.forEach((element) => {
+                if ((element.attendance.userType === 'host' && element.name !== user.name) || (element.attendance.userType !== 'guest' && element.name !== user.name)) {
+                    save = true
+                    return
+                }
+            })
+
+            if (save && happening.maxGuests > happening.users.length - 1) {
+                console.log(happening)
+                let happeningsTmp = happenings
+                happeningsTmp.push(happening)
+                setHappenings(happeningsTmp)
+            }
+        })
+        setLoading(false)
+    }
+
     useEffect(() => {
         getHappenings().then(data => {
-            setHappenings(data)
-            setLoading(false)
+            if (data) {
+                happeningsData(data)
+            }
         })
     }, [])
     
@@ -54,13 +78,13 @@ function Overview(props) {
                         <h1 style={info}>Keine Happenings vorhanden 😲. <br></br><br></br> Erstelle jetzt dein Happening und werde teil der Community!</h1> :
                         <>
                             <ReactCardCarousel ref={carouselRef} spread="narrow">
-                            {happenings.length > 0 && happenings.map((element) => {
+                            {happenings.length > 0 && happenings.map((happening) => {
                                 return (
-                                    <Swipe
+                                   <Swipe
                                         onSwipeMove={onSwipeMove}
                                         onSwipeEnd={onSwipeEnd}
                                     >
-                                        <Happening happening={element}></Happening>
+                                        <Happening happening={happening}></Happening>
                                     </Swipe>
                                 )
                             })}

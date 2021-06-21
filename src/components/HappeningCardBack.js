@@ -17,8 +17,6 @@ import Button from '@material-ui/core/Button';
 
 function HappeningCardBack(props) {
 
-    const [guest, setGuest] = useState(false)
-
     const useStyles = makeStyles((theme) => ({
         content: {
             padding: 24,
@@ -75,10 +73,8 @@ function HappeningCardBack(props) {
         props.happening.users.forEach((element) => {
             if (element.name === localStorage.getItem('users').name) {
                 if (element.attendance.userType === 'guest') {
-                    setGuest(true)
+
                 }
-            } else {
-                setGuest(false)
             }
         })
     }
@@ -147,16 +143,16 @@ function HappeningCardBack(props) {
                                 </Button>
                         </Box>
                         <Box my={2}>
-                            {guest ? <Button onClick={() => {join(props.happening.id).then((success) => {
+                            <Button onClick={() => {join(props.happening.id).then((success) => {
                                 Swal.fire({
                                     title: success ? 'Glückwunsch!' : 'Happening teilnahme fehlgeschlagen!',
                                     text: success ? 'Teilnahme an Happening!' : 'Bitte überprüfe deine Eingaben oder versuche es später',
                                     icon: success ? 'success' : 'error',
                                     confirmButtonText: 'Verstanden'
                                   })
-                                })}
-                            } fullWidth size="medium" variant={'contained'} color="tertiary">TEILNEHMEN</Button> :
-                            <h3>TEILGENOMMEN</h3>}
+                                })
+                            }
+                            } fullWidth size="medium" variant={'contained'} color="tertiary">Teilnehmen</Button>
                         </Box>
                     </Box>
                     <Typography className={styles.cta} variant={'overline'}>
