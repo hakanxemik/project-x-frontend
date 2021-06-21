@@ -7,7 +7,7 @@ import PasswordConfirmation from "../components/PasswordConfirmation";
 import SignUpButton from "../components/SignUpButton";
 import RegisterButton from "../components/RegisterButton";
 import { useHistory } from "react-router-dom";
-import {register} from "../api";
+import { register } from "../api";
 import Swal from 'sweetalert2';
 import { Redirect } from "react-router-dom";
 
@@ -22,7 +22,7 @@ function SignUp(props) {
   const [disableConfirmation, setDisableConfirmation] = useState(true)
 
   const handleField = (input) => (value) => {
-    let userTmp = {...user, [input]: value};
+    let userTmp = { ...user, [input]: value };
     setUser(userTmp)
     localStorage.setItem('user', JSON.stringify(userTmp))
 
@@ -55,79 +55,79 @@ function SignUp(props) {
 
   return (
     <>
-    {!localStorage.getItem('token') ?
-      <Container>
-        <Group2>
-          <Image src={require("../assets/images/socialup_(5)_(1).png")}></Image>
-          <Group>
-            <MaterialIconTextbox1Column>
-              <NameInput
-                type="text"
-                handleField={handleField('name')}
-                user={user}
-                style={{
-                  height: 43,
-                  marginTop: 31
-                }}
-              ></NameInput>
-              <UsernameInput
-                type="text"
-                handleField={handleField('email')}
-                user={user}
-                style={{
-                  height: 43,
-                  marginTop: 31
-                }}
-              ></UsernameInput>
-              <PasswordInput
-                handleField={handleField('password')}
-                user={user}
-                style={{
-                  height: 43,
-                  marginTop: 31
-                }}
-              ></PasswordInput>
-              <PasswordConfirmation
-                handleField={handleField('password_confirmation')}
-                user={user}
-                style={{
-                  height: 43,
-                  marginTop: 31
-                }}
-              ></PasswordConfirmation>
-              <SignUpButton
-                disableBtn={disableName || disablePassword || disableConfirmation }
-                onClick={() => register(user).then((success) => {
-                  if (!success || disableConfirmation || disableName || disablePassword || disableEmail) {
-                    Swal.fire({
-                      title: 'Fehler!',
-                      html: (disableConfirmation || disableName || disablePassword || disableEmail) ? 'Email existiert bereits!' : 'Überprüfe deine Angaben!' ,
-                      icon: 'error',
-                      confirmButtonText: 'Verstanden'
-                    })
-                  } else {
-                    history.push('/')
-                  }
-                })}
-                style={{
-                  height: 38,
-                  marginTop: 25,
-                  marginBottom: 35,
-                  marginLeft: 4,
-                  marginRight: 4
-                }}
-              ></SignUpButton>
-            </MaterialIconTextbox1Column>
-            <MaterialIconTextbox1ColumnFiller></MaterialIconTextbox1ColumnFiller>
-            {disableName && <h1 className="error">Der Name muss min. 3 und max. 25 Zeichen lang sein!</h1>}
-            {disablePassword && <h1 className="error">Passwort: min. ein Großbuchchstabe, ein Sonderzeichen, eine Zahl und min. 8 Zeichen!</h1>}
-            {disableConfirmation && <h1 className="error">Passwort und Bestätigung stimmen nicht überrein!</h1>}
-            {!user.email && <h1 className="error">Email Adresse fehlt!</h1>}
-          </Group>
-        </Group2>
-      </Container>
+      {!localStorage.getItem('token') ?
+        <Container>
+          <Group2>
+            <Image src={require("../assets/images/socialup-min.png")}></Image>
+            <Group>
+              <MaterialIconTextbox1Column>
+                <NameInput
+                  type="text"
+                  handleField={handleField('name')}
+                  user={user}
+                  style={{
+                    height: 43,
+                    marginTop: 31
+                  }}
+                ></NameInput>
+                <UsernameInput
+                  type="text"
+                  handleField={handleField('email')}
+                  user={user}
+                  style={{
+                    height: 43,
+                    marginTop: 31
+                  }}
+                ></UsernameInput>
+                <PasswordInput
+                  handleField={handleField('password')}
+                  user={user}
+                  style={{
+                    height: 43,
+                    marginTop: 31
+                  }}
+                ></PasswordInput>
+                <PasswordConfirmation
+                  handleField={handleField('password_confirmation')}
+                  user={user}
+                  style={{
+                    height: 43,
+                    marginTop: 31
+                  }}
+                ></PasswordConfirmation>
+                <SignUpButton
+                  disableBtn={disableName || disablePassword || disableConfirmation}
+                  onClick={() => register(user).then((success) => {
+                    if (!success || disableConfirmation || disableName || disablePassword || disableEmail) {
+                      Swal.fire({
+                        title: 'Fehler!',
+                        html: (disableConfirmation || disableName || disablePassword || disableEmail) ? 'Email existiert bereits!' : 'Überprüfe deine Angaben!',
+                        icon: 'error',
+                        confirmButtonText: 'Verstanden'
+                      })
+                    } else {
+                      history.push('/')
+                    }
+                  })}
+                  style={{
+                    height: 38,
+                    marginTop: 25,
+                    marginBottom: 35,
+                    marginLeft: 4,
+                    marginRight: 4
+                  }}
+                ></SignUpButton>
+              </MaterialIconTextbox1Column>
+              <MaterialIconTextbox1ColumnFiller></MaterialIconTextbox1ColumnFiller>
+              {disableName && <h1 className="error">Der Name muss min. 3 und max. 25 Zeichen lang sein!</h1>}
+              {disablePassword && <h1 className="error">Passwort: min. ein Großbuchchstabe, ein Sonderzeichen, eine Zahl und min. 8 Zeichen!</h1>}
+              {disableConfirmation && <h1 className="error">Passwort und Bestätigung stimmen nicht überrein!</h1>}
+              {!user.email && <h1 className="error">Email Adresse fehlt!</h1>}
+            </Group>
+          </Group2>
+        </Container>
         : <Redirect to='/' />
-    }
+      }
     </>
   );
 }
