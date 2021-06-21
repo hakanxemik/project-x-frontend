@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 
-function BigTitle(props) {
+function SmallTitle(props) {
   return (
     <Container {...props}>
       <Title>{props.title}</Title>
@@ -26,4 +26,4 @@ const Title = styled.span`
   height: 78px;
 `;
 
-export default BigTitle;
+export default SmallTitle;
