@@ -9,6 +9,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import ReactCardCarousel from 'react-card-carousel';
 import Grid from '@material-ui/core/Grid';
 import Swipe from 'react-easy-swipe';
+import { TrainRounded } from "@material-ui/icons";
 
 function Overview(props) {
 
@@ -18,6 +19,11 @@ function Overview(props) {
     const [swipeDirection, setSwipeDirection] = useState('')
     const [loading, setLoading] = useState(true)
 
+<<<<<<< HEAD
+=======
+    const user = JSON.parse(localStorage.getItem('user'))
+    
+>>>>>>> develop
     function onSwipeMove(pos) {
         if (pos.x > 25) {
             setSwipeDirection('right')
@@ -36,10 +42,30 @@ function Overview(props) {
         setSwipeDirection('')
     }
 
+    const happeningsData = (data) => {
+        data.forEach((happening) => {
+            let save = TrainRounded
+
+            happening.users.forEach((element) => {
+                if (element.name === user.name) {
+                    save = false
+                }
+            })
+
+            if (save && happening.maxGuests > happening.users.length - 1) {
+                let happeningsTmp = happenings
+                happeningsTmp.push(happening)
+                setHappenings(happeningsTmp)
+            }
+        })
+        setLoading(false)
+    }
+
     useEffect(() => {
         getHappenings().then(data => {
-            setHappenings(data)
-            setLoading(false)
+            if (data) {
+                happeningsData(data)
+            }
         })
     }, [])
 
@@ -59,6 +85,7 @@ function Overview(props) {
                         <h1 style={info}>Keine Happenings vorhanden 😲. <br></br><br></br> Erstelle jetzt dein Happening und werde teil der Community!</h1> :
                         <>
                             <ReactCardCarousel ref={carouselRef} spread="narrow">
+<<<<<<< HEAD
                                 {happenings.length > 0 && happenings.map((element) => {
                                     return (
                                         <Swipe
@@ -66,13 +93,25 @@ function Overview(props) {
                                             onSwipeEnd={onSwipeEnd}
                                         >
                                             <Happening happening={element}></Happening>
+=======
+                                {happenings.length > 0 && happenings.map((happening) => {
+                                    return (
+                                    <Swipe
+                                            onSwipeMove={onSwipeMove}
+                                            onSwipeEnd={onSwipeEnd}
+                                        >
+                                            <Happening happening={happening}></Happening>
+>>>>>>> develop
                                         </Swipe>
                                     )
                                 })}
                             </ReactCardCarousel>
                         </>
                     }
+<<<<<<< HEAD
                     <NavBar></NavBar>
+=======
+>>>>>>> develop
                 </Grid>
                 : <Redirect to='/login' />}
         </>
