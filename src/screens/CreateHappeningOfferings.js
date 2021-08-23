@@ -47,7 +47,7 @@ function CreateHappeningOfferings(props) {
   const [offeringSelected, setOfferingSelected] = useState([])
 
   const handleClick = (e) => {
-    let input = e.currentTarget.dataset.id
+    let input = parseInt(e.currentTarget.dataset.id)
 
     let offeringArray = offeringSelected;
 
@@ -87,7 +87,7 @@ function CreateHappeningOfferings(props) {
           {offerings.map((element, index) => {
             return (
               <Grid key={index} item xs={6}>
-                <Button className={classes.paper} onClick={handleClick} data-id={element} fullWidth size="large" variant={props.happening.offerings && props.happening.offerings.includes(element) ? 'contained' : 'outlined'} color="primary">{element}</Button>
+                <Button className={classes.paper} onClick={handleClick} data-id={element.id} fullWidth size="large" variant={props.happening.offerings && props.happening.offerings.includes(element.id) ? 'contained' : 'outlined'} color="primary">{element.name}</Button>
               </Grid>
             )
           })}

@@ -49,7 +49,8 @@ function Overview(props) {
                 }
             })
 
-            if (save && happening.maxGuests > happening.users.length - 1) {
+            // Eigene Happenings nicht anzeigen zurzeit ausgeschaltet - add save && to activate
+            if (happening.maxGuests > happening.users.length - 1) {
                 let happeningsTmp = happenings
                 happeningsTmp.push(happening)
                 setHappenings(happeningsTmp)

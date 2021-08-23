@@ -65,7 +65,7 @@ function CreateHappeningCategories(props) {
     if (!props.happening.category)
       props.handleButton(false)
 
-    props.handleCategory(e.currentTarget.dataset.id)
+    props.handleCategory(parseInt(e.currentTarget.dataset.id))
   }
 
   useEffect(() => {
@@ -103,12 +103,13 @@ function CreateHappeningCategories(props) {
               <Select
                 native
                 multiple={false}
-                value={props.happening.type}
-                onChange={(event) => { props.handleHappeningType(event.target.value) }}
+                defaultValue=""
+                onChange={(event) => { props.handleHappeningType(parseInt(event.target.value)) }}
                 label="Happening Typ"
               >
+                <option selected={props.happening.type ? false : true} value={1}>Happening Type</option> 
                 {types.map((element, index) => {
-                  return <option key={index} value={element}>{element.toUpperCase()}</option>
+                  return <option key={index} selected={props.happening.type == element.id ? true : false} value={element.id}>{element.name}</option>
                 })}
               </Select>
             </FormControl>
@@ -117,7 +118,7 @@ function CreateHappeningCategories(props) {
             {categories.map((element, index) => {
               return (
                 <Grid key={index} item xs={6}>
-                  <Button className={(element == props.happening.category ? classes.active : ''), classes.paper} data-id={element} onClick={handleCategoryInput.bind(this)} fullWidth size="large" variant={props.happening.category == element ? 'contained' : 'outlined'} color="primary">{element}</Button>
+                  <Button variant={(props.happening.category == element.id) ? 'contained' : 'outlined'}  color="primary" className={classes.paper} data-id={element.id} onClick={handleCategoryInput.bind(this)} fullWidth size="large" color="primary">{element.name}</Button>
                 </Grid>
               )
             })}
