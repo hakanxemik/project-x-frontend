@@ -6,6 +6,7 @@ import CreateHappeningCategories from './CreateHappeningCategories';
 import CreateHappeningLocation from './CreateHappeningLocation';
 import CreateHappeningOfferings from './CreateHappeningOfferings';
 import CreateHappeningClosing from './CreateHappeningClosing';
+import Closed from '../components/Close';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Redirect } from "react-router-dom"
 import MobileStepper from '@material-ui/core/MobileStepper';
@@ -44,6 +45,7 @@ function CreateHappening() {
   const handleButton = (value) => {
     setDisableButton(value)
   }
+
   // Currying / Closures
   const handleField = (input) => (value) => {
     let happeningTmp = {...happening, [input]: value};
@@ -65,6 +67,7 @@ function CreateHappening() {
     <>
       {localStorage.getItem('token') ?
         <>
+          <Closed name={['happening', 'activeStep']} ></Closed>
           {activeStep == 0 && <CreateHappeningTitle disable={disableButton} handleButton={handleButton} handleTitle={handleField('title')} happening={happening} />}
           {activeStep == 1 && <CreateHappeningDateTime disable={disableButton} handleButton={handleButton} handleDate={handleField('date')} handleTime={handleField('time')} happening={happening} />}
           {activeStep == 2 && <CreateHappeningLocation disable={disableButton}  handleButton={handleButton} handleLocation={handleField('location')} handleLocationDesc={handleField('locationDescription')} happening={happening} />}
