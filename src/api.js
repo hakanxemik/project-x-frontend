@@ -24,6 +24,13 @@ export async function getOfferings() {
     return offerings
 }
 
+export async function getInterests() {
+    const data = await fetch(apiEndpoint + '/interests')
+    const interests = await data.json()
+
+    return interests
+}
+
 export async function getHappenings() {
     return fetch(apiEndpoint + '/happenings', {
             method: 'GET',
@@ -105,6 +112,12 @@ export async function login(userData) {
 }
 
 export async function register(userData) {
+    let user = {
+        email: userData.email,
+        password: userData.password,
+        password_confirmation: userData.password_confirmation,
+        interests: userData.interests
+    }
     return fetch(apiEndpoint + '/register', {
         method: 'POST',
         headers: {
