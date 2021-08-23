@@ -44,7 +44,7 @@ function App() {
         <Route path="/profile/" exact component={Profile} />
 
         <Route path="/happeninglist/" exact component={HappeningList} />
-        <Route path="/register/" exact component={SignUp} />
+        <Route path="/register/" exact component={SignUp2} />
         <Route path="/login/" exact component={Login} />
       </Router>
     </ThemeProvider>

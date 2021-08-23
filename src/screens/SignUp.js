@@ -33,7 +33,7 @@ function SignUp(props) {
         setDisableName(false)
       }
     } else if (input === 'password') {
-      if (!strongRegex.test(value)) {
+      if (value.length < 8) {
         setDisablePassword(true)
       } else {
         setDisablePassword(false)

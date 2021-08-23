@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         background: 'transparent',
         boxShadow: 'none',
+        zIndex: -5,
         paddingLeft: -15,
         paddingTop: 20,
         paddingBottom: 20,

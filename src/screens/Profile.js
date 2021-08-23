@@ -6,6 +6,7 @@ import Happening from '../components/Happening'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import LogoBar from '../components/LogoBar'
 import NavBar from '../components/NavBar'
+import Logout from '../components/Logout'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import ReactCardCarousel from 'react-card-carousel';
 import Grid from '@material-ui/core/Grid';
@@ -23,12 +24,14 @@ function Profile(props) {
     return (
         <>
             {localStorage.getItem('token') ?
-
-                < Grid container direction="column" justify="flex-start" alignItems="center" >
-                    <LogoBar />
-                    <ProfileCardFlip className={styles.profileBox}></ProfileCardFlip>
-                    <NavBar></NavBar>
-                </Grid>
+                <>
+                    <Logout></Logout>
+                    < Grid container direction="column" justify="flex-start" alignItems="center" >
+                        <LogoBar />
+                        <ProfileCardFlip className={styles.profileBox}></ProfileCardFlip>
+                        <NavBar></NavBar>
+                    </Grid>
+                </>
                 : <Redirect to='/login' />}
         </>
     );
