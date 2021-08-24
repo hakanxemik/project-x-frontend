@@ -63,17 +63,23 @@ function SignUp2(props) {
         } else if ('email' == input) {
           validateEmail(value) ? setDisableButton(false) : setDisableButton(true)
         } else if (input == 'password') {
-          if (value.length < 8) {
+          if (value.length < 8 || value != user.password_confirmation) {
             setDisableButton(true)
           } else {
             setDisableButton(false)
           }
         } else if (input == 'password_confirmation') {
-          if (value != user.password && user.password == '') {
+          if ((value != user.password) || (user.password == '')) {
             setDisableButton(true)
           } else {
             setDisableButton(false)
           }
+        } else if (input == 'firstname' || input == 'lastname') {
+            if (user.firstname != '' && user.lastname != '') {
+              setDisableButton(false)
+            } else {
+              setDisableButton(true)
+            }
         } else {
           userTmp[input] ? setDisableButton(false) : setDisableButton(true)
         }
@@ -83,9 +89,9 @@ function SignUp2(props) {
         <>
           {!localStorage.getItem('token') ?
           <>
-          {activeStepRegister == 0 && <SignUpName disable={disableButton} handleButton={handleButton} handleName={handleField('name')} user={user} /> }
-          {activeStepRegister == 1 && <SignUpEmail disable={disableButton} handleButton={handleButton} handleEmail={handleField('email')} user={user} /> }
-          {activeStepRegister == 2 && <SignUpPassword disable={disableButton} handleButton={handleButton} handlePassword={handleField('password')} handlePasswordConfirmation={handleField('password_confirmation')} user={user} />}
+          {activeStepRegister == 0 && <SignUpEmail disable={disableButton} validateEmail={validateEmail} handleButton={handleButton} handleEmail={handleField('email')} handlePassword={handleField('password')} handlePasswordConfirmation={handleField('password_confirmation')} user={user} /> }
+          {activeStepRegister == 1 && <SignUpName disable={disableButton} handleButton={handleButton} handleFirstname={handleField('firstname')} handleLastname={handleField('lastname')} user={user} /> }
+          {activeStepRegister == 2 && <SignUpPassword disable={disableButton} handleButton={handleButton} handleGender={handleField('gender')} handleDate={handleField('birthdate')} user={user} />}
           {activeStepRegister == 3 && <SignUpInterests disable={disableButton} handleButton={handleButton} handleInterests={handleField('interests')} user={user} />}
 
         <MobileStepper
