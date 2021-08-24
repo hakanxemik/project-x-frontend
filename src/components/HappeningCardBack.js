@@ -131,6 +131,10 @@ function HappeningCardBack(props) {
                                     title: `<strong>${props.happening.title}</strong>`,
                                     icon: 'info',
                                     html:
+                                        `<h3>Happening Art:</h3>` + 
+                                        props.happening.category.map((element) => {
+                                            return `<span style="margin-right: 2px;">${element.name}</span>`
+                                        }) +
                                         `<h3>Includings:</h3>` +
                                         props.happening.offerings.map((element) => {
                                             return `<span style="margin-right: 2px;">${element.name}</span>`
