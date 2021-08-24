@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: -15,
         paddingTop: 20,
         paddingBottom: 20,
+        zIndex: 10,
         color: 'white'
     },
     grow: {

@@ -17,7 +17,7 @@ function Profile(props) {
     const useStyles = makeStyles((theme) => ({
         profileBox: {
             height: '100%'
-        },
+        }
     }))
 
     const styles = useStyles();
@@ -25,9 +25,11 @@ function Profile(props) {
         <>
             {localStorage.getItem('token') ?
                 <>
-                    <Logout></Logout>
                     < Grid container direction="column" justify="flex-start" alignItems="center" >
-                        <LogoBar />
+                        <Logout></Logout>
+                        <LogoBar style={{
+                            zIndex: '-100 !important'
+                        }} className={styles.logobar} />
                         <ProfileCardFlip className={styles.profileBox}></ProfileCardFlip>
                         <NavBar></NavBar>
                     </Grid>

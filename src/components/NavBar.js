@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
     fabButton: {
         position: 'absolute',
-        zIndex: 1,
+        zIndex: 1000,
         top: 0,
         left: 0,
         right: 0,
