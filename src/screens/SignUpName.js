@@ -11,7 +11,7 @@ function SignUpName(props) {
         let userTmp = JSON.parse(localStorage.getItem('user'))
         
         if (userTmp) {
-            if (userTmp.name)
+            if (userTmp.firstname && userTmp.lastname)
                 props.handleButton(false)
             else
                 props.handleButton(true)
@@ -28,13 +28,26 @@ function SignUpName(props) {
                 </Grid>
                 <Grid item xs={12}>
                     <TextField 
-                        value={props.user.name} 
-                        onChange={(event) => {props.handleName(event.target.value)}} 
+                        value={props.user.firstname} 
+                        onChange={(event) => {props.handleFirstname(event.target.value)}} 
                         id="standard-basic" 
-                        label="Name" 
+                        label="Vorname" 
                         fullWidth
-                        error={props.disable}
-                        helperText={props.user.name ? '' : 'Name eingeben'}
+                        error={props.user.firstname == '' ? true : false}
+                        helperText={props.user.firstname != '' ? '' : 'Vorname eingeben'}
+                    />
+                </Grid>
+                <Grid style={{
+                    marginTop: 20
+                }} item xs={12}>
+                    <TextField 
+                        value={props.user.lastname} 
+                        onChange={(event) => {props.handleLastname(event.target.value)}} 
+                        id="standard-basic" 
+                        label="Nachname" 
+                        fullWidth
+                        error={props.user.lastname  == '' ? true : false}
+                        helperText={props.user.lastname != '' ? '' : 'Nachname eingeben'}
                     />
                 </Grid>
             </Container>
