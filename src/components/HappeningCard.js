@@ -80,7 +80,7 @@ function HappeningCard(props) {
                                 {
                                     props.happening.users.map((element) => {
                                         if (element.attendance.userType == 'host') {
-                                            return <span>{element.name}</span>
+                                            return <span>{element.firstname}</span>
                                         }
                                     })
                                 }

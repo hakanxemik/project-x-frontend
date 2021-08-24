@@ -20,7 +20,7 @@ import {createHappening} from '../api'
 const useStyles = makeStyles((theme) => ({
   button: {
     color: theme.palette.text.primary,
-    marginTop: theme.spacing(6),
+    marginTop: theme.spacing(3),
     width: "60%",
   },
   description: {
