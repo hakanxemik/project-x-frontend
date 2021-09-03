@@ -15,7 +15,9 @@ function SignUp2(props) {
       "email": '',
       "password": '',
       "password_confirmation": '',
-      "interests": []
+      "interests": [],
+      "gender": "",
+      "birthdate": ''
     });
 
     const [disableButton, setDisableButton] = useState(false)
@@ -96,7 +98,7 @@ function SignUp2(props) {
 
         <MobileStepper
                 variant="progress"
-                steps={6}
+                steps={4}
                 position="bottom"
                 activeStep={activeStepRegister}
                 nextButton={
@@ -108,7 +110,7 @@ function SignUp2(props) {
                 backButton={
                   <Button size="small" onClick={handleBack} disabled={activeStepRegister === 0}>
                     {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                    Back
+                    Zurück
                   </Button>
                 }
         />
