@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { getCategories, getTypes } from '../api';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,9 +29,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(0.25),
     textAlign: 'center',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary,
+    borderRadius: "25px"
   },
   formControl: {
     margin: theme.spacing(3),
@@ -55,10 +55,6 @@ function CreateHappeningCategories(props) {
   const theme = useTheme();
   const classes = useStyles();
 
-  const [categories, setCategories] = useState([])
-
-  const [types, setTypes] = useState([])
-
   const [shrink, setShrink] = useState(false)
 
   const handleCategoryInput = (e) => {
@@ -75,14 +71,6 @@ function CreateHappeningCategories(props) {
       props.handleButton(true)
     else
       props.handleButton(false)
-
-    getCategories().then(response => {
-      setCategories(response)
-    });
-
-    getTypes().then(response => {
-      setTypes(response)
-    })
   }, [])
 
   return (
@@ -106,16 +94,15 @@ function CreateHappeningCategories(props) {
                 defaultValue=""
                 onChange={(event) => { props.handleHappeningType(parseInt(event.target.value)) }}
                 label="Happening Typ"
-              >
-                <option selected={props.happening.type ? false : true} value={1}>Happening Type</option> 
-                {types.map((element, index) => {
+              > 
+                {props.types.map((element, index) => {
                   return <option key={index} selected={props.happening.type == element.id ? true : false} value={element.id}>{element.name}</option>
                 })}
               </Select>
             </FormControl>
           </Grid>
           <Grid container spacing={2}>
-            {categories.map((element, index) => {
+            {props.categories.map((element, index) => {
               return (
                 <Grid key={index} item xs={6}>
                   <Button variant={(props.happening.category == element.id) ? 'contained' : 'outlined'}  color="primary" className={classes.paper} data-id={element.id} onClick={handleCategoryInput.bind(this)} fullWidth size="large" color="primary">{element.name}</Button>

@@ -53,30 +53,15 @@ function SignUpPassword(props) {
     const theme = useTheme();
     const classes = useStyles();
 
-    let today = new Date()
-    let todayTime = today.toLocaleTimeString([], { timeStyle: 'short' })
+    let today = moment().subtract(18, 'years');
   
-    const formatDate = (date) => {
-      let d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-  
-      if (month.length < 2)
-        month = '0' + month;
-      if (day.length < 2)
-        day = '0' + day;
-  
-      return [year, month, day].join('-');
-    }
-  
-    const [date, setDate] = useState(formatDate(today))
+    const [date, setDate] = useState(today)
   
     const handleDisableDate = (dateInput) => {
       setTimeout(function () {
         const dateFormatted = moment(dateInput, 'YYYY-MM-DD')
   
-        if (dateFormatted.isBefore(today, 'year')) {
+        if (dateFormatted.isBefore(today) || !props.user.birthdate) {
           props.handleButton(false)
           return false
         }
@@ -92,23 +77,31 @@ function SignUpPassword(props) {
       props.handleDate(dateInput.toString())
     }
 
+    const handleSelectGender = (gender) => {
+      props.handleGender(gender)
+
+      if (props.user.birthday == '' || props.user.gender == '' || props.user.gender == 'Keine Angabe') {
+        console.log('yarrak')
+        props.handleButton(true)
+      } else {
+          props.handleButton(false)
+      }
+    }
+
     useEffect(() => {
-        if (props.user.birtdate) {
+        if (props.user.birthdate) {
           setDate(props.user.birthdate)
           handleDisableDate(JSON.parse(localStorage.getItem('user')).birthdate)
         }
-        else {
-          handleDateInput(formatDate(today))
-        }
 
-        if (props.user.gender == '' || props.user.gender == 'Keine Angabe') {
-            props.handleButton(true)
+        if (props.user.birthday == '' || props.user.gender == '' || props.user.gender == 'Keine Angabe') {
+          console.log('yarrak')
+          props.handleButton(true)
         } else {
             props.handleButton(false)
         }
       }, []);
     
-
     return (
         <Grid container direction="column" justify="flex-start" alignItems="center">
             <Container maxWidth="sm" >
@@ -119,11 +112,11 @@ function SignUpPassword(props) {
                     <TextField
                         id="date"
                         fullWidth
-                        label="Datum"
+                        label="Geburtsdatum"
                         type="date"
                         value={date}
-                        error={props.disable}
-                        helperText={props.disable ? 'Bitte gebe ein gültigen Datum ein' : ''}
+                        error={props.disable && props.user.birthdate != ''}
+                        helperText={props.disable && props.user.birthdate != '' ? 'Du musst mindestens 18 Jahre alt sein!' : ''}
                         InputLabelProps={{
                         shrink: true,
                         }}
@@ -139,22 +132,25 @@ function SignUpPassword(props) {
             alignItems="center"
             justify="center"
             >
-                <FormControl fullWidth variant="outlined" className={classes.formControl}>
-                    <InputLabel htmlFor="outlined-age-native-simple">Geschlecht</InputLabel>
-                    <Select
-                        fullWidth
-                        native
-                        multiple={false}
-                        placeholder="Geschlecht"
-                        onChange={(event) => { props.handleGender(event.target.value) }}
-                        label="Geschlecht"
-                    >
-                        <option value={'Keine Angabe'} >Geschlecht</option> 
-                        <option value={'maennlich'} >Männlich</option> 
-                        <option value={'weiblich'} >Weiblich</option> 
-                        <option value={'divers'} >Divers</option> 
-                        
-                    </Select>
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel htmlFor="outlined-age-native-simple">Geschlecht</InputLabel>
+                  <Select
+                    native
+                    value={props.user.gender}
+                    onChange={(event) => { handleSelectGender(event.target.value) }}
+                    label="Geschlecht"
+                    inputProps={{
+                      name: 'gender',
+                      id: 'outlined-age-native-simple',
+                    }}
+                  >
+                    <option value="" disabled>
+                      &nbsp;
+                    </option>
+                    <option value={'maennlich'}>Männlich</option>
+                    <option value={'weiblich'}>Weiblich</option>
+                    <option value={'divers'}>Divers</option>
+                  </Select>
                 </FormControl>
             </Grid>
             </Container>

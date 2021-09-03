@@ -8,12 +8,17 @@ import CreateHappeningOfferings from './CreateHappeningOfferings';
 import CreateHappeningClosing from './CreateHappeningClosing';
 import Closed from '../components/Close';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { getCategories, getTypes } from '../api';
 import { Redirect } from "react-router-dom"
 import MobileStepper from '@material-ui/core/MobileStepper';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 function CreateHappening() {
+  const [categories, setCategories] = useState([])
+
+  const [types, setTypes] = useState([])
+
   const [happening, setHappening] = useState({
     title: '',
     offerings: []
@@ -30,6 +35,14 @@ function CreateHappening() {
 
     if (localStorage.getItem('activeStep'))
       setActiveStep(parseInt(localStorage.getItem('activeStep')))
+
+    getTypes().then(response => {
+      setTypes(response)
+    })
+
+    getCategories().then(response => {
+      setCategories(response)
+    });
   }, []);
 
   const handleNext = () => {
@@ -71,7 +84,7 @@ function CreateHappening() {
           {activeStep == 0 && <CreateHappeningTitle disable={disableButton} handleButton={handleButton} handleTitle={handleField('title')} happening={happening} />}
           {activeStep == 1 && <CreateHappeningDateTime disable={disableButton} handleButton={handleButton} handleDate={handleField('date')} handleTime={handleField('time')} happening={happening} />}
           {activeStep == 2 && <CreateHappeningLocation disable={disableButton}  handleButton={handleButton} handleLocation={handleField('location')} handleLocationDesc={handleField('locationDescription')} happening={happening} />}
-          {activeStep == 3 && <CreateHappeningCategories disable={disableButton} handleButton={handleButton} handleHappeningType={handleField('type')} handleCategory={handleField('category')} happening={happening} />}
+          {activeStep == 3 && <CreateHappeningCategories types={types} categories={categories} disable={disableButton} handleButton={handleButton} handleHappeningType={handleField('type')} handleCategory={handleField('category')} happening={happening} />}
           {activeStep == 4 && <CreateHappeningOfferings disable={disableButton} handleButton={handleButton} handleOfferings={handleField('offerings')} handleOfferingsDescription={handleField('offeringsDescription')} happening={happening} />}
           {activeStep == 5 && <CreateHappeningClosing disable={disableButton} handleButton={handleButton} handleDesc={handleField('description')} handlePrice={handleField('price')} handleGuests={handleField('maxGuests')} happening={happening} />}
 
@@ -89,7 +102,7 @@ function CreateHappening() {
                   backButton={
                     <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
                       {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                      Back
+                      Zurück
                     </Button>
                   }
           />

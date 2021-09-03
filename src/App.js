@@ -8,6 +8,8 @@ import Profile from "./screens/Profile";
 import HomeScreen from "./screens/HomeScreen";
 import SignUp2 from "./screens/SignUp2";
 import HappeningList from "./screens/HappeningList";
+import HappeningApplied from "./screens/HappeningApplied";
+import HappeningGuests from "./screens/HappeningGuests";
 import Overview from "./screens/Overview";
 import CreateHappening from "./screens/CreateHappening";
 import "./style.css";
@@ -44,6 +46,10 @@ function App() {
         <Route path="/profile/" exact component={Profile} />
 
         <Route path="/happeninglist/" exact component={HappeningList} />
+
+        <Route path="/happening/applied" exact component={HappeningApplied} />
+        <Route path="/happening/created" exact component={HappeningGuests} />
+
         <Route path="/register/" exact component={SignUp2} />
         <Route path="/login/" exact component={Login} />
       </Router>

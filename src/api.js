@@ -47,6 +47,38 @@ export async function getHappenings() {
             .catch((err) => console.log(err))
 }
 
+export async function getMyHappenings() {
+    return fetch(apiEndpoint + '/happenings/host', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': 'NIBj1PwrLnjGWhiAjho4RawzlaxalIuzJ3NVjKgL'
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                return data;
+            })
+            .catch((err) => console.log(err))
+}
+
+export async function getAppliedHappenings() {
+    return fetch(apiEndpoint + '/happenings/guest', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': 'NIBj1PwrLnjGWhiAjho4RawzlaxalIuzJ3NVjKgL'
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                return data;
+            })
+            .catch((err) => console.log(err))
+}
+
 export async function createHappening(happening) {
     // Von anfang an "zusammenfügen"
     let happeningPost = {

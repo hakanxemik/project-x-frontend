@@ -39,8 +39,8 @@ function SignUpEmail(props) {
                         label="Email"
                         type="email"
                         fullWidth
-                        error={!props.validateEmail(props.user.email)}
-                        helperText={props.validateEmail(props.user.email) ? '' : 'Email Adresse ungültig'}
+                        error={!props.validateEmail(props.user.email) && props.user.email != ''}
+                        helperText={!props.validateEmail(props.user.email) && props.user.email != '' ? 'Email Adresse ungültig' : ''}
                     />
                 </Grid>
                 <Grid item style={{
@@ -56,8 +56,8 @@ function SignUpEmail(props) {
                         label="Passwort"
                         type="password"
                         fullWidth
-                        error={props.user.password.length < 8 ? true : false}
-                        helperText={props.user.password.length < 8 ? 'Passwort muss min. 8 Zeichen lang sein' : ''}
+                        error={props.user.password.length < 8 && props.user.password != '' ? true : false}
+                        helperText={props.user.password.length < 8 && props.user.password != '' ? 'Passwort muss min. 8 Zeichen lang sein' : ''}
                     />
                 </Grid>
                 <Grid style={{
@@ -72,8 +72,8 @@ function SignUpEmail(props) {
                         label="Passwort bestätigen"
                         type="password"
                         fullWidth
-                        error={props.user.password != props.user.password_confirmation ? true : false}
-                        helperText={props.user.password != props.user.password_confirmation ? 'Passwörter stimmen überrein' : ''}
+                        error={props.user.password != props.user.password_confirmation && props.user.password_confirmation != '' ? true : false}
+                        helperText={props.user.password != props.user.password_confirmation && props.user.password_confirmation != '' ? 'Passwörter stimmen überrein' : ''}
                     />
                 </Grid>
             </Container>

@@ -13,9 +13,13 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-
+import { useHistory } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 function TabPanel(props) {
+    const theme = useTheme();
+    const classes = useStyles();
+
     const { children, value, index, ...other } = props;
 
     return (
@@ -57,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 function HappeningList(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
+    let history = useHistory();
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -76,11 +81,10 @@ function HappeningList(props) {
                             </Tabs>
                         </AppBar>
                         <TabPanel value={value} index={0}>
-                            Item One
-                            Item Two
-      </TabPanel>
+                            <Button onClick={() => {history.push('/happening/applied')}}>See List</Button> 
+                        </TabPanel>
                         <TabPanel value={value} index={1}>
-                            Item Two
+                            <Button onClick={() => {history.push('/happening/created')}}>See List</Button>
                         </TabPanel>
                     </div>
                     <NavBar></NavBar>

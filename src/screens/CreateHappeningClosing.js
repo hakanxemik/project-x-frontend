@@ -19,9 +19,12 @@ import {createHappening} from '../api'
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    color: theme.palette.text.primary,
-    marginTop: theme.spacing(3),
-    width: "60%",
+    textAlign: 'center',
+    color: theme.palette.primary,
+    width: '350px !important',
+    paddingTop: '12px',
+    paddingBottom: '12px',
+    borderRadius: '10px'
   },
   description: {
     marginTop: theme.spacing(4)
