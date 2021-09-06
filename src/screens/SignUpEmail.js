@@ -8,19 +8,24 @@ import TextField from '@material-ui/core/TextField';
 function SignUpEmail(props) {
 
     useEffect(() => {
-        let userTmp = JSON.parse(localStorage.getItem('user'))
+/*         let userTmp = JSON.parse(localStorage.getItem('user'))
 
         if (userTmp) {
-            if (!props.validateEmail(userTmp.email)) {
+            if (!props.validateEmail(props.user.email)) {
                 props.handleButton(true)
-            } else if (userTmp.password.length < 8) {
+            } else if (props.user.password.length < 8) {
                 props.handleButton(true)
-            } else if (userTmp.password != userTmp.password_confirmation) {
+            } else if (props.user.password != userTmp.password_confirmation) {
                 props.handleButton(true)
             } else {
                 props.handleButton(false)
             }
+        } */
+        
+        if (props.user.email == '' || props.user.password == '') {
+            props.handleButton(true)
         }
+        
     }, [])
 
     return (

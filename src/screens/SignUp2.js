@@ -26,13 +26,6 @@ function SignUp2(props) {
     let theme = useTheme();
 
     useEffect(() => {
-        if (localStorage.getItem('user')) {
-          let savedUser = JSON.parse(localStorage.getItem('user'))
-          savedUser.password = ''
-          savedUser.password_confirmation = ''
-          setUser(savedUser)
-        }
-
         setActiveStep(0)
       }, []);
 
@@ -58,29 +51,38 @@ function SignUp2(props) {
       const handleField = (input) => (value) => {
         let userTmp = {...user, [input]: value};
         setUser(userTmp)
-        localStorage.setItem('user', JSON.stringify(userTmp))
     
         if ('interests' == input) {
           !userTmp[input] || !userTmp[input].length <= 0 ? setDisableButton(false) : setDisableButton(true)
         } else if ('email' == input) {
-          validateEmail(value) ? setDisableButton(false) : setDisableButton(true)
+          if (!validateEmail(value) || user.password.length < 8 || user.password != user.password_confirmation) {
+            setDisableButton(true)
+          } else {
+            setDisableButton(false)
+          }
         } else if (input == 'password') {
-          if (value.length < 8 || value != user.password_confirmation) {
+          if (!validateEmail(user.email) || value.length < 8 || value != user.password_confirmation) {
             setDisableButton(true)
           } else {
             setDisableButton(false)
           }
         } else if (input == 'password_confirmation') {
-          if ((value != user.password) || (user.password == '')) {
+          if (!validateEmail(user.email) || user.password.length < 8 || user.password != value) {
             setDisableButton(true)
           } else {
             setDisableButton(false)
           }
-        } else if (input == 'firstname' || input == 'lastname') {
-            if (user.firstname != '' && user.lastname != '') {
-              setDisableButton(false)
-            } else {
+        } else if (input == 'firstname') {
+            if (value == '' || user.lastname == '') {
               setDisableButton(true)
+            } else {
+              setDisableButton(false)
+            }
+        } else if (input == 'lastname') {
+            if (user.firstname == '' || value == '') {
+              setDisableButton(true)
+            } else {
+              setDisableButton(false)
             }
         } else {
           userTmp[input] ? setDisableButton(false) : setDisableButton(true)

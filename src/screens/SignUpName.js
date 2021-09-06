@@ -8,16 +8,7 @@ import TextField from '@material-ui/core/TextField';
 function SignUpName(props) {
 
     useEffect(() => {
-        let userTmp = JSON.parse(localStorage.getItem('user'))
-        
-        if (userTmp) {
-            if (userTmp.firstname && userTmp.lastname)
-                props.handleButton(false)
-            else
-                props.handleButton(true)
-        } else {
-            props.handleButton(true)
-        }
+        props.handleButton(true)
     }, [])
 
     return (
