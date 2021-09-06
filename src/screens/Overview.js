@@ -75,7 +75,6 @@ function Overview(props) {
     return (
         <>
             {localStorage.getItem('token') ?
-
                 <Grid justify="center">
                     <LogoBar />
                     {loading && <h1 style={info}>Loading...</h1>}

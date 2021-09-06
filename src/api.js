@@ -150,6 +150,7 @@ export async function register(userData) {
         password_confirmation: userData.password_confirmation,
         interests: userData.interests
     }
+    
     return fetch(apiEndpoint + '/register', {
         method: 'POST',
         headers: {

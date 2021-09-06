@@ -89,8 +89,6 @@ function SignUpInterests(props) {
   }
 
   useEffect(() => {
-    let userTmp = JSON.parse(localStorage.getItem('user'))
-
     getInterests().then(response => {
       setInterests(response)
     })
