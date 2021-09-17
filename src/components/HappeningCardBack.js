@@ -1,8 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-
-
-import styled, { css } from "styled-components";
 import Grid from '@material-ui/core/Grid';
 import Swal from 'sweetalert2';
 import Box from '@material-ui/core/Box';
@@ -11,9 +8,11 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import EuroIcon from '@material-ui/icons/Euro';
-import {join} from '../api'
+import { join } from '../api'
 import Button from '@material-ui/core/Button';
+
+
+import moment from "moment";
 
 function HappeningCardBack(props) {
 
@@ -21,15 +20,18 @@ function HappeningCardBack(props) {
 
     const useStyles = makeStyles((theme) => ({
         content: {
-            padding: 18,
+            height: '100%',
+            padding: 18
         },
         cta: {
             display: 'block',
             textAlign: 'center',
             color: '#fff',
+            opacity: 0.5,
             letterSpacing: '3px',
-            fontWeight: 200,
-            fontSize: 12,
+            fontSize: 8,
+            fontWeight: '600',
+            fontFamily: 'Quicksand, sans- serif',
         },
         title: {
             color: '#fff',
@@ -42,34 +44,47 @@ function HappeningCardBack(props) {
         },
 
         cardMedia: {
-            /*backgroundColor: `${props.happening.category.color}`,*/
-            width: '65vw',
-            height: '65vh',
+            backgroundColor: '#0a0015',
+            width: '70vw',
+            height: '70vh',
             border: '2px solid',
             borderColor: '#e73490',
             borderRadius: '25px',
-            boxShadow: '0 0 1em black'
+            boxShadow: '0 0 0.5em black'
         },
         offerings: {
             display: 'inline',
             margin: '5px 5px',
-            padding: '3px 8px',
-            border: '2px solid white',
+            padding: '3px 4px',
+            border: '1px solid #e73490',
             borderRadius: '20px',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            textAlign: 'center',
+            marginLeft: '0px',
+            fontSize: '12px'
+
         },
         description: {
-            fontSize: '16px'
+            fontWeight: '400',
+            fontFamily: 'Quicksand, sans- serif',
+            fontSize: '14px',
+            marginBottom: '0px'
         },
-        price: {
+
+        joinButton: {
+
+            position: 'fixed',
+            bottom: theme.spacing(2),
+            fontWeight: '600',
+            fontFamily: 'Quicksand, sans- serif',
+        },
+
+        heading: {
             fontSize: '20px',
-            fontWeight: 'bold',
-            marginLeft: '5px'
-        },
-        priceBox: {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
+            marginBottom: '3px',
+
+            fontWeight: '600',
+            fontFamily: 'Quicksand, sans- serif',
         }
     }));
 
@@ -87,51 +102,48 @@ function HappeningCardBack(props) {
 
     return (
         <Card className={styles.cardMedia}>
-            <CardActionArea>
-                <CardContent className={styles.content}>
-                    <Box
-                        display={'flex'}
-                        flexDirection={'column'}
-                        alignItems={'center'}
-                        justifyContent={'center'}
-                        minHeight={360}
-                        color={'common.white'}
-                        textAlign={'center'}
+            <CardContent className={styles.content}>
+                <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    /*
+                    alignItems={'center'}
+                    justifyContent={'center'}*/
+                    height={'100%'}
 
-                    >
-                        <Box>
-                            <h1 >Includings</h1>
-                            {props.happening.offerings.map((element, index) => {
-                                return props.happening.offerings.length < 3 ?
-                                    <span className={styles.offerings} key={index}>{element.name}</span> :
-                                    <>
-                                        <span className={styles.offerings} key={index}>{element.name}</span>
-                                        <span className={styles.offerings}>{'...'}</span>
-                                    </>
-                            })}
-                        </Box>
+                    width={'100%'}
+                    color={'common.white'}
+                //textAlign={'center'}
 
-                        <Box>
-                            <h1>Beschreibung</h1>
-                            {
-                                props.happening.description.length < 10 ? <span className={styles.description}>{props.happening.description}</span> :
-                                    <span className={styles.description}>{props.happening.description.substring(0, 15) + "..."}</span>
-                            }
-                        </Box>
-
-                        <Box my={2}>
-                            <Grid className={styles.priceBox} item>
-                                <EuroIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></EuroIcon>
-                                <span className={styles.price}>{props.happening.price}</span>
-                            </Grid>
-                        </Box>
-                        <Box>
+                >
+                    <Box>
+                        {props.happening.offerings.map((element, index) => {
+                            return props.happening.offerings.length < 3 ?
+                                <span className={styles.offerings} key={index}>{element.name}</span> :
+                                <>
+                                    <span className={styles.offerings} key={index}>{element.name}</span>
+                                    <span className={styles.offerings}>{'...'}</span>
+                                </>
+                        })}
+                        <h2 className={styles.heading}>Beschreibung</h2>
+                        {
+                            props.happening.description.length < 10 ? <span className={styles.description}>{props.happening.description}</span> :
+                                <span className={styles.description}>{props.happening.description.substring(0, 100) + "..."}</span>
+                        }
+                    </Box>
+                    <Box>
+                        <h2 className={styles.heading}>Details</h2>
+                        <span className={styles.description}>Eintritt: {props.happening.price} €</span><br />
+                        <span className={styles.description}>Uhrzeit: {moment(props.happening.date).format('DD.MM')} um {moment(props.happening.date).format('HH:mm')} Uhr  </span>
+                        <span className={styles.description}>Treffpunkt: {props.happening.location.meetingPoint} </span>
+                    </Box>
+                    {/*                         <Box>
                             <Button onClick={() => {
                                 Swal.fire({
                                     title: `<strong>${props.happening.title}</strong>`,
                                     icon: 'info',
                                     html:
-                                        `<h3>Happening Art:</h3>` + 
+                                        `<h3>Happening Art:</h3>` +
                                         props.happening.category.map((element) => {
                                             return `<span style="margin-right: 2px;">${element.name}</span>`
                                         }) +
@@ -151,25 +163,24 @@ function HappeningCardBack(props) {
                             }} fullWidth size="small" variant={'outlined'} color="tertiary">
                                 Mehr Anzeigen
                                 </Button>
-                        </Box>
-                        <Box my={2}>
-                            <Button onClick={() => {join(props.happening.id).then((success) => {
-                                Swal.fire({
-                                    title: success ? 'Glückwunsch!' : 'Happening teilnahme fehlgeschlagen!',
-                                    text: success ? 'Teilnahme an Happening!' : 'Bitte überprüfe deine Eingaben oder versuche es später',
-                                    icon: success ? 'success' : 'error',
-                                    confirmButtonText: 'Verstanden'
-                                  })
-                                })
-                            }
-                            } fullWidth size="medium" variant={'contained'} color="tertiary">Teilnehmen</Button>
-                        </Box>
-                    </Box>
-                    <Typography className={styles.cta} variant={'overline'}>
-                        TAP FÜR VORDERSEITE
+                        </Box> */}
+                    <Button variant="extended" className={styles.joinButton} onClick={() => {
+                        join(props.happening.id).then((success) => {
+                            Swal.fire({
+                                title: success ? 'Glückwunsch!' : 'Happening teilnahme fehlgeschlagen!',
+                                text: success ? 'Teilnahme an Happening!' : 'Bitte überprüfe deine Eingaben oder versuche es später',
+                                icon: success ? 'success' : 'error',
+                                confirmButtonText: 'Verstanden'
+                            })
+                        })
+                    }
+                    } variant="contained" color="secondary">Teilnehmen</Button>
+
+                </Box>
+                <Typography className={styles.cta} variant={'overline'}>
+                    TAP FÜR VORDERSEITE
                 </Typography>
-                </CardContent>
-            </CardActionArea>
+            </CardContent>
         </Card>
     );
 }
