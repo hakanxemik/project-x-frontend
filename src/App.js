@@ -5,8 +5,6 @@ import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
 
 import Profile from "./screens/Profile";
-import HomeScreen from "./screens/HomeScreen";
-import SignUp2 from "./screens/SignUp2";
 import HappeningList from "./screens/HappeningList";
 import HappeningApplied from "./screens/HappeningApplied";
 import HappeningGuests from "./screens/HappeningGuests";
@@ -50,7 +48,7 @@ function App() {
         <Route path="/happening/applied" exact component={HappeningApplied} />
         <Route path="/happening/created" exact component={HappeningGuests} />
 
-        <Route path="/register/" exact component={SignUp2} />
+        <Route path="/register/" exact component={SignUp} />
         <Route path="/login/" exact component={Login} />
       </Router>
     </ThemeProvider>

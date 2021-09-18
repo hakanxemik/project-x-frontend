@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function SignUpPassword(props) {
+function SignUpGender(props) {
 
     const theme = useTheme();
     const classes = useStyles();
@@ -56,18 +56,23 @@ function SignUpPassword(props) {
     let today = moment().subtract(18, 'years');
   
     const [date, setDate] = useState(today)
+    const [errorDate, setErrorDate] = useState(false)
   
     const handleDisableDate = (dateInput) => {
       setTimeout(function () {
         const dateFormatted = moment(dateInput, 'YYYY-MM-DD')
   
         if (dateFormatted.isBefore(today) || !props.user.birthdate) {
-          props.handleButton(false)
-          return false
+          setErrorDate(true)
         }
   
-        props.handleButton(true)
-        return true
+        setErrorDate(false)
+
+        if (!errorDate && props.user.gender) {
+          props.handleButton(false)
+        } else {
+          props.handleButton(true)
+        }
       }, 100)
     }
   
@@ -80,12 +85,13 @@ function SignUpPassword(props) {
     const handleSelectGender = (gender) => {
       props.handleGender(gender)
 
-      if (props.user.birthday == '' || props.user.gender == '' || props.user.gender == 'Keine Angabe') {
-        console.log('yarrak')
-        props.handleButton(true)
-      } else {
-          props.handleButton(false)
-      }
+      setTimeout(function () {
+        if (!props.user.birthdate || !props.user.gender || props.user.gender == 'Keine Angabe') {
+          props.handleButton(true)
+        } else {
+            props.handleButton(false)
+        }
+      },200)
     }
 
     useEffect(() => {
@@ -115,8 +121,8 @@ function SignUpPassword(props) {
                         label="Geburtsdatum"
                         type="date"
                         value={date}
-                        error={props.disable && props.user.birthdate != ''}
-                        helperText={props.disable && props.user.birthdate != '' ? 'Du musst mindestens 18 Jahre alt sein!' : ''}
+                        error={errorDate && props.user.birthdate != ''}
+                        helperText={errorDate && props.user.birthdate != '' ? 'Du musst mindestens 18 Jahre alt sein!' : ''}
                         InputLabelProps={{
                         shrink: true,
                         }}
@@ -158,4 +164,4 @@ function SignUpPassword(props) {
     )
 }
 
-export default SignUpPassword
+export default SignUpGender

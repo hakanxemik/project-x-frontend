@@ -77,7 +77,7 @@ function HappeningCardBack(props) {
 
     const checkGuest = () => {
         props.happening.users.forEach((element) => {
-            if (element.name === localStorage.getItem('users').name) {
+            if (element.lastname === localStorage.getItem('user').lastname && element.firstname === localStorage.getItem('user').firstname) {
                 if (element.attendance.userType === 'guest') {
 
                 }

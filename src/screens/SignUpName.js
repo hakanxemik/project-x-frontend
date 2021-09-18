@@ -8,7 +8,11 @@ import TextField from '@material-ui/core/TextField';
 function SignUpName(props) {
 
     useEffect(() => {
-        props.handleButton(true)
+        if (props.user.firstname == undefined || props.user.lastname == undefined) {
+            props.handleButton(true);
+        } else {
+            props.handleButton(false);
+        }
     }, [])
 
     return (
