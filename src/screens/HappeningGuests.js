@@ -44,7 +44,7 @@ function HappeningGuests(props) {
             let save = TrainRounded
 
             happening.users.forEach((element) => {
-                if (element.name === user.name) {
+                if (element.lastname === localStorage.getItem('user').lastname && element.firstname === localStorage.getItem('user').firstname) {
                     save = false
                 }
             })
