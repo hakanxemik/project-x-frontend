@@ -12,7 +12,6 @@ import ReactCardCarousel from 'react-card-carousel';
 import Grid from '@material-ui/core/Grid';
 import ProfileCardFlip from "../components/ProfileCardFlip";
 import ProfileEdit from './ProfileEdit'
-import Test from './Test'
 
 function Profile(props) {
 
