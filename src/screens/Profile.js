@@ -11,6 +11,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import ReactCardCarousel from 'react-card-carousel';
 import Grid from '@material-ui/core/Grid';
 import ProfileCardFlip from "../components/ProfileCardFlip";
+import ProfileEdit from './ProfileEdit'
+import Test from './Test'
 
 function Profile(props) {
 
@@ -20,19 +22,25 @@ function Profile(props) {
         }
     }))
 
+    useEffect(() => {
+        console.log(props.user)
+    }, [])
+
     const styles = useStyles();
     return (
         <>
             {localStorage.getItem('token') ?
                 <>
-                    < Grid container direction="column" justify="flex-start" alignItems="center" >
+                    <ProfileEdit user={props.user}></ProfileEdit>
+                  {/*   < Grid container direction="column" justify="flex-start" alignItems="center" >
                         <Logout></Logout>
                         <LogoBar style={{
                             zIndex: '-100 !important'
                         }} className={styles.logobar} />
                         <ProfileCardFlip className={styles.profileBox}></ProfileCardFlip>
                         <NavBar></NavBar>
-                    </Grid>
+                    </Grid> */}
+
                 </>
                 : <Redirect to='/login' />}
         </>

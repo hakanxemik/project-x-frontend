@@ -15,8 +15,13 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import {getUser} from '../api';
 
 function ProfileCardFront(props) {
+
+    useEffect(() => {
+        console.log(props.user)
+    }, [])
 
     const useStyles = makeStyles((theme) => ({
         content: {
@@ -41,7 +46,7 @@ function ProfileCardFront(props) {
 
         cardMedia: {
             opacity: 0.8,
-            backgroundImage: `url(${Image})`,
+            backgroundImage: `url(${props.image})`,
             height: '100%',
             backgroundPosition: 'center',
             backgroundSize: 'cover',

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Component, useState, useEffect, useRef } from "react";
+
 import { HashRouter as Router, Route } from "react-router-dom";
 import "./icons.js";
 import Login from "./screens/Login";
@@ -12,7 +13,7 @@ import Overview from "./screens/Overview";
 import CreateHappening from "./screens/CreateHappening";
 import "./style.css";
 import { ThemeProvider } from "@material-ui/styles";
-
+import {getUser} from './api'
 
 import {
   createMuiTheme
@@ -35,13 +36,23 @@ const theme = createMuiTheme({
 });
 
 function App() {
+  
+  const [user, setUser] = useState('');
+
+  useEffect(() => {
+      getUser().then(response => {
+          setUser(response)
+        })
+  }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <Route path="/create/" exact component={CreateHappening} />
         <Route path="/" exact component={Overview} />
 
-        <Route path="/profile/" exact component={Profile} />
+        <Route path="/profile/" exact component={() => <Profile user={user}/>} 
+        />
 
         <Route path="/happeninglist/" exact component={HappeningList} />
 

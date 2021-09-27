@@ -18,7 +18,7 @@ function ProfileCardFlip(props) {
     return (
         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
             <div onClick={handleClick}>
-                <ProfileCardFront happening={props.happening} />
+                <ProfileCardFront image={props.image} happening={props.happening} />
             </div>
 
             <div onClick={handleClick}>
