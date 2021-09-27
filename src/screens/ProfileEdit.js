@@ -124,7 +124,6 @@ function ProfileEdit(props) {
                 onChange={onChange}
                 maxNumber={1}
                 acceptType={['jpg', 'png']}
-                maxFileSize={10485760}
                 dataURLKey="data_url"
             >
                 {({
