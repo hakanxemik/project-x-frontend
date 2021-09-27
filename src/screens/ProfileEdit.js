@@ -45,8 +45,8 @@ function ProfileEdit(props) {
     const classes = useStyles();
 
     const [images, setImages] = React.useState([]);
-    const [image, setImage] = React.useState(props.user.avatar);
-    const [profileImage, setProfileImage] = React.useState(props.user.avatar);
+    const [image, setImage] = React.useState('http://localhost:8000' + props.user.avatar);
+    const [profileImage, setProfileImage] = React.useState('http://localhost:8000' + props.user.avatar);
 
 
     const handleImage = (file) => {
@@ -73,37 +73,42 @@ function ProfileEdit(props) {
   
     const onChange = (imageList, addUpdateIndex) => {
       // data for submit
-      console.log(imageList[0]);
       setImages(imageList);
-      console.log(images)
         
-        let image = {}
-        
-        if (imageList[0]) {
-            image = {
-                file: imageList[0].file,
-                data_url: imageList[0].data_url
-            }
-
-            setImage(image);
-            setProfileImage(imageList[0].data_url)
+        let image = {
+            file: imageList[0].file
         }
+  
+        setImage(image);
+        setProfileImage(imageList[0].data_url)
+
+        console.log(image)
     };
 
-    const SendImage = () => {
+    const SendImage = (upload) => {
+
         if (true) {
-            fetch('http://localhost:8000/api/user/profile/upload', {
+            fetch('https://socialup-api.herokuapp.com/api/user/profile/upload', {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),
                     'Content-Type': 'application/json',
                     'X-XSRF-TOKEN': 'ZibIS4JGYO2797pWfGnYWgVwaJq4ODrcJu6xfHqA',
-                    'Access-Control-Allow-Origin' : '*',
-                    Origin: 'http://localhost:3000'
+                    'Access-Control-Allow-Origin' : '*'
                 },
-                body: JSON.stringify(image)
-            }).then((response) => response.json()).catch((err) => {
-                console.log(err)
+                body: JSON.stringify({
+                    file: upload.data_url
+                })
+            }).then((response) => {
+                Swal.fire({
+                    title: 'Profilbild wurde aktualisiert',
+                    icon: 'success'
+                })
+            }).catch((err) => {
+                Swal.fire({
+                    title: 'Profilbild konnte nicht hochgeladen werden!',
+                    icon: 'error'
+                })
             })
         }
     }
@@ -151,11 +156,11 @@ function ProfileEdit(props) {
                             } className={classes.buttonDelete}> Löschen </Button>
                         </>
                     ))}
+
+                    <button onClick={() => { SendImage(imageList[0])}}> SAVE </button>
                 </>
                 )}
             </ImageUploading>
-
-            <button onClick={() => { SendImage()}}> SAVE </button>
         </Grid>
       );
     }

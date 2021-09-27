@@ -46,7 +46,9 @@ function ProfileCardFront(props) {
 
         cardMedia: {
             opacity: 0.8,
-            backgroundImage: `url(${props.image})`,
+            backgroundImage: 
+                `url(${props.image})`,
+            mixBlendMode: 'exclusion',
             height: '100%',
             backgroundPosition: 'center',
             backgroundSize: 'cover',
