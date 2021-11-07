@@ -53,27 +53,33 @@ function SignUpGender(props) {
     const theme = useTheme();
     const classes = useStyles();
 
-    let today = moment().subtract(18, 'years');
+    let minDate = moment().subtract(18, 'years');
+    let maxDate = moment().subtract(100, 'years');
   
-    const [date, setDate] = useState(today)
+    const [date, setDate] = useState(minDate)
     const [errorDate, setErrorDate] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
   
     const handleDisableDate = (dateInput) => {
-      setTimeout(function () {
-        const dateFormatted = moment(dateInput, 'YYYY-MM-DD')
-  
-        if (dateFormatted.isBefore(today) || !props.user.birthdate) {
-          setErrorDate(true)
-        }
-  
-        setErrorDate(false)
+      const dateFormatted = moment(dateInput, 'YYYY-MM-DD')
 
-        if (!errorDate && props.user.gender) {
-          props.handleButton(false)
+      setTimeout(function () {
+        if ((!dateFormatted.isBefore(minDate) || !props.user.birthdate) && !dateFormatted.isBefore(maxDate)) {
+          setErrorDate(true)
+          setErrorMessage('Du musst über 18 Jahre alt sein!')
+        } else if (dateFormatted.isBefore(maxDate)) {
+          setErrorDate(true)
+          setErrorMessage(`Bitte gib ein Geburtsdatum nach dem Jahr ${maxDate.format('YYYY')}!`)
         } else {
-          props.handleButton(true)
+          setErrorDate(false)
         }
-      }, 100)
+      }, 600)
+
+      if (!errorDate && props.user.gender) {
+        props.handleButton(false)
+      } else {
+        props.handleButton(true)
+      }
     }
   
     const handleDateInput = (dateInput) => {
@@ -85,27 +91,25 @@ function SignUpGender(props) {
     const handleSelectGender = (gender) => {
       props.handleGender(gender)
 
-      setTimeout(function () {
-        if (!props.user.birthdate || !props.user.gender || props.user.gender == 'Keine Angabe') {
+      if (!errorDate || gender) {
+        props.handleButton(false)
+      } else {
           props.handleButton(true)
-        } else {
-            props.handleButton(false)
-        }
-      },200)
+      }
     }
 
     useEffect(() => {
         if (props.user.birthdate) {
           setDate(props.user.birthdate)
-          handleDisableDate(JSON.parse(localStorage.getItem('user')).birthdate)
         }
 
         if (props.user.birthday == '' || props.user.gender == '' || props.user.gender == 'Keine Angabe') {
-          console.log('yarrak')
           props.handleButton(true)
         } else {
             props.handleButton(false)
         }
+
+        console.log(errorDate)
       }, []);
     
     return (
@@ -122,7 +126,7 @@ function SignUpGender(props) {
                         type="date"
                         value={date}
                         error={errorDate && props.user.birthdate != ''}
-                        helperText={errorDate && props.user.birthdate != '' ? 'Du musst mindestens 18 Jahre alt sein!' : ''}
+                        helperText={errorDate && props.user.birthdate != '' ? errorMessage : ''}
                         InputLabelProps={{
                         shrink: true,
                         }}

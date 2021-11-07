@@ -1,8 +1,8 @@
 import { RepeatOneSharp } from "@material-ui/icons";
 import React from "react";
 
-//const apiEndpoint = 'https://socialup-api.herokuapp.com/api';
-const apiEndpoint = 'http://localhost:8000/api';
+const apiEndpoint = 'https://socialup-api.herokuapp.com/api';
+//const apiEndpoint = 'http://localhost:8000/api';
 
 export async function getCategories() {
     const data = await fetch(apiEndpoint + '/categories')

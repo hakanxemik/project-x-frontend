@@ -17,7 +17,6 @@ function Login(props) {
   const handleField = (input) => (value) => {
     let userTmp = { ...user, [input]: value };
     setUser(userTmp)
-    localStorage.setItem('user', JSON.stringify(userTmp))
   }
   return (
     <>

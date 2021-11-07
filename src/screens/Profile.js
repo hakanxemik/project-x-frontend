@@ -30,16 +30,16 @@ function Profile(props) {
         <>
             {localStorage.getItem('token') ?
                 <>
-                    <ProfileEdit user={props.user}></ProfileEdit>
-                  {/*   < Grid container direction="column" justify="flex-start" alignItems="center" >
+                   { false && < Grid container direction="column" justify="flex-start" alignItems="center" >
                         <Logout></Logout>
                         <LogoBar style={{
                             zIndex: '-100 !important'
                         }} className={styles.logobar} />
                         <ProfileCardFlip className={styles.profileBox}></ProfileCardFlip>
                         <NavBar></NavBar>
-                    </Grid> */}
+                    </Grid>}
 
+                    {true && <ProfileEdit user={props.user}></ProfileEdit>}
                 </>
                 : <Redirect to='/login' />}
         </>
