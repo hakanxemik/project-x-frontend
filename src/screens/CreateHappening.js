@@ -27,6 +27,7 @@ function CreateHappening() {
   const [disableButton, setDisableButton] = useState(false)
 
   const [activeStep, setActiveStep] = useState(0);
+  
   let theme = useTheme();
 
   useEffect(() => {

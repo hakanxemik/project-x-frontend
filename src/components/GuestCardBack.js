@@ -15,7 +15,7 @@ import EuroIcon from '@material-ui/icons/Euro';
 import Button from '@material-ui/core/Button';
 import {getUser} from '../api';
 
-function ProfileCardBack(props) {
+function GuestCardBack(props) {
 
     const useStyles = makeStyles((theme) => ({
         content: {
@@ -79,14 +79,6 @@ function ProfileCardBack(props) {
 
 
     const [user, setUser] = useState('');
-    const [interests, setInterests] = useState([]);
-
-    useEffect(() => {
-        getUser().then(response => {
-            setUser(response);
-            setInterests(response.interests);
-          })
-    }, [])
 
     return (
         <Card className={styles.cardMedia}>
@@ -113,9 +105,7 @@ function ProfileCardBack(props) {
 
                         <Box my={2}>
                             <h3>Interessen</h3>
-                            {interests.map((element, index) => {
-                                return <span className={styles.interests} key={index}>{element.name}</span>
-                            })}
+                         
                         </Box>
                         <Box>
 
@@ -132,4 +122,4 @@ function ProfileCardBack(props) {
 }
 
 
-export default ProfileCardBack;
+export default GuestCardBack;

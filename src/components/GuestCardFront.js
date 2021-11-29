@@ -2,6 +2,10 @@ import React, { Component, useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 
 
+import Image from '../assets/images/anil.jpg';
+import sample from '../assets/images/sample.mp4';
+
+
 import styled, { css } from "styled-components";
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -11,16 +15,21 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
-import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
-import moment from "moment";
+import {getUser} from '../api';
 
-function HappeningCard(props) {
+function GuestCardFront(props) {
+
+    const [user, setUser] = useState('');
+
+    useEffect(() => {
+        getUser().then(response => {
+            setUser(response)
+          })
+    }, [])
 
     const useStyles = makeStyles((theme) => ({
         content: {
-            padding: 18,
+            padding: 0,
         },
         cta: {
             display: 'block',
@@ -33,7 +42,6 @@ function HappeningCard(props) {
         title: {
             color: '#fff',
             letterSpacing: '1.5px',
-            textTransform: 'uppercase',
             marginBottom: 0,
             paddingLeft: '5px',
             paddingRight: '5px',
@@ -41,22 +49,34 @@ function HappeningCard(props) {
         },
 
         cardMedia: {
-            /*backgroundColor: `${props.happening.category.color}`,*/
-            width: '65vw',
-            height: '65vh',
+            mixBlendMode: 'exclusion',
+            height: '100%',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            width: '70vw',
+            height: '70vh',
             border: '2px solid',
             borderColor: '#34E7E4',
             borderRadius: '25px',
             boxShadow: '0 0 1em black'
+
+        },
+        profileImage: {
+            objectFit: 'cover',
+            width: '125%',
+            height: '300px'
         }
     }));
 
-    // Generischer in dem man 
     const styles = useStyles();
     return (
         <Card className={styles.cardMedia}>
+
             <CardActionArea>
                 <CardContent className={styles.content}>
+                    <div className={styles.image}>
+                        <img className={styles.profileImage} src={'https://socialup-api.herokuapp.com' + props.user.avatar}></img>
+                    </div>
                     <Box
                         display={'flex'}
                         flexDirection={'column'}
@@ -69,33 +89,17 @@ function HappeningCard(props) {
                     >
                         <Box mb={2}>
                             <Grid item xs={12}>
-                                <h1 className={styles.title}>{props.happening.title}</h1>
-                                <p>am {moment(props.happening.datetime).format('DD.MM')} um {moment(props.happening.datetime).format('HH:mm')} Uhr <br />in {props.happening.location.meetingPoint}</p>
+                                <h1 className={styles.title}>{props.user.firstname}, 24</h1>
+                                <p>Dies ist meine Bio blablabla</p>
                             </Grid>
                         </Box>
 
                         <Box mb={2}>
-                            <Grid item>
-                                <AccountCircleOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></AccountCircleOutlinedIcon>
-                                {
-                                    props.happening.users.map((element) => {
-                                        if (element.attendance.userType == 'host') {
-                                            return <span>{element.firstname}</span>
-                                        }
-                                    })
-                                }
-                            </Grid>
-                            {false && <Grid item>
-                                <StarOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"medium"}></StarOutlinedIcon>
-                                        4.9
-                                    </Grid>}
+
                         </Box>
 
                         <Box my={2}>
-                            <Grid item>
-                                <GroupOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></GroupOutlinedIcon>
-                                {props.happening.users.length - 1} von {props.happening.maxGuests} besetzt
-                                    </Grid>
+
                         </Box>
                     </Box>
                     <Typography className={styles.cta} variant={'overline'}>
@@ -108,4 +112,4 @@ function HappeningCard(props) {
 }
 
 
-export default HappeningCard;
+export default GuestCardFront;

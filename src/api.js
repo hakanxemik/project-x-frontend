@@ -1,8 +1,8 @@
 import { RepeatOneSharp } from "@material-ui/icons";
 import React from "react";
 
-const apiEndpoint = 'https://socialup-api.herokuapp.com/api';
-//const apiEndpoint = 'http://localhost:8000/api';
+//const apiEndpoint = 'https://socialup-api.herokuapp.com/api';
+const apiEndpoint = 'http://localhost:8000/api';
 
 export async function getCategories() {
     const data = await fetch(apiEndpoint + '/categories')
@@ -37,6 +37,22 @@ export async function getOfferings() {
     const offerings = await data.json()
 
     return offerings
+}
+
+export async function getGuestList() {
+    return fetch(apiEndpoint + '/happenings/guest', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': 'NIBj1PwrLnjGWhiAjho4RawzlaxalIuzJ3NVjKgL'
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            return data;
+        })
+        .catch((err) => console.log(err))
 }
 
 export async function getInterests() {
@@ -145,12 +161,36 @@ export async function login(userData) {
     })
     .then((response) => response.json())
     .then((data) => {
+        console.log(data)
+
+        localStorage.setItem('user', JSON.stringify(data.user))
+
         if(data.token) {
             localStorage.setItem('token', data.token)
             return true
         }
         
         return false
+    })
+    .catch((err) => {
+        console.log(err)
+        return false
+    })
+}
+
+export async function logout(userData) {
+    return fetch(apiEndpoint + '/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'X-XSRF-TOKEN': 'NIBj1PwrLnjGWhiAjho4RawzlaxalIuzJ3NVjKgL'
+        }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        localStorage.removeItem('token')
+        return true
     })
     .catch((err) => {
         console.log(err)

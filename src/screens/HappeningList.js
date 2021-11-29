@@ -56,6 +56,18 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
     },
+    menu: {
+        marginBotttom: '40%',
+        marginTop: '20%',
+        backgroundColor: '#34E7E4',
+        color: 'black',
+        width: '70%',
+        height: '120px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '10px'
+    }
 }));
 
 function HappeningList(props) {
@@ -73,20 +85,14 @@ function HappeningList(props) {
 
                 < Grid container direction="column" justify="flex-start" alignItems="center" >
                     <LogoBar />
-                    <div className={classes.root}>
-                        <AppBar position="static">
-                            <Tabs value={value} variant="fullWidth" onChange={handleChange} aria-label="Happenings Overview">
-                                <Tab label="My Participations" {...a11yProps(0)} />
-                                <Tab label="My Hostings" {...a11yProps(1)} />
-                            </Tabs>
-                        </AppBar>
-                        <TabPanel value={value} index={0}>
-                            <Button onClick={() => {history.push('/happening/applied')}}>See List</Button> 
-                        </TabPanel>
-                        <TabPanel value={value} index={1}>
-                            <Button onClick={() => {history.push('/happening/created')}}>See List</Button>
-                        </TabPanel>
-                    </div>
+                    <div onClick={() => {history.push('/happening/applied')}} className={classes.menu}>
+                            <h1>TEILNAHMEN</h1>
+                        </div>
+
+                        <div onClick={() => {history.push('/happening/created')}} style={{marginTop: '80px'}} className={classes.menu}>
+                            <h1>ERSTELLT</h1>
+                        </div>
+
                     <NavBar></NavBar>
                 </Grid>
                 : <Redirect to='/login' />}

@@ -19,13 +19,17 @@ import {getUser} from '../api';
 
 function ProfileCardFront(props) {
 
+    const [user, setUser] = useState('');
+
     useEffect(() => {
-        console.log(props.user)
+        getUser().then(response => {
+            setUser(response)
+          })
     }, [])
 
     const useStyles = makeStyles((theme) => ({
         content: {
-            padding: 18,
+            padding: 0,
         },
         cta: {
             display: 'block',
@@ -45,9 +49,6 @@ function ProfileCardFront(props) {
         },
 
         cardMedia: {
-            opacity: 0.8,
-            backgroundImage: 
-                `url(${props.image})`,
             mixBlendMode: 'exclusion',
             height: '100%',
             backgroundPosition: 'center',
@@ -59,6 +60,11 @@ function ProfileCardFront(props) {
             borderRadius: '25px',
             boxShadow: '0 0 1em black'
 
+        },
+        profileImage: {
+            objectFit: 'cover',
+            width: '125%',
+            height: '300px'
         }
     }));
 
@@ -68,6 +74,9 @@ function ProfileCardFront(props) {
 
             <CardActionArea>
                 <CardContent className={styles.content}>
+                    <div className={styles.image}>
+                        <img className={styles.profileImage} src={props.profileImage ? props.profileImage : 'https://socialup-api.herokuapp.com/' + user.avatar}></img>
+                    </div>
                     <Box
                         display={'flex'}
                         flexDirection={'column'}
@@ -80,8 +89,8 @@ function ProfileCardFront(props) {
                     >
                         <Box mb={2}>
                             <Grid item xs={12}>
-                                <h1 className={styles.title}>Anil, 22</h1>
-                                <p>beigetreten am 22.06.2021</p>
+                                <h1 className={styles.title}>{user.firstname}, 24</h1>
+                                <p>beigetreten am 19.11.2021</p>
                             </Grid>
                         </Box>
 

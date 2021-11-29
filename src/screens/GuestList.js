@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import { Redirect } from "react-router-dom"
-import { getHappenings } from '../api'
+import { getGuestList, getHappenings } from '../api'
 import Happening from '../components/Happening'
 
 import LogoBar from '../components/LogoBar'
@@ -41,6 +41,10 @@ function GuestList(props) {
             setHappenings(data)
             setLoading(false)
         })
+
+        getGuestList().then(data => {
+            
+        })
     }, [])
 
     let info = {
@@ -57,7 +61,7 @@ function GuestList(props) {
                     <LogoBar />
                     {loading && <h1 style={info}>Loading...</h1>}
                     {!loading && happenings && happenings.length <= 0 ?
-                        <h1 style={info}>Keine Happenings vorhanden 😲. <br></br><br></br> Erstelle jetzt dein Happening und werde teil der Community!</h1> :
+                        <h1 style={info}>Keine Happenings vorhanden 😲. <br></br><br></br> Erstelle jetzt dein Happening und werde Teil der Community!</h1> :
                         <>
                             <ReactCardCarousel ref={carouselRef} spread="narrow">
                                 {profiles.length > 0 && happenings.map((element) => {

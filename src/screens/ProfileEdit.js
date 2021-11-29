@@ -30,15 +30,30 @@ function ProfileEdit(props) {
             fontSize: '12pt',
             textAlign: 'center',
             color: 'white',
-            width: '70vw !important',
             paddingTop: '4px',
             paddingBottom: '4px',
             borderRadius: '10px',
             backgroundColor: 'transparent',
             marginTop: '30px'
           },
+          buttonUpload: {
+            textAlign: 'center',
+            color: 'white',
+            width: '70vw !important',
+            paddingTop: '4px',
+            paddingBottom: '4px',
+            borderRadius: '10px',
+            backgroundColor: 'transparent',
+            marginTop: '30px',
+            borderColor: '#34E7E4'
+          },
           container: {
               marginTop: '50px'
+          },
+          groupBtn: {
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center'
           }
     }))
 
@@ -46,7 +61,7 @@ function ProfileEdit(props) {
 
     const [images, setImages] = React.useState([]);
     const [image, setImage] = React.useState('http://localhost:8000' + props.user.avatar);
-    const [profileImage, setProfileImage] = React.useState('http://localhost:8000' + props.user.avatar);
+    const [profileImage, setProfileImage] = React.useState('');
 
 
     const handleImage = (file) => {
@@ -116,7 +131,7 @@ function ProfileEdit(props) {
     return (
         < Grid className={classes.container} container direction="column" justify="flex-start" alignItems="center" >
             <Close name={['test', 'mest']}></Close>
-            <ProfileCardFlip image={profileImage} className={classes.profileBox}></ProfileCardFlip>
+            <ProfileCardFlip profileImage={profileImage} className={classes.profileBox}></ProfileCardFlip>
             
             <ImageUploading
                 multiple
@@ -136,27 +151,29 @@ function ProfileEdit(props) {
                 }) => (
                 // write your building UI
                 <>
-                    {!imageList[0] && <Button className={classes.button}
+                    {!imageList[0] && <Button className={classes.buttonDelete}
                     style={isDragging ? { color: 'red' } : undefined}
                     onClick={onImageUpload}
                     {...dragProps}
                     >
-                        Hochladen
+                        Bild Hochladen
                     </Button>}
 
                     {imageList.map((image, index) => (
                         <>
-                            <Button className={classes.button} onClick={() => onImageUpdate(index)}>Hochladen</Button>
-                            <Button onClick={() => {
-                                setImage(null)
-                                setProfileImage(props.user.avatar)
-                                onImageRemove(index)
-                            }
-                            } className={classes.buttonDelete}> Löschen </Button>
+                            <div className={classes.groupBtn}>
+                                <Button className={classes.buttonDelete} onClick={() => onImageUpdate(index)}>Neu</Button>
+                                <Button onClick={() => {
+                                    setImage(null)
+                                    setProfileImage(props.user.avatar)
+                                    onImageRemove(index)
+                                }
+                                } className={classes.buttonDelete}> Löschen </Button>
+                            </div>
                         </>
                     ))}
 
-                    <button onClick={() => { SendImage(imageList[0])}}> SAVE </button>
+                    <Button className={classes.button} onClick={() => { SendImage(imageList[0])}}> SPEICHERN </Button>
                 </>
                 )}
             </ImageUploading>

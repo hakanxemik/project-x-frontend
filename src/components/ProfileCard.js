@@ -2,8 +2,8 @@ import React, { Component, useState } from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import ReactCardFlip from 'react-card-flip';
-import ProfileCardFront from './ProfileCardFront';
-import ProfileCardBack from './ProfileCardBack';
+import ProfileCardFront from './GuestCardFront';
+import ProfileCardBack from './GuestCardBack';
 
 function ProfileCardFlip(props) {
 
@@ -22,7 +22,7 @@ function ProfileCardFlip(props) {
             </div>
 
             <div onClick={handleClick}>
-                <ProfileCardBack happening={props.happening} />
+                <ProfileCardBack user={props.user} />
             </div>
         </ReactCardFlip>
     );
