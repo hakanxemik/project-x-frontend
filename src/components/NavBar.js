@@ -52,7 +52,7 @@ export default function NavBar() {
 
     return (
 
-        <AppBar style={{maxWidth: '100px'}} position="fixed" className={classes.appBar}>
+        <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
                 <IconButton edge="start" color="inherit" aria-label="open drawer" onClick={handleClickHappenings}>
                     < MenuIcon />
