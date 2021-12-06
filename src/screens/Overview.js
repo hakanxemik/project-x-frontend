@@ -79,7 +79,7 @@ function Overview(props) {
                     <LogoBar />
                     {loading && <h1 style={info}>Loading...</h1>}
                     {!loading && happenings && happenings.length <= 0 ?
-                        <h1 style={info}>Keine Happenings vorhanden 😲. <br></br><br></br> Erstelle jetzt dein Happening und werde teil der Community!</h1> :
+                        <h1 style={info}>Keine Happenings vorhanden 😲. <br></br><br></br> Erstelle jetzt dein Happening und werde Teil der Community!</h1> :
                         <>
                             <ReactCardCarousel ref={carouselRef} spread="narrow">
                                 {happenings.length > 0 && happenings.map((happening) => {

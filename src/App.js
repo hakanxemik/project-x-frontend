@@ -16,10 +16,10 @@ import { ThemeProvider } from "@material-ui/styles";
 import {getUser} from './api'
 
 import {
-  createMuiTheme
+  createTheme
 } from "@material-ui/core";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     type: "dark",
     primary: {

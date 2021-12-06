@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import { Redirect } from "react-router-dom"
-import { logout } from '../api'
+import { getUser, logout } from '../api'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
@@ -48,10 +48,6 @@ function Profile(props) {
         setProfileInfo(false)
         setProfileEdit(false)
     }
-
-    useEffect(() => {
-        console.log(props.user)
-    }, [])
 
     const styles = useStyles();
     return (

@@ -86,11 +86,11 @@ function HappeningList(props) {
                 < Grid container direction="column" justify="flex-start" alignItems="center" >
                     <LogoBar />
                     <div onClick={() => {history.push('/happening/applied')}} className={classes.menu}>
-                            <h1>TEILNAHMEN</h1>
+                            <h1 style={{color: 'black'}}>TEILNAHMEN</h1>
                         </div>
 
                         <div onClick={() => {history.push('/happening/created')}} style={{marginTop: '80px'}} className={classes.menu}>
-                            <h1>ERSTELLT</h1>
+                            <h1 style={{color: 'black'}}>ERSTELLT</h1>
                         </div>
 
                     <NavBar></NavBar>

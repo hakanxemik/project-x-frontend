@@ -32,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.text.primary,
     },
     formControl: {
-      margin: theme.spacing(3),
       textAlign: 'center',
-      width: '70%'
+      width: '100%',
+      marginTop: '15%'
     },
     selectEmpty: {
       marginTop: theme.spacing(2),

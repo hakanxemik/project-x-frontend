@@ -18,7 +18,7 @@ function ProfileInfo(props) {
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
     const [bio, setBio] = useState('')
-    const [user, setUser] = useState()
+    const [profile, setProfile] = useState()
 
     const useStyles = makeStyles((theme) => ({
         profileBox: {
@@ -77,7 +77,7 @@ function ProfileInfo(props) {
 
     useEffect(() => {
         getUser().then(response => {
-            setUser(response);
+            setProfile(response.avatar);
             setLastname(response.firstname)
             setFirstname(response.lastname)
             setBio(response.bio)
@@ -104,10 +104,10 @@ function ProfileInfo(props) {
             </Grid>
             <Grid className={classes.box} direction="column">
                 <Grid item xs={12}>
-                    <Avatar style={{ width: 150, height: 150, marginLeft: '28%' }} src={'https://socialup-api.herokuapp.com/' + props.user.avatar} />
+                    <Avatar style={{ width: 150, height: 150, marginLeft: '28%' }}  src={'https://socialup-api.herokuapp.com' + profile} />
                     <p onClick={() => {props.handleScreen()}} style={{textAlign: 'center'}}>Profilbild ändern</p>
                 </Grid>
-                <Grid style={{marginTop: '20px'}} item xs={12}>
+                <Grid style={{marginTop: '30px'}} item xs={12}>
                     <TextField 
                         value={firstname} 
                         onChange={(event) => {handleFirstname(event.target.value)}} 

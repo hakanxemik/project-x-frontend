@@ -7,6 +7,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Close from '../components/Back'
+import { useHistory } from "react-router-dom";
 
 function ProfileEdit(props) {
     const theme = useTheme();
@@ -59,6 +60,8 @@ function ProfileEdit(props) {
 
     const classes = useStyles();
 
+    let history = useHistory();
+
     const [images, setImages] = React.useState([]);
     const [image, setImage] = React.useState('http://localhost:8000' + props.user.avatar);
     const [profileImage, setProfileImage] = React.useState('');
@@ -103,8 +106,8 @@ function ProfileEdit(props) {
     const SendImage = (upload) => {
 
         if (true) {
-            fetch('https://socialup-api.herokuapp.com/api/user/profile/upload', {
-                method: 'POST',
+            fetch('http://localhost:8000/api/user/profile/upload', {
+                method: 'PUT',
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),
                     'Content-Type': 'application/json',
@@ -118,7 +121,9 @@ function ProfileEdit(props) {
                 Swal.fire({
                     title: 'Profilbild wurde aktualisiert',
                     icon: 'success'
-                })
+            }).then((val) => {
+                history.push('/')
+            })
             }).catch((err) => {
                 Swal.fire({
                     title: 'Profilbild konnte nicht hochgeladen werden!',

@@ -1,8 +1,8 @@
-import { RepeatOneSharp } from "@material-ui/icons";
+import { RepeatOneSharp, TramRounded } from "@material-ui/icons";
 import React from "react";
 
-//const apiEndpoint = 'https://socialup-api.herokuapp.com/api';
-const apiEndpoint = 'http://localhost:8000/api';
+export const apiEndpoint = 'https://socialup-api.herokuapp.com/api';
+//export const apiEndpoint = 'http://localhost:8000/api';
 
 export async function getCategories() {
     const data = await fetch(apiEndpoint + '/categories')
@@ -248,9 +248,11 @@ export async function join(id) {
 }
 
 export async function editProfile(userData) {
-    return fetch(apiEndpoint + '/user/profile/edit', {
-        method: 'POST',
+
+    return fetch(apiEndpoint + '/user/edit', {
+        method: 'PUT',
         headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
             'Content-Type': 'application/json',
             'X-XSRF-TOKEN': 'NIBj1PwrLnjGWhiAjho4RawzlaxalIuzJ3NVjKgL'
         },
@@ -258,11 +260,15 @@ export async function editProfile(userData) {
     })
     .then((response) => response.json())
     .then((data) => {
-        localStorage.setItem('token', data.token)
-        return true
+        console.log(data)
+        if (data.status !== 500) {
+            return true
+        }
+
+        return false
     })
     .catch((err) => {
         console.log(err)
-        return false
+        return true
     })
 }

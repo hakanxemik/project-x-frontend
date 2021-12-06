@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import moment from 'moment';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +22,8 @@ function CreateHappeningLocation(props) {
   const theme = useTheme();
   const classes = useStyles();
 
+  const [value, setValue] = useState(null);
+
   const handleButton = () => {
     let happeningTmp = JSON.parse(localStorage.getItem('happening'))
 
@@ -33,7 +36,16 @@ function CreateHappeningLocation(props) {
 
   useEffect(() => {
     handleButton()
+
+    if (props.happening.location) {
+      setValue(props.happening.location)
+    }
   }, [])
+
+  const handleValue = (val) => {
+    setValue(val)
+    props.handleLocation(val.label)
+  }
 
   return (
     < Grid container direction="column" justify="flex-start" alignItems="center">
@@ -43,16 +55,17 @@ function CreateHappeningLocation(props) {
           <BigTitle title={props.happening.title} description={"am " + moment(props.happening.date).format('DD.MM.YYYY') + " um " + props.happening.time + " Uhr"} />
         </Grid>
         <Grid className={classes.input} item xs={12}>
-          <TextField id="standard-basic"
-            value={props.happening.location}
-            error={props.happening.location ? false : true}
-            onChange={(event) => {
-              props.handleLocation(event.target.value)
+        <p style={{fontFamily: 'Roboto', fontSize: '1rem'}}>Adresse</p>
+        <GooglePlacesAutocomplete
+            apiOptions={{ language: 'de', region: 'at' }}
+            apiKey={"AIzaSyA19BMs9uSzGyTRE6s6Aziu2xYOfmmmPXc"}
+            selectProps={{
+              value,
+              onChange: handleValue,
+              placeholder: 'Die Adresse deiner Happening',
             }}
-            helperText={props.happening.location ? '' : 'Bitte gib einen gültigen Ort ein'}
-            label="Ort"
-            fullWidth
-          />
+            
+        />
         </Grid>
         <Grid className={classes.input} item xs={12}>
           <TextField
@@ -63,7 +76,7 @@ function CreateHappeningLocation(props) {
               props.handleLocationDesc(event.target.value)
             }}
             helperText={props.happening.locationDescription ? '' : 'Bitte gib eine gültige Beschreibung ein'}
-            label="Beschreibung"
+            label="Beschreibung (Klingel, Parkplatz etc...)"
             fullWidth
           />
         </Grid>

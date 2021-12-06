@@ -118,7 +118,7 @@ function HappeningGuests(props) {
                     <LogoBar />
                     {loading && <h1 style={info}>Loading...</h1>}
                     {!loading && happenings && happenings.length <= 0 ?
-                        <h1 style={info}>Du hast noch kein Happening erstellt 😲. <br></br><br></br> Erstelle jetzt dein Happening und werde teil der Community!</h1> :
+                        <h1 style={info}>Du hast noch kein Happening erstellt 😲. <br></br><br></br> Erstelle jetzt dein Happening und werde Teil der Community!</h1> :
                         <>
                             {!guestList && <ReactCardCarousel ref={carouselRef} spread="narrow">
                                 {happenings.length > 0 && happenings.map((happening) => {

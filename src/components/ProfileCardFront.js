@@ -75,14 +75,14 @@ function ProfileCardFront(props) {
             <CardActionArea>
                 <CardContent className={styles.content}>
                     <div className={styles.image}>
-                        <img className={styles.profileImage} src={props.profileImage ? props.profileImage : 'https://socialup-api.herokuapp.com/' + user.avatar}></img>
+                        <img className={styles.profileImage} src={props.profileImage ? props.profileImage : 'http://localhost:8000' + user.avatar}></img>
                     </div>
                     <Box
                         display={'flex'}
                         flexDirection={'column'}
                         alignItems={'center'}
                         justifyContent={'center'}
-                        minHeight={380}
+                        minHeight={320}
                         color={'common.white'}
                         textAlign={'center'}
 

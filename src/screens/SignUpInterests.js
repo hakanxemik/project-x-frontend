@@ -138,7 +138,7 @@ function SignUpInterests(props) {
                   history.push('/')
               })
           })} variant="outlined" color="primary">
-          Joyn Us!
+          Jetzt beitreten!
       </Button>
     </Grid >
   );

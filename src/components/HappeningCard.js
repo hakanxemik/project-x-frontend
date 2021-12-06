@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import StarOutlinedIcon from '@material-ui/icons/StarOutlined';
 import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
+import GoogleMaps from '../components/GoogleMaps'
+import {getCoordinates} from '../services/geocoding'
 import moment from "moment";
 
 function HappeningCard(props) {
@@ -70,7 +72,7 @@ function HappeningCard(props) {
                         <Box mb={2}>
                             <Grid item xs={12}>
                                 <h1 className={styles.title}>{props.happening.title}</h1>
-                                <p>am {moment(props.happening.datetime).format('DD.MM')} um {moment(props.happening.datetime).format('HH:mm')} Uhr <br />in {props.happening.location.meetingPoint}</p>
+                                <p>am {moment(props.happening.datetime).format('DD.MM')} um {moment(props.happening.datetime).format('HH:mm')} Uhr <br />in {props.happening.location.meetingPoint.split(',')[1]}</p>
                             </Grid>
                         </Box>
 
@@ -97,6 +99,8 @@ function HappeningCard(props) {
                                 {props.happening.users.length - 1} von {props.happening.maxGuests} besetzt
                                     </Grid>
                         </Box>
+
+                        
                     </Box>
                     <Typography className={styles.cta} variant={'overline'}>
                         TAP FÜR MEHR
