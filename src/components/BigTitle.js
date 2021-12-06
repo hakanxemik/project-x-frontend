@@ -13,7 +13,7 @@ function BigTitle(props) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 `;
 
 const Title = styled.span`

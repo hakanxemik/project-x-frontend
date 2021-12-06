@@ -7,7 +7,7 @@ import CreateHappeningLocation from './CreateHappeningLocation';
 import CreateHappeningOfferings from './CreateHappeningOfferings';
 import CreateHappeningClosing from './CreateHappeningClosing';
 import Closed from '../components/Close';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { getLuminance, makeStyles, useTheme } from '@material-ui/core/styles';
 import { getCategories, getTypes } from '../api';
 import { Redirect } from "react-router-dom"
 import MobileStepper from '@material-ui/core/MobileStepper';
@@ -66,6 +66,7 @@ function CreateHappening() {
     setHappening(happeningTmp)
     localStorage.setItem('happening', JSON.stringify(happeningTmp))
 
+    // Statt mehrere If Else returns
     if (input == 'location' || input == 'locationDescription') {
       happeningTmp['location'] && happeningTmp['locationDescription'] ? setDisableButton(false) : setDisableButton(true)
     } else if ('offerings' == input) {
@@ -86,7 +87,7 @@ function CreateHappening() {
           {activeStep == 1 && <CreateHappeningDateTime disable={disableButton} handleButton={handleButton} handleDate={handleField('date')} handleTime={handleField('time')} happening={happening} />}
           {activeStep == 2 && <CreateHappeningLocation disable={disableButton}  handleButton={handleButton} handleLocation={handleField('location')} handleLocationDesc={handleField('locationDescription')} happening={happening} />}
           {activeStep == 3 && <CreateHappeningCategories types={types} categories={categories} disable={disableButton} handleButton={handleButton} handleHappeningType={handleField('type')} handleCategory={handleField('category')} happening={happening} />}
-          {activeStep == 4 && <CreateHappeningOfferings disable={disableButton} handleButton={handleButton} handleOfferings={handleField('offerings')} handleOfferingsDescription={handleField('offeringsDescription')} happening={happening} />}
+          {activeStep == 4 && <CreateHappeningOfferings disable={disableButton} handleButton={handleButton} handleOfferings={handleField('offerings')} happening={happening} />}
           {activeStep == 5 && <CreateHappeningClosing disable={disableButton} handleButton={handleButton} handleDesc={handleField('description')} handlePrice={handleField('price')} handleGuests={handleField('maxGuests')} happening={happening} />}
 
           <MobileStepper

@@ -246,3 +246,23 @@ export async function join(id) {
         return false
     })
 }
+
+export async function editProfile(userData) {
+    return fetch(apiEndpoint + '/user/profile/edit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': 'NIBj1PwrLnjGWhiAjho4RawzlaxalIuzJ3NVjKgL'
+        },
+        body: JSON.stringify(userData)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        localStorage.setItem('token', data.token)
+        return true
+    })
+    .catch((err) => {
+        console.log(err)
+        return false
+    })
+}

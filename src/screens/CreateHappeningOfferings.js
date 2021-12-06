@@ -21,7 +21,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    padding: theme.spacing(0.1),
+    margin: theme.spacing(0.1),
+    paddingLeft: '5px',
+    paddingRight: '5px',
     textAlign: 'center',
     color: theme.palette.primary,
     borderRadius: "25px",
@@ -88,28 +90,13 @@ function CreateHappeningOfferings(props) {
         <Grid className={classes.container} container spacing={1}>
           {offerings.map((element, index) => {
             return (
-              <Grid key={index} item xs={index % 2 == 0 ? 3 : 4}>
+              <Grid style={{padding: '4px !important'}} key={index} item>
                 <Button className={classes.paper} onClick={handleClick} data-id={element.id} fullWidth size="large" variant={props.happening.offerings && props.happening.offerings.includes(element.id) ? 'contained' : 'outlined'} color="primary">{element.name}</Button>
               </Grid>
             )
           })}
         </Grid>
         {!props.happening.offerings || props.happening.offerings.length <= 0 && <p className={classes.alert}>Bitte wähle mindestens ein Offering aus</p>}
-
-        <Container className={classes.textField} spacing={1}>
-         
-            <TextField
-              id="standard-basic" 
-              label="Sonstiges"
-              placeholder="Beschreibe deine Offerings"
-              value={props.happening.offeringsDescription}
-              onChange={(event) => { props.handleOfferingsDescription(event.target.value) }}
-              className={classes.desc}
-              fullWidth
-              variant="outlined"
-            />
-       
-        </Container>
       </Container>
     </Grid >
   );

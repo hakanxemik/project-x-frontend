@@ -6,7 +6,7 @@ import ProfileCardFlip from "../components/ProfileCardFlip";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Close from '../components/Close'
+import Close from '../components/Back'
 
 function ProfileEdit(props) {
     const theme = useTheme();
@@ -130,7 +130,7 @@ function ProfileEdit(props) {
 
     return (
         < Grid className={classes.container} container direction="column" justify="flex-start" alignItems="center" >
-            <Close name={['test', 'mest']}></Close>
+            <Close back={props.handleBack} name={['test', 'mest']}></Close>
             <ProfileCardFlip profileImage={profileImage} className={classes.profileBox}></ProfileCardFlip>
             
             <ImageUploading

@@ -90,7 +90,7 @@ function ProfileCardFront(props) {
                         <Box mb={2}>
                             <Grid item xs={12}>
                                 <h1 className={styles.title}>{user.firstname}, 24</h1>
-                                <p>beigetreten am 19.11.2021</p>
+                                <p>{user.bio}</p>
                             </Grid>
                         </Box>
 
