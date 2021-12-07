@@ -13,12 +13,29 @@ import ProfileInfo from './ProfileInfo'
 import ProfileEdit from './ProfileEdit'
 import ClickAwayListener from 'react-click-away-listener';
 import Swal from 'sweetalert2';
+import SettingsIcon from '@mui/icons-material/Settings';
+import EditIcon from '@mui/icons-material/Edit';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 function Profile(props) {
 
     const useStyles = makeStyles((theme) => ({
         profileBox: {
             height: '100%'
+        },
+        menu: {
+            width: '150px'
+        },
+        menuItem: {
+            borderBottom: '1px solid black', 
+            display: 'flex', 
+            justifyContent: 'space-around',
+            padding: '15px'
+        },
+        menuItem2: { 
+            display: 'flex', 
+            justifyContent: 'space-around',
+            padding: '15px' 
         }
     }))
 
@@ -58,28 +75,31 @@ function Profile(props) {
                     <Menu className="CloseButton">
                     {contextMenu &&
                         <ClickAwayListener onClickAway={handleClickAway}>  
-                            <MenuList>
-                                <MenuItem onClick={setProfileInfo(true)}>Bearbeiten</MenuItem>
-                                <MenuItem onClick={() => {
+                            <MenuList className={styles.menu}>
+                                <MenuItem className={styles.menuItem} onClick={(e) => {
+                                    e.stopPropagation();
+                                    setProfileInfo(true);
+                                }}>Bearbeiten <EditIcon fontSize="small"></EditIcon></MenuItem>
+                                <MenuItem className={styles.menuItem2} onClick={(e) => {
+                                    e.stopPropagation();
                                     Swal.fire({
-                                        title: 'Möchtest Du dich wirklich ausloggen?',
-                                        icon: 'warning',
+                                        title: "<h3 style='color: black'>Möchtest Du dich wirklich ausloggen?</h3>",
                                         showCancelButton: true,
-                                        confirmButtonColor: '#3085d6',
-                                        cancelButtonColor: '#d33',
-                                        cancelButtonText: 'Abbrechen',
-                                        confirmButtonText: 'Abmelden'
+                                        confirmButtonColor: 'transparent',
+                                        cancelButtonColor: '#34E7E4',
+                                        cancelButtonText: "<span style='color: black'>Abbrechen</span>",
+                                        confirmButtonText: "<span style='color: black'>Abmelden</span>"
                                     }).then((result) => {
                                         if (result.isConfirmed) {
                                             localStorage.removeItem('token')
                                             logout()
                                         }
                                     })
-                                }}>Abmelden</MenuItem>
+                                }}>Abmelden <ExitToAppIcon fontSize="small"></ExitToAppIcon></MenuItem>
                             </MenuList>
                         </ClickAwayListener>
                     }
-                        <svg onClick={handleContextMenu} class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <SettingsIcon fontSize="large" onClick={handleContextMenu}></SettingsIcon>
                     </Menu>
                         <LogoBar style={{
                             zIndex: '-100 !important'

@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.span`
-  font-family: Nexa Bold;
+  font-family: 'Prompt', sans-serif;
   font-style: normal;
   font-weight: 400;
   color: rgba(255,255,255,1);

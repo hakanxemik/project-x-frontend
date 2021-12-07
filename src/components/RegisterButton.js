@@ -43,7 +43,7 @@ const Title = styled.span`
   font-family: Montserrat;
   font-style: normal;
   font-weight: 400;
-  color: rgba(168,168,168,1);
+  color: white;
   text-align: center;
   margin-top: 9px;
   margin-left: 21px;

@@ -10,6 +10,7 @@ import ReactCardCarousel from 'react-card-carousel';
 import Grid from '@material-ui/core/Grid';
 import Swipe from 'react-easy-swipe';
 import { TrainRounded } from "@material-ui/icons";
+import {getCoordinates} from '../services/geocoding'
 
 function Overview(props) {
 

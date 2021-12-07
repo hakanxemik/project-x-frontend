@@ -25,7 +25,7 @@ function ProfileEdit(props) {
             paddingBottom: '4px',
             borderRadius: '10px',
             backgroundColor: '#34E7E4',
-            marginTop: '30px'
+            marginTop: '15px'
           },
           buttonDelete: {
             fontSize: '12pt',
@@ -63,7 +63,7 @@ function ProfileEdit(props) {
     let history = useHistory();
 
     const [images, setImages] = React.useState([]);
-    const [image, setImage] = React.useState('http://localhost:8000' + props.user.avatar);
+    const [image, setImage] = React.useState('https://socialup-api.herokuapp.com' + props.user.avatar);
     const [profileImage, setProfileImage] = React.useState('');
 
 
@@ -106,7 +106,7 @@ function ProfileEdit(props) {
     const SendImage = (upload) => {
 
         if (true) {
-            fetch('http://localhost:8000/api/user/profile/upload', {
+            fetch('https://socialup-api.herokuapp.com/api/user/profile/upload', {
                 method: 'PUT',
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),

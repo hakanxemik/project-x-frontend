@@ -129,23 +129,24 @@ function HappeningCardBack(props) {
                             <Button onClick={() => {
                                 Swal.fire({
                                     title: `<strong>${props.happening.title}</strong>`,
-                                    icon: 'info',
                                     html:
-                                        `<h3>Happening Art:</h3>` + 
+                                        `<h3 style='margin-bottom: 5px; color: black;'>Happening Art:</h3>` + 
                                         props.happening.category.map((element) => {
-                                            return `<span style="margin-right: 2px;">${element.name}</span>`
+                                            return `<span style="margin-right: 2px; color: black;">${element.name}</span>`
                                         }) +
-                                        `<h3>Includings:</h3>` +
+                                        `<h3 style='margin-bottom: 5px; color: black;'>Includings:</h3>` +
                                         props.happening.offerings.map((element) => {
-                                            return `<span style="margin-right: 2px;">${element.name}</span>`
+                                            return `<span style="margin-right: 2px; color: black;">${element.name}</span>`
                                         }) +
-                                        `<h3>Beschreibung:</h3>` +
-                                        `<p>${props.happening.description}</p>` +
-                                        `<h3>Preis:</h3>` +
-                                        `<p>${props.happening.price} €</p>`,
+                                        `<h3 style='margin-bottom: 5px; color: black;'>Beschreibung</h3>` +
+                                        `<span style='color: black'>${props.happening.description}</span>` +
+                                        `<h3 style='margin-bottom: 5px; color: black;'>Preis</h3>` +
+                                        `<span style='color: black'>${props.happening.price} €</span>`,
                                     showCloseButton: true,
                                     showCancelButton: false,
                                     showConfirmButton: true,
+                                    confirmButtonText: '<span style="color: black;">Zurück</span>',
+                                    confirmButtonColor: '#34E7E4',
                                     focusClose: false
                                 })
                             }} fullWidth size="small" variant={'outlined'} color="tertiary">
@@ -158,7 +159,8 @@ function HappeningCardBack(props) {
                                     title: success ? 'Glückwunsch!' : 'Happening teilnahme fehlgeschlagen!',
                                     text: success ? 'Teilnahme an Happening!' : 'Bitte überprüfe deine Eingaben oder versuche es später',
                                     icon: success ? 'success' : 'error',
-                                    confirmButtonText: 'Verstanden'
+                                    confirmButtonText: '<span style="color: black;">OK 👍</span>',
+                                    confirmButtonColor: '#34E7E4',
                                   })
                                 })
                             }

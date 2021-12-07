@@ -68,7 +68,8 @@ function Login(props) {
                   height: 38,
                   marginLeft: 18,
                   marginRight: 18,
-                  marginTop: 20
+                  marginTop: 20,
+                  color: 'white'
                 }}
                 title="Noch kein Account?"
                 onClick={() => history.push('/register/')}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 
-function BigTitle(props) {
+function MediumTitle(props) {
   return (
     <Container {...props}>
       <Title>{props.title}</Title>
@@ -23,7 +23,7 @@ const Title = styled.span`
   color: rgba(255,255,255,1);
   font-size: 35px;
 
-  margin-top: 50px;
+  margin-top: 20px;
   position: relative;
 `;
 
@@ -37,4 +37,4 @@ const SmallTitle = styled.span`
   margin-top: 10px;
 `;
 
-export default BigTitle;
+export default MediumTitle;

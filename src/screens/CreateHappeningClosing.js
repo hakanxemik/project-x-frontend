@@ -148,7 +148,7 @@ function CreateHappeningClosing(props) {
 
       </Container>
     {/*  Hier mit History Push lösen! .then(() => { history.push('/')  */}  
-      <Button style={{marginTop: '15%', fontSize: '20px'}} disabled={props.disable} onClick={() => createHappening(props.happening).then((success) => {
+      <Button style={{marginTop: '10%', fontSize: '20px'}} disabled={props.disable} onClick={() => createHappening(props.happening).then((success) => {
         Swal.fire({
           title: success ? 'Glückwunsch!' : 'Happening konnte nicht erstellt werden!',
           text: success ? 'Dein Happening wurde erfolgreich erstellt.' : 'Bitte überprüfe deine Eingaben oder versuche es später',

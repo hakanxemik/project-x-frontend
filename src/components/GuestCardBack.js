@@ -45,7 +45,7 @@ function GuestCardBack(props) {
         cardMedia: {
             backgroundColor: '#0a0d21',
             width: '70vw',
-            height: '70vh',
+            height: '65vh',
             border: '2px solid',
             borderColor: '#e73490',
             borderRadius: '25px',
@@ -79,12 +79,13 @@ function GuestCardBack(props) {
 
 
     const [user, setUser] = useState('');
+    const [interests, setInterests] = useState(['Yoga', 'Lesen', 'Essen'])
 
     return (
         <Card className={styles.cardMedia}>
             <CardActionArea>
                 <CardContent className={styles.content}>
-                    <Box
+                <Box
                         display={'flex'}
                         flexDirection={'column'}
                         alignItems={'center'}
@@ -99,17 +100,24 @@ function GuestCardBack(props) {
                         </Box>
 
                         <Box>
-                            <h1 className={styles.content}>{user.firstname} {user.firstname}</h1>
-
+                            <h1 className={styles.content}>{props.user.firstname} {props.user.firstname}</h1>
+                            <p className={styles.bio}>{props.user.bio}</p>
                         </Box>
 
-                        <Box my={2}>
+                        <Box className={styles.middleContent} my={2}>
                             <h3>Interessen</h3>
-                         
+                            <div className={styles.interestsCage}> 
+                            {interests.map((element, index) => {
+                                return (
+                                    <span className={styles.interests} key={index}>{element}</span> 
+                                )
+                            })}
+                            </div>
                         </Box>
                         <Box>
 
                         </Box>
+
 
                     </Box>
                     <Typography className={styles.cta} variant={'overline'}>

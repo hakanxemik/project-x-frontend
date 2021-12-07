@@ -1,21 +1,13 @@
-import React, { Component, useState, useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-
-
-import Image from '../assets/images/anil.jpg';
-import sample from '../assets/images/sample.mp4';
-
-
-import styled, { css } from "styled-components";
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {getUser} from '../api';
+import React, { useEffect, useState } from "react";
+import { getUser } from '../api';
+import moment from "moment";
 
 function ProfileCardFront(props) {
 
@@ -47,14 +39,15 @@ function ProfileCardFront(props) {
             paddingRight: '5px',
             paddingTop: '-30px'
         },
-
+        bio: {
+            fontSize: '14px',
+        },
         cardMedia: {
             mixBlendMode: 'exclusion',
-            height: '100%',
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             width: '70vw',
-            height: '70vh',
+            height: '65vh',
             border: '2px solid',
             borderColor: '#34E7E4',
             borderRadius: '25px',
@@ -75,7 +68,7 @@ function ProfileCardFront(props) {
             <CardActionArea>
                 <CardContent className={styles.content}>
                     <div className={styles.image}>
-                        <img className={styles.profileImage} src={props.profileImage ? props.profileImage : 'http://localhost:8000' + user.avatar}></img>
+                        <img className={styles.profileImage} src={props.profileImage ? props.profileImage : 'https://socialup-api.herokuapp.com' + user.avatar}></img>
                     </div>
                     <Box
                         display={'flex'}
@@ -87,10 +80,10 @@ function ProfileCardFront(props) {
                         textAlign={'center'}
 
                     >
-                        <Box mb={2}>
+                        <Box mb={1}>
                             <Grid item xs={12}>
-                                <h1 className={styles.title}>{user.firstname}, 24</h1>
-                                <p>{user.bio}</p>
+                                <h1 className={styles.title}>{user.firstname}, {moment().diff(user.birthdate, 'years')}</h1>
+                                <p className={styles.bio}>{user.bio}</p>
                             </Grid>
                         </Box>
 

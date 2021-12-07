@@ -45,7 +45,7 @@ function ProfileCardBack(props) {
         cardMedia: {
             backgroundColor: '#0a0d21',
             width: '70vw',
-            height: '70vh',
+            height: '65vh',
             border: '2px solid',
             borderColor: '#e73490',
             borderRadius: '25px',
@@ -60,6 +60,12 @@ function ProfileCardBack(props) {
             borderRadius: '20px',
             fontWeight: 'bold'
         },
+        interestsCage: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            flexWrap: 'wrap'
+        },
         description: {
             fontSize: '16px'
         },
@@ -72,6 +78,9 @@ function ProfileCardBack(props) {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
+        },
+        middleContent: {
+            width: '80%'
         }
     }));
 
@@ -108,14 +117,18 @@ function ProfileCardBack(props) {
 
                         <Box>
                             <h1 className={styles.content}>{user.firstname} {user.firstname}</h1>
-
+                            <p className={styles.bio}>{user.bio}</p>
                         </Box>
 
-                        <Box my={2}>
+                        <Box className={styles.middleContent} my={2}>
                             <h3>Interessen</h3>
+                            <div className={styles.interestsCage}> 
                             {interests.map((element, index) => {
-                                return <span className={styles.interests} key={index}>{element.name}</span>
+                                return (
+                                    <span className={styles.interests} key={index}>{element.name}</span> 
+                                )
                             })}
+                            </div>
                         </Box>
                         <Box>
 

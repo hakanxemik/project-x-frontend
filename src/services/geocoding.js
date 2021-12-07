@@ -66,14 +66,9 @@ Geocode.fromLatLng("48.8583701", "2.2922926").then(
 export const getCoordinates = (value) => {// Get latitude & longitude from address.
     Geocode.fromAddress(value).then(
     (response) => {
-        const { lat, lng } = response.results[0].geometry.location;
-        console.log(lat, lng);
+        const coord = response.results[0].geometry.location;
 
-        const coord = {
-            lat: lat,
-            lng: lng
-        }
-        return {lat: lat, lng: lng}
+        return coord
     },
     (error) => {
         console.error(error);

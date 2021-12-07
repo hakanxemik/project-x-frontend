@@ -54,7 +54,7 @@ function GuestCardFront(props) {
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             width: '70vw',
-            height: '70vh',
+            height: '65vh',
             border: '2px solid',
             borderColor: '#34E7E4',
             borderRadius: '25px',

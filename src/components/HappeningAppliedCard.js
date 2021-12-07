@@ -18,8 +18,9 @@ import GoogleMaps from '../components/GoogleMaps'
 import {getCoordinates} from '../services/geocoding'
 import moment from "moment";
 import { ClassNames } from "@emotion/react";
+import HappeningApplied from "../screens/HappeningApplied";
 
-function HappeningCard(props) {
+function HappeningAppliedCard(props) {
 
     const useStyles = makeStyles((theme) => ({
         content: {
@@ -73,7 +74,7 @@ function HappeningCard(props) {
                         textAlign={'center'}
 
                     >
-                        <Box mb={2}>
+                        <Box>
                             <Grid item xs={12}>
                                 <h1 className={styles.title}>{props.happening.title}</h1>
                                 <p className={styles.desc}><b>am {moment(props.happening.datetime).format('DD.MM')}</b> um {moment(props.happening.datetime).format('HH:mm')} Uhr <br />in <b>{props.happening.location.meetingPoint.split(',')[1]}</b></p>
@@ -101,15 +102,20 @@ function HappeningCard(props) {
                             <Grid item>
                                 <GroupOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></GroupOutlinedIcon>
                                 {props.happening.users.length - 1} von {props.happening.maxGuests} besetzt
-                                    </Grid>
-                                    
+                            </Grid>
                         </Box>
 
                         
                     </Box>
                     <Typography className={styles.cta} variant={'overline'}>
+                    <Grid style={{marginTop: '30px', marginBottom: '20px'}} item>
+                                <GroupOutlinedIcon style={{ verticalAlign: 'middle' }} fontSize={"large"}></GroupOutlinedIcon>
+                                {props.happening.users.length - 1} von {props.happening.maxGuests} besetzt
+                            </Grid>
                         TAP FÜR MEHR
-                        </Typography>
+                    </Typography>
+                    <GoogleMaps onClick={(e) => e.stopPropagtion()}location={props.happening.location.meetingPoint}></GoogleMaps>
+
                 </CardContent>
             </CardActionArea>
         </Card>
@@ -117,4 +123,4 @@ function HappeningCard(props) {
 }
 
 
-export default HappeningCard;
+export default HappeningAppliedCard;

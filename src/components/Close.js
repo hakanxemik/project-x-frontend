@@ -14,12 +14,11 @@ function Close(props) {
         Swal.fire({
             title: 'Möchtest du wirklich abbrechen?',
             text: "Deine Daten werden nicht gespeichert!",
-            icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: 'Nein, zurück',
-            confirmButtonText: 'Ja'
+            confirmButtonColor: 'transparent',
+            cancelButtonColor: '#34E7E4',
+            cancelButtonText: "<span style='color: black'; margin-left: 10px>Nein, zurück</span>",
+            confirmButtonText: "<span style='color: black'>Ja</span>"
           }).then((result) => {
             if (result.isConfirmed) {
                 props.name.forEach((element) => {

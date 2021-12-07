@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import { Redirect } from "react-router-dom"
-import { getMyHappenings } from '../api'
-import Happening from '../components/Happening'
+import { getAppliedHappenings } from '../api'
+import HappeningAppliedWrapper from '../components/HappeningAppliedWrapper'
 
 import LogoBar from '../components/LogoBar'
 import NavBar from '../components/NavBar'
@@ -41,26 +41,16 @@ function HappeningApplied(props) {
 
     const happeningsData = (data) => {
         data.forEach((happening) => {
-            let save = TrainRounded
-
-            happening.users.forEach((element) => {
-                if (element.lastname === localStorage.getItem('user').lastname && element.firstname === localStorage.getItem('user').firstname) {
-                    save = false
-                }
-            })
-
-            // Eigene Happenings nicht anzeigen zurzeit ausgeschaltet - add save && to activate
-            if (happening.maxGuests > happening.users.length - 1) {
-                let happeningsTmp = happenings
-                happeningsTmp.push(happening)
-                setHappenings(happeningsTmp)
-            }
+            let happeningsTmp = happenings
+                
+            happeningsTmp.push(happening)
+            setHappenings(happeningsTmp)
         })
         setLoading(false)
     }
 
     useEffect(() => {
-        getMyHappenings().then(data => {
+        getAppliedHappenings().then(data => {
             if (data) {
                 happeningsData(data)
             }
@@ -89,7 +79,7 @@ function HappeningApplied(props) {
                                             onSwipeMove={onSwipeMove}
                                             onSwipeEnd={onSwipeEnd}
                                         >
-                                            <Happening happening={happening}></Happening>
+                                            <HappeningAppliedWrapper happening={happening}></HappeningAppliedWrapper>
                                         </Swipe>
                                     )
                                 })}

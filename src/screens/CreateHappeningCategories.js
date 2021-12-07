@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0.25),
     textAlign: 'center',
     color: theme.palette.primary,
-    borderRadius: "0px",
+    borderRadius: "10px",
     height: '45px'
   },
   formControl: {
